@@ -1,0 +1,5 @@
+# Ignore all checkpoint files 
+*.ipynb_checkpoints 
+
+# Ignore all store files 
+*.DS_Store
