@@ -1,4 +1,4 @@
-# 02 – The Training Loop
+# The Training Loop
 
 Training our model is how we teach our model to read patterns. Remember, at this point, the model has never seen any data! 
 
