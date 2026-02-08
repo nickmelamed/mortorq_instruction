@@ -4,7 +4,6 @@ Machine Learning (ML) is a subfield of Artificial Intelligence (AI) that focuses
 
 Essentially, our model typically understands nothing inherently--it doesn't "know" that our goal is to detect balls on the field, for example. But, given data, it will **learn** patterns in that data that allow us to perform that object detection. 
 
----
 
 ## Key Idea
 
@@ -15,8 +14,6 @@ Since ML models approximate patterns in data, without any prior understanding of
 - Models fail outside their training conditions
 
 All of this is to say that we must understand the strengths and limitations of ML to deploy it properly. 
-
----
 
 ## Why ML in Robotics?
 
