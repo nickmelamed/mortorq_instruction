@@ -1,6 +1,6 @@
 # ML Primer 
 
-The `ml_primer` will teach some basic ML concepts as relevant to Computer Vision and other techniques we will use for FRC 2026. 
+The `ml_primer` will teach some basic ML concepts that can build our foundation for model-building in the FIRST competition.  
 
 ## What is Machine Learning (ML)?
 
