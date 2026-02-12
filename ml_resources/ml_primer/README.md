@@ -1,4 +1,4 @@
-# ML Resource Page 
+# ML Primer 
 
 The `ml_primer` will teach some basic ML concepts as relevant to Computer Vision and other techniques we will use for FRC 2026. 
 
