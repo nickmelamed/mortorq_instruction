@@ -1,0 +1,19 @@
+# Core numerics + plotting
+numpy>=1.26,<3
+scipy>=1.11,<2
+matplotlib>=3.8,<4
+seaborn>=0.13,<1
+
+# ML
+scikit-learn>=1.4,<2
+
+# Imaging
+opencv-python>=4.9,<5
+scikit-image>=0.22,<1
+
+# Deep learning (CPU; GPU is optional per machine)
+tensorflow>=2.16,<2.19
+
+# Notebooks + kernel
+jupyterlab>=4.1,<5
+ipykernel>=6.29,<7
