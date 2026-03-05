@@ -10,6 +10,7 @@ scikit-learn>=1.4,<2
 # Imaging
 opencv-python>=4.9,<5
 scikit-image>=0.22,<1
+imageio>=2.34
 
 # Deep learning (CPU; GPU is optional per machine)
 tensorflow>=2.16,<2.19
