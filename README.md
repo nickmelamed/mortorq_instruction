@@ -1,4 +1,6 @@
-under construction - materials for BHHS Robotics team in Spring 2026
+# Team 1515 Mortorq Instructional Materials 
+
+This repo holds all instructional materials for Team 1515 Mortorq, spanning traditional programming, AI/ML, Computer Vision/Perception, Agents, and Full-Stack development. 
 
 ## Environment Set-up 
 
@@ -20,7 +22,7 @@ Before starting, make sure you have:
 * **Python 3.10 – 3.12 installed** (used 3.11, so can stick to this) 
 * **pip** available
 * **Git** (optional but recommended)
-* **JupyterLab** will be installed automatically via the environment (can also download Anaconda for an easy Jupyter GUI) 
+* **JupyterLab** will be installed automatically via the environment (can also download Anaconda for an easier Jupyter GUI) 
 
 You can check your Python version with:
 
@@ -83,17 +85,6 @@ Then install the dependencies:
 ```bash
 pip install -r requirements.txt
 ```
-
-The environment installs the following key libraries:
-
-* **numpy** – numerical computing
-* **scipy** – scientific computing
-* **matplotlib / seaborn** – visualization
-* **scikit-learn** – machine learning tools
-* **opencv-python (cv2)** – computer vision utilities
-* **scikit-image** – image processing
-* **tensorflow (CPU)** – neural networks and CNNs
-* **jupyterlab / ipykernel** – notebook environment
 
 ---
 
