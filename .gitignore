@@ -6,3 +6,7 @@
 
 # Ignore environment
 *.venv
+mortorq/
+
+# Ignore downloaded models 
+*ml_resources/perception_primer/yolov8n.pt
