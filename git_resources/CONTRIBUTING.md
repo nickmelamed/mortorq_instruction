@@ -97,7 +97,11 @@ Ultimately, someone else reading your commit history should be able to understan
 Since this code will be changing our codebase, the rules here are going to be a little more strict. For your code to be pushed to the main branch and therefore override the existing code, you will have to create a pull request (PR) so that your changes can be approved. Below are some things that **must be done** before your PR is created. 
 
 1. Do not commit any code that will break anything! So, you should verify that your code works **in your own branch**.
-2. Only commit when you've completed important steps. Debug a function, write a new class, etc.
+2. Merge (or pull) the latest `main` into your branch and resolve any conflicts locally before opening the PR - don't make your reviewer deal with merge conflicts.
+3. Remove leftover debug code, print statements, and commented-out code.
+4. Double check you haven't committed anything that shouldn't be shared (credentials, API keys, large generated files, etc.).
+5. Write a clear PR description: what changed, why, and how to test it.
+6. Make sure your branch name and commit messages follow the conventions above.
 
 ### Review and Label Conventions 
 
