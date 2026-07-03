@@ -27,6 +27,20 @@ If you use `git reset --hard HEAD~1`, beware that you would be deleting the most
 
 Also, `HEAD` is referring to your current working position in the repository. It will typically point to your most recent commit.
 
+## "I Need to Undo a Commit That's Already Been Pushed!"
+
+Everything in the section above works great for commits that only exist on your own machine. But once a commit has been pushed and is part of shared history (e.g., merged into `main`), rewriting it with `git reset` becomes dangerous - anyone else who has already pulled that commit will run into a confusing, diverged history. 
+
+For commits that are already shared, use `git revert` instead: 
+
+```bash
+git revert COMMIT_HASH
+```
+
+Instead of rewriting history, `revert` creates a **brand new commit** that undoes the changes from `COMMIT_HASH`, leaving the original commit in place. History stays intact and linear for everyone else - it just now includes an extra commit that cancels out the bad one. 
+
+Rule of thumb: **your own commits, not yet pushed → `reset`. Shared commits, already pushed → `revert`.**
+
 ## "I Need to Change my Last Commit!"
 
 `git commit --amend` will allow you to change a commit message, add more files to the commit, etc. Only use this on your **own personal branches**. 
@@ -60,6 +74,31 @@ git checkout CORRECT-BRANCH
 git cherry-pick COMMIT-HASH
 ```
 
+## "I Committed Straight to `main`!"
+
+It happens - you start typing before creating a branch, and suddenly there's a commit sitting on your local `main` that should've been on its own branch. As long as you haven't pushed it yet, this is easy to fix: move the commit onto a new branch, then rewind `main` back to match the remote. 
+
+First, create a branch at your current position - this doesn't lose anything, it just adds a second pointer to the same commit: 
+
+```bash
+git branch feat/my-feature/NAME
+```
+
+Now switch back to `main` and reset it to match the remote: 
+
+```bash
+git checkout main
+git reset --hard origin/main
+```
+
+This is one of the few times `git reset --hard` is the right call - you're resetting `main` back to a known-good state (the remote), not throwing away uncommitted work. Your commit is safe on the branch you just created. Switch there and keep going: 
+
+```bash
+git checkout feat/my-feature/NAME
+```
+
+If you already pushed the commit to `origin/main`, stop and talk to a lead instead - fixing it at that point means changing a shared branch, and it's worth having a second pair of eyes on that. 
+
 ## "I'm in a Detached HEAD State!"
 
 Sometimes, after doing that `git checkout COMMIT_NUMBER`, you will get a message like this after making more changes: 
@@ -77,6 +116,30 @@ git checkout -b rescue/my_work
 ```
 
 Your commits will then be safe. 
+
+## "I Pushed and Got Rejected!"
+
+You run `git push` and instead of success, you get something like this: 
+
+```bash
+git push
+ ! [rejected]        feature/user-auth -> feature/user-auth (fetch first)
+error: failed to push some refs to 'origin'
+hint: Updates were rejected because the remote contains work that you do
+hint: not have locally. This is usually caused by another repository
+hint: pushing to the same ref.
+```
+
+This means the remote branch has commits you don't have locally yet - usually because a teammate pushed to the same branch, or you forgot to `git pull` before starting work. Git is refusing to push because doing so would overwrite that work. 
+
+The fix is almost always to just pull first, then push again: 
+
+```bash
+git pull
+git push
+```
+
+If pulling triggers a merge conflict, that's normal - resolve it like any other conflict (see `05-resolving-conflicts.md`), then push. 
 
 ## "My Branch is Different from Remote!"
 
@@ -102,3 +165,13 @@ Sometimes, you do some work on your working directory, and it is messy, so you c
 
 We mentioned before that you can use `git fetch` to preview files on the remote branch, but sometimes you don't want to download all of those remote files. You can run `git diff` and this will show all of the unstaged changes in the working directory. There are different commands that will show you different parts, like `git diff --staged` showing you the changes in the staging area. 
 
+## "I Committed and Pushed Something Sensitive!"
+
+If you accidentally commit and push a password, API key, or other credential, deleting it in a follow-up commit is **not enough** - it's still sitting in the repository's history, and anyone can dig it out with `git log` or `git show`. 
+
+Two things to do immediately: 
+
+1. **Rotate or invalidate the credential.** Assume it's compromised the moment it's pushed, and get a new one - this matters far more than cleaning up the git history. 
+2. **Talk to a lead.** Actually removing a file from history (tools like `git filter-repo` or the BFG Repo-Cleaner) rewrites every commit after it, which is disruptive for anyone else working off that history - it's worth doing carefully and not solo. 
+
+This is exactly the kind of situation the `.gitignore` guidance in `02-core-workflow.md` is meant to prevent in the first place! 
