@@ -6,6 +6,13 @@ Context is the information you give the model to get an answer. You give the mod
 
 Since models cannot read your mind (at least not yet, anyway), the answer you get from them will only be as good as the context you give them.
 
+Good context usually includes a few things:
+- The relevant code itself (not your whole project, just what's related)
+- Any error messages or stack traces, copied exactly as they appear
+- What you expected to happen vs. what actually happened
+- What you've already tried
+- Your environment: language/library versions matter, especially in a fast-moving framework like WPILib, since the model may default to an older version than the one you're using
+
 For example, say we create a function to calculate someone's age based on their birthday. However, we haven't taken into account the day/month, just the year, so some ages might be wrong.
 
 Below is a poor way to prompt (or ask) the AI to fix this issue:
@@ -40,6 +47,15 @@ Now, the model knows what our function is supposed to do, what it currently does
 
 A good analogy for this is imagine I asked you to write a 2 page biography on a random person, but I only gave you their name, hometown, and one of their hobbies. You'd probably start making up a lot of information to fill that 2 page requirement. If I instead let you talk to the person, look them up online, etc. you would be much more well-prepared to write a faithful 2 page bio. 
 
+## Beyond Copy-Paste
+
+Pasting a snippet inline works fine for small examples, but you'll hit its limits fast once you're working with real files. Most chat tools have built-in features for supplying more, or longer-lived, context without retyping it every message:
+- File uploads, so you can hand over a whole file instead of retyping it
+- "Projects" (ChatGPT Projects, Claude Projects), which keep a set of files and instructions attached across an entire thread of conversations
+- Custom instructions, where you set standing preferences once (e.g., "I'm using Java with WPILib 2026") instead of repeating them every prompt
+
+These are worth exploring once you outgrow single-snippet prompting.
+
 ## Be Careful What You Share
 
 Context works both ways: whatever you paste in is now sitting on someone else's server. Depending on the provider's policies, that text may be stored, logged, or even used to help train future models.
@@ -70,4 +86,4 @@ There are a few ways you can avoid running through your context window too quick
 - Keep conversations on a single topic; if you need help with an unrelated problem, start a new conversation
 - Request efficient formats (literally ask the model for structured outputs like JSON, for example) to avoid verbosity that burns through tokens 
 
-Ultimately, your context window depends on your model, and providers update these limits often, so check the current docs for exact numbers rather than trusting a number you read a while back. As a reference point at time of writing, GPT-4o mini has a context window of about 128K tokens, though it caps any single response at a smaller ~16K output tokens. This might seem like a lot, but when generating longer code, this goes *very* quickly.
+Ultimately, your context window depends on your model, and providers update these limits often, so check the current docs for exact numbers rather than trusting a number you read a while back. As a reference point at time of writing, GPT-4o mini has a context window of about 128K tokens, though it caps any single response at a smaller ~16K output tokens. For a sense of scale, 128K tokens is roughly 300 pages of plain text - but a handful of back-and-forth turns with full files, error logs, and re-explanations can burn through a surprising chunk of that faster than you'd expect.
