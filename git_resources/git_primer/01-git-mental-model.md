@@ -37,3 +37,9 @@ A branch is:
 This makes branching cheap and fast. You can think of a branch as an indicator of where you are working. We will explain this more in the branching module. 
 
 Once you understand commits and pointers, you will feel a lot more comfortable using Git. 
+
+## Resources
+- **Official docs:** [Pro Git, Ch. 10.1 - Plumbing and Porcelain](https://git-scm.com/book/en/v2/Git-Internals-Plumbing-and-Porcelain) and [Ch. 10.2 - Git Objects](https://git-scm.com/book/en/v2/Git-Internals-Git-Objects) - how commits, trees, and blobs actually work under the hood.
+- **Blog:** [Git for Computer Scientists](https://eagain.net/articles/git-for-computer-scientists/) - a short, sharp explanation of Git's object model as a directed acyclic graph.
+- **Blog:** [Think Like (a) Git](https://think-like-a-git.net/) - focused specifically on building the right mental model instead of memorizing commands.
+- **Long-form guide:** [Git from the Bottom Up by John Wiegley](https://jwiegley.github.io/git-from-the-bottom-up/) - a deeper, free write-up for anyone who wants to go further than this primer does.

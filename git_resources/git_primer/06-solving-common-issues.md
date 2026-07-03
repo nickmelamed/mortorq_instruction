@@ -175,3 +175,9 @@ Two things to do immediately:
 2. **Talk to a lead.** Actually removing a file from history (tools like `git filter-repo` or the BFG Repo-Cleaner) rewrites every commit after it, which is disruptive for anyone else working off that history - it's worth doing carefully and not solo. 
 
 This is exactly the kind of situation the `.gitignore` guidance in `02-core-workflow.md` is meant to prevent in the first place! 
+
+## Resources
+- **Official docs:** [git-reset](https://git-scm.com/docs/git-reset), [git-revert](https://git-scm.com/docs/git-revert), [git-reflog](https://git-scm.com/docs/git-reflog), [git-stash](https://git-scm.com/docs/git-stash) - full command references for everything in this chapter.
+- **Blog:** [Undoing Changes - Atlassian Git Tutorial](https://www.atlassian.com/git/tutorials/undoing-changes) - a good side-by-side comparison of `reset`, `revert`, and `checkout`.
+- **Troubleshooting guide:** [Oh Shit, Git!?!](https://ohshitgit.com/) (or the profanity-free [Dangit, Git!?!](https://dangitgit.com/en)) - plain-English fixes for almost every mistake covered in this chapter, and then some.
+- **Official docs:** [GitHub Docs - Removing Sensitive Data from a Repository](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository) - the full process if you ever need to actually scrub a leaked credential from history.

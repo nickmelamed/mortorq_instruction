@@ -33,3 +33,8 @@ Git is not about saving files, it is about **managing change safely**.
 
 If you remember nothing else from this primer, remember that. Syntax can always be looked up later! 
 
+## Resources
+- **Official docs:** [Pro Git, Ch. 1 - About Version Control](https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control) - the canonical explanation of local, centralized, and distributed version control.
+- **Blog:** [What is Version Control? - Atlassian Git Tutorial](https://www.atlassian.com/git/tutorials/what-is-version-control) - a shorter, more practical take on the same ideas.
+- **Research paper:** Koc, A. & Tansel, A.U. (2011). ["A Survey of Version Control Systems"](https://www.iiis.org/cds2011/cd2011imc/iceme_2011/paperspdf/fb394vz.pdf) - traces the history of VCS tools from early systems like RCS through distributed systems like Git.
+

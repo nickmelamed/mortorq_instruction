@@ -60,3 +60,8 @@ It produces a cleaner-looking history, but it does so by rewriting commit histor
 You might only be interested in viewing the remote content without changing your local branches. Running `git fetch` allows you to download remote content to your working directory and you can therefore view any changes manually. 
 
 You likely would be looking at files on the repo website anyway, but this is still useful if you'd rather have files stored locally as well. See `03-branching.md` for how to use `git fetch` together with `git checkout` to grab a remote branch you don't have locally yet. 
+
+## Resources
+- **Official docs:** [Pro Git, Ch. 3.2 - Rebasing](https://git-scm.com/book/en/v2/Git-Branching-Rebasing) - the official explanation of what rebase does and when the maintainers themselves recommend it.
+- **Official docs:** [git-merge](https://git-scm.com/docs/git-merge), [git-rebase](https://git-scm.com/docs/git-rebase), [git-fetch](https://git-scm.com/docs/git-fetch) - full command references.
+- **Blog:** [Merging vs. Rebasing - Atlassian Git Tutorial](https://www.atlassian.com/git/tutorials/merging-vs-rebasing) - a balanced, widely-cited comparison of the two approaches.

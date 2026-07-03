@@ -124,3 +124,9 @@ If a remote branch named `BRANCH` exists (i.e., `origin/BRANCH`), Git is smart e
 ## A Note on `git switch`
 
 You may see `git switch BRANCH` used in place of `git checkout BRANCH`, and `git switch -c BRANCH` in place of `git checkout -b BRANCH`. These are newer, more specific commands - `checkout` historically did a lot of different jobs (switching branches, restoring files, etc.), and `switch` was introduced to just handle the branch-switching piece more clearly. Either works - this primer uses `checkout` since it's still the most common command you'll run into in older docs and tutorials, but don't be thrown off if you see `switch` elsewhere. 
+
+## Resources
+- **Official docs:** [Pro Git, Ch. 3.1 - Branches in a Nutshell](https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell) - the definitive explanation of branches as pointers.
+- **Official docs:** [git-branch](https://git-scm.com/docs/git-branch), [git-switch](https://git-scm.com/docs/git-switch), [git-checkout](https://git-scm.com/docs/git-checkout) - full command references.
+- **Blog:** [Using Branches - Atlassian Git Tutorial](https://www.atlassian.com/git/tutorials/using-branches) - practical walkthroughs of everything covered above.
+- **Blog:** [A Successful Git Branching Model by Vincent Driessen](https://nvie.com/posts/a-successful-git-branching-model/) - the famous "Gitflow" post; worth reading once you're comfortable with the basics, though our team's model here is simpler.

@@ -186,3 +186,9 @@ git log --oneline
 ```
 
 Note that `git log` only shows commits reachable from where you currently are - it won't show commits on a branch you never merged, or commits you "lost" by doing something like a reset. For that, see `git reflog` in `06-solving-common-issues.md`.
+
+## Resources
+- **Official docs:** [git-status](https://git-scm.com/docs/git-status), [git-add](https://git-scm.com/docs/git-add), [git-commit](https://git-scm.com/docs/git-commit), [git-log](https://git-scm.com/docs/git-log) - the full reference for every command in this chapter.
+- **Official docs:** [Pro Git, Ch. 2.2 - Recording Changes to the Repository](https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository) - the book-length version of this chapter's workflow.
+- **Official docs:** [GitHub Docs - Ignoring Files](https://docs.github.com/en/get-started/git-basics/ignoring-files) - more detail on `.gitignore` patterns and syntax.
+- **Reference:** [github/gitignore](https://github.com/github/gitignore) - ready-made `.gitignore` templates for most languages and tools.

@@ -55,3 +55,9 @@ Then stage and commit as usual. Be careful with this though - it discards the *e
 Once you've fixed these conflicts, you are free to run `git add` to stage the file, `git commit` to create the commit, and `git pull` to get remote changes and `git push` to get the local changes in the repo.
 
 If your merge is proving very difficult to solve, you can always run `git merge --abort` to cancel the merge and revisit at another time. 
+
+## Resources
+- **Official docs:** [Pro Git, Ch. 7.2 - Advanced Merging](https://git-scm.com/book/en/v2/Git-Tools-Advanced-Merging) - covers conflict resolution in more depth, including merge tools.
+- **Blog:** [How to Resolve Merge Conflicts in Git - Atlassian Git Tutorial](https://www.atlassian.com/git/tutorials/using-branches/merge-conflicts) - another walkthrough of reading and resolving conflict markers.
+- **Research paper:** Ghiotto, G., Murta, L., Barros, M., & van der Hoek, A. (2018). ["On the Nature of Merge Conflicts"](https://leomurta.github.io/papers/ghiotto2018.pdf) - an empirical study of conflicts across 2,731 open-source Java projects.
+- **Research paper:** McKee, S., Nelson, N., Sarma, A., & Dig, D. (2017). ["Software Practitioner Perspectives on Merge Conflicts and Resolutions"](https://ieeexplore.ieee.org/document/8094445/) (ICSME 2017) - interviews and a survey on how developers actually approach conflict resolution in practice.
