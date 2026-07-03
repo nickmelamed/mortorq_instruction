@@ -31,14 +31,13 @@ One possible solution looks like this:
 
 ```python
 def login(user, password):
-<<<<<<< HEAD
     if not user.is_active:
         raise PermissionError("User account is inactive")
     token = generate_token(user)
     return token
 ```
 
-Here, we just use our local code and remove the remote code. There are many ways to resolve merge conflicts! 
+Here, we just use our local code and remove the remote code, along with all of the conflict markers (`<<<<<<< HEAD`, `=======`, `>>>>>>> feature/user-auth`). There are many ways to resolve merge conflicts! 
 
 Once you've fixed these conflicts, you are free to run `git add` to stage the file, `git commit` to create the commit, and `git pull` to get remote changes and `git push` to get the local changes in the repo.
 

@@ -29,11 +29,11 @@ Also, `HEAD` is referring to your current working position in the repository. It
 
 ## "I Need to Change my Last Commit!"
 
-`git --amend` will allow you to change a commit message, add more files to the commit, etc. Only use this on your **own personal branches**. 
+`git commit --amend` will allow you to change a commit message, add more files to the commit, etc. Only use this on your **own personal branches**. 
 
 ## "I Need to Unstage Files!"
 
-`git restore --staged .` to unstage all files, `git restore -- staged FILE` to unstage a given file. 
+`git restore --staged .` to unstage all files, `git restore --staged FILE` to unstage a given file. 
 
 ## "I Need to Undo Changes to my Files!" 
 

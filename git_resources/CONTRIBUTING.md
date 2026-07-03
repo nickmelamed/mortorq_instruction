@@ -24,9 +24,9 @@ Some general naming conventions are:
 
 To categorize our branches, we use the below groupings, with NAME at the end to indicate who is creating the branch: 
 
-`feat/feat-name/NAME`: Creating a new feature (e.g., `feat/dual-cam-vision/Nick`) </br>
-`fix/bug-name/NAME`: Debugging fix (e.g., `fix/shot-trajectory/Nick`) </br>
-`test/test-name/NAME`: Anything you want to experiment around with (e.g., `test/rear-cam-vision/Nick`) </br>
+`feat/feat-name/NAME`: Creating a new feature (e.g., `feat/dual-cam-vision/nick`) </br>
+`fix/bug-name/NAME`: Debugging fix (e.g., `fix/shot-trajectory/nick`) </br>
+`test/test-name/NAME`: Anything you want to experiment around with (e.g., `test/rear-cam-vision/nick`) </br>
 `other/other-name/NAME`: Anything that does not fit in any of the above categorizations (unlikely you'll use this but still helpful to have) 
 
 ## Commit Conventions

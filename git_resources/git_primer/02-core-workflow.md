@@ -99,7 +99,7 @@ Note you can add all changes in the working directory by replacing `FILE` w/ `.`
 You can do a commit like so: 
 
 ```bash 
-git commit -m "Here is my commit message!
+git commit -m "Here is my commit message!"
 ```
 
 A commit message is a helpful (and optional) way to explain what your commits are for. We cover how to do your commit messages in the `CONTRIBUTING.md` file, so for now just understand that you should always add a message so people understand what you are doing! 

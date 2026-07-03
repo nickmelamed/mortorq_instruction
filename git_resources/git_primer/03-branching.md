@@ -12,7 +12,7 @@ So, working on branches makes your life easy because you can do whatever you wan
 
 Creating a branch: 
 ```bash
-git -b BRANCH
+git branch BRANCH
 ```
 where `BRANCH` is your branch name. 
 
