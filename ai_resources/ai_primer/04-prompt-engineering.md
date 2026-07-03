@@ -114,3 +114,11 @@ I need some code that counts the number of odd numbers in a sequence. Follow the
 
 None of these techniques are mutually exclusive - the strongest prompts usually stack several of them at once (a role, a few constraints, a decomposition step, maybe an exemplar). `06-sample-prompt.md` walks through a full example that does exactly this, so keep an eye out for how many of these techniques show up together in a single prompt.
 
+## Resources
+
+- [Chain-of-Thought Prompting Elicits Reasoning in Large Language Models](https://arxiv.org/abs/2201.11903) - the original paper that introduced CoT prompting (paper)
+- [Language Models are Few-Shot Learners](https://arxiv.org/abs/2005.14165) - the GPT-3 paper that popularized zero/one/few-shot prompting (paper)
+- [Prompt Engineering Overview](https://docs.anthropic.com/en/docs/prompt-engineering) - covers role prompting, constraints, and output formatting in more depth (instructional)
+- [Prompt Engineering Guide: Techniques](https://www.promptingguide.ai/techniques) - a reference covering CoT, few-shot, and more with worked examples (instructional)
+- [dair-ai/Prompt-Engineering-Guide](https://github.com/dair-ai/Prompt-Engineering-Guide) - papers, notebooks, and further reading for every technique in this file (extra reading)
+

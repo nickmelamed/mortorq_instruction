@@ -94,3 +94,10 @@ For each case:
 ```
 
 The model's edge-case analysis is a good sanity check, but it isn't a substitute for running the tests yourself - paste the final function into your own environment and confirm the real output matches what the model claimed before you trust it. Once that checks out, we will have a robust function that solves our use case!
+
+## Resources
+
+- [Lost in the Middle: How Language Models Use Long Contexts](https://arxiv.org/abs/2307.03172) - explains why long conversations lose consistency in the middle (paper)
+- [What Is Human In The Loop (HITL)?](https://www.ibm.com/think/topics/human-in-the-loop) - IBM's explainer on the human-in-the-loop pattern used in Turn 3 (blog)
+- [Effective Context Engineering for AI Agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) - Anthropic's take on managing context across longer interactions, relevant to the "start fresh" advice above (blog)
+- [OpenAI: Prompt Engineering](https://platform.openai.com/docs/guides/prompt-engineering) - covers testing changes systematically, a good habit for iterating across turns like we did here (instructional)

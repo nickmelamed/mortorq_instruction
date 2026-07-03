@@ -33,3 +33,10 @@ This is also why models sometimes **hallucinate** - stating something false with
 Related to hallucination is the **training cutoff**: every model's knowledge stops at some point in time, so it can confidently suggest a deprecated API, an old library version, or miss a recent breaking change entirely. This matters a lot in a fast-moving framework like WPILib, so always sanity-check version-specific details rather than assuming the model is current.
 
 And finally, don't let using GenAI models become a replacement for your learning - you will need to understand the code you are running in order to use the model better!
+
+## Resources
+
+- [A Survey on Hallucination in Large Language Models: Principles, Taxonomy, Challenges, and Open Questions](https://arxiv.org/abs/2311.05232) - a research survey on why and how LLMs hallucinate (paper)
+- [Security Weaknesses of Copilot-Generated Code in GitHub Projects: An Empirical Study](https://arxiv.org/abs/2310.02059) - an empirical study quantifying how often AI-generated code contains real security flaws (paper)
+- [CCS Researchers Find GitHub Copilot Generates Vulnerable Code 40% of the Time](https://cyber.nyu.edu/2021/10/15/ccs-researchers-find-github-copilot-generates-vulnerable-code-40-of-the-time/) - NYU's plain-language write-up of that original finding (blog)
+- [Prompt Engineering Overview](https://docs.anthropic.com/en/docs/prompt-engineering) - Anthropic's own docs on getting good output from a model, a preview of what the rest of this primer covers (instructional)

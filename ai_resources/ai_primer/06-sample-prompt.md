@@ -179,3 +179,11 @@ Before you consider this done, actually paste the final function into your own e
 | 8. Self Review | Self-critique / reflection |
 
 You have now seen how prompting can give you much improved outputs - happy prompting and programming!
+
+## Resources
+
+- [Boundary Value Analysis vs Equivalence Partitioning](https://www.geeksforgeeks.org/software-testing/software-testing-boundary-value-analysis-vs-equivalence-partitioning/) - the formal testing technique behind how the Turn 7 edge cases were chosen (instructional)
+- [WPILib Documentation](https://docs.wpilib.org/) - official docs for the library our robot code actually runs on, useful for real (non made-up) sensor and API references (docs)
+- [pytest: Get Started](https://docs.pytest.org/en/stable/getting-started.html) - for turning Turn 7's conceptual edge cases into real automated tests (docs)
+
+This file is a synthesis, so for the primary sources behind each individual technique used here, see the Resources sections in `02-common-prompts.md` and `04-prompt-engineering.md`.

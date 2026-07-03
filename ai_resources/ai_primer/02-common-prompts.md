@@ -99,3 +99,11 @@ Naming your language/library version, like we did here, matters more than it mig
 
 It is important to make sure the LLM only changes the syntax and not the actual function of the code!
 
+## Resources
+
+- [Prompt Engineering Guide: Techniques](https://www.promptingguide.ai/techniques) - a well-organized reference covering most of these patterns and more (instructional)
+- [OpenAI: Prompt Engineering](https://platform.openai.com/docs/guides/prompt-engineering) - OpenAI's own strategies for reliable outputs, including testing prompt changes systematically (instructional)
+- [Anthropic Prompt Library](https://docs.anthropic.com/en/resources/prompt-library/library) - a library of ready-made prompt examples for common tasks (instructional)
+- [pytest: Get Started](https://docs.pytest.org/en/stable/getting-started.html) - official docs for the testing framework used in the Test Generation Prompt (docs)
+- [dair-ai/Prompt-Engineering-Guide](https://github.com/dair-ai/Prompt-Engineering-Guide) - a huge, actively maintained collection of guides, papers, and notebooks if you want to go deeper (extra reading)
+

@@ -30,3 +30,10 @@ All of these can help structure your debugging process.
 - If AI gives you too little, add more context
 
 These can help you recalibrate how you're approaching AI usage. Now that you have the concepts and the habits, 06-sample-prompt.md walks through a full example that puts all of it together. Happy programming!
+
+## Resources
+
+- [Expanding the FIRST Toolbox with Artificial Intelligence](https://community.firstinspires.org/expanding-the-first-toolbox-with-artificial-intelligence) - FIRST's own community post on how teams are expected to use and disclose AI (instructional)
+- [How do I cite generative AI in MLA style?](https://style.mla.org/citing-generative-ai/) - official MLA guidance on citing AI tools (instructional)
+- [How to cite ChatGPT](https://apastyle.apa.org/blog/how-to-cite-chatgpt) - official APA Style guidance on the same (instructional)
+- [A Survey on Hallucination in Large Language Models](https://arxiv.org/abs/2311.05232) - background on why "verify, don't trust" matters (paper)

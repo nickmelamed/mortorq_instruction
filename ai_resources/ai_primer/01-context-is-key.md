@@ -87,3 +87,10 @@ There are a few ways you can avoid running through your context window too quick
 - Request efficient formats (literally ask the model for structured outputs like JSON, for example) to avoid verbosity that burns through tokens 
 
 Ultimately, your context window depends on your model, and providers update these limits often, so check the current docs for exact numbers rather than trusting a number you read a while back. As a reference point at time of writing, GPT-4o mini has a context window of about 128K tokens, though it caps any single response at a smaller ~16K output tokens. For a sense of scale, 128K tokens is roughly 300 pages of plain text - but a handful of back-and-forth turns with full files, error logs, and re-explanations can burn through a surprising chunk of that faster than you'd expect.
+
+## Resources
+
+- [Lost in the Middle: How Language Models Use Long Contexts](https://arxiv.org/abs/2307.03172) - the paper behind the Lost in the Middle Effect mentioned above (paper)
+- [What are tokens and how to count them?](https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them) - OpenAI's own explainer on tokens (instructional)
+- [OpenAI Tokenizer](https://platform.openai.com/tokenizer) - paste in text and watch it get split into tokens live (tool)
+- [Effective Context Engineering for AI Agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) - Anthropic's engineering blog on managing context at scale, a preview of ideas covered in `agent_primer` (blog)
