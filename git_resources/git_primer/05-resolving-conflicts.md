@@ -10,6 +10,8 @@ CONFLICT (content): Merge conflict in src/auth/login.py
 
 What does this mean? This implies that in the `login.py` file, there is a difference in the code in our local branch and the remote branch. Note that the only differences that matter is that when code on one line in the file on one branch is different than the code on that same line in the file on the other branch. To be more specific, if I added new lines of code, there is no merge conflict. However, if I change an existing line of code, there is an issue. 
 
+Note that this doesn't only happen with a manually-typed `git merge`. Since `git pull` is really just `git fetch` + `git merge` under the hood (see `02-core-workflow.md`), the exact same `CONFLICT` message can show up the moment you run a routine `git pull` to sync with the remote. Don't panic if that happens - it's the same situation, just triggered a different way, and everything below still applies. 
+
 In this hypothetical example, say I open up `login.py`:
 
 ```python
@@ -39,6 +41,17 @@ def login(user, password):
 
 Here, we just use our local code and remove the remote code, along with all of the conflict markers (`<<<<<<< HEAD`, `=======`, `>>>>>>> feature/user-auth`). There are many ways to resolve merge conflicts! 
 
+## A Faster Option: Taking One Side Entirely
+
+Sometimes you know upfront that you just want to keep one branch's version of a file completely, conflicts and all, rather than hand-editing it. Instead of manually removing the markers, you can tell Git to take one side outright: 
+
+```bash
+git checkout --ours path/to/file    # keep your current branch's version
+git checkout --theirs path/to/file  # keep the incoming branch's version
+```
+
+Then stage and commit as usual. Be careful with this though - it discards the *entire* file from the side you didn't pick, not just the conflicting lines, so it's only appropriate when you're confident one version should fully win. For anything more nuanced, manual editing (like above) is safer. 
+
 Once you've fixed these conflicts, you are free to run `git add` to stage the file, `git commit` to create the commit, and `git pull` to get remote changes and `git push` to get the local changes in the repo.
 
-If your merge is proving very difficult to solve, you can alwyas run `git merge --abort` to cancel the merge and revisit at another time. 
+If your merge is proving very difficult to solve, you can always run `git merge --abort` to cancel the merge and revisit at another time. 
