@@ -30,3 +30,10 @@ This primer - and the Computer Vision/Perception primers that follow it - focus 
 Ideally, ML is a tool we can use to perform things like Perception, or the robot's understanding of the world around it. This takes the form of object detection like finding balls on the field, or avoiding crashing into other robots.
 
 It is important to note that ML is **not** a replacement for good system design; in fact, without strong design principles that dictate how we want our robot to function, the ML model will almost certainly not do what we want it to. So, ML *in conjunction with good system design* can be the foundation of a high-performing robot. 
+
+## Resources
+
+- [Google Machine Learning Crash Course](https://developers.google.com/machine-learning/crash-course) - a free, well-regarded intro course covering the concepts in this primer in more depth.
+- [3Blue1Brown: Neural Networks](https://www.3blue1brown.com/topics/neural-networks) - beautifully animated, intuitive visual explanations of how models learn (useful again once you reach the CV primer).
+- [*Reinforcement Learning: An Introduction*](http://incompleteideas.net/book/the-book.html) by Sutton & Barto - the standard, freely available textbook on reinforcement learning, one of the three paradigms mentioned above.
+- Domingos, P. (2012). "A Few Useful Things to Know about Machine Learning." *Communications of the ACM*, 55(10). A widely cited, accessible paper on practical ML pitfalls, including the "models can be confidently wrong" idea from this notebook.
