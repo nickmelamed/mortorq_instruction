@@ -14,6 +14,7 @@ Quick reference only. See `concept.md` for the "why," and `java.ipynb` / `python
 | `if` / `else` | `if (x <= 6) { ... } else { ... }` | `if x <= 6:`<br>`    ...`<br>`else:`<br>`    ...` | `if (x <= 6) { ... } else { ... }` |
 | Loop over a fixed range | `for (int i = 0; i < 5; i++) { ... }` | `for i in range(5):`<br>`    ...` | `for (int i = 0; i < 5; i++) { ... }` |
 | Loop over a collection's values | `for (double d : readings) { ... }` | `for d in readings:`<br>`    ...` | `for (double d : readings) { ... }` |
+| Loop while a condition holds | `while (i < n) { ... }` | `while i < n:`<br>`    ...` | `while (i < n) { ... }` |
 | Print to the console | `System.out.println(x);` | `print(x)` | `std::cout << x << std::endl;` |
 | Single-line comment | `// comment` | `# comment` | `// comment` |
 | Entry point | any class with `public static void main(String[] args)` | top-level script code (no required entry point) | `int main() { ... }` |

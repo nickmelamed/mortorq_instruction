@@ -2,7 +2,7 @@
 
 Every programming language, no matter how different it looks on the page, is built out of the same small set of ideas. This topic covers those ideas in the abstract. The next three files (`java.ipynb`, `python.ipynb`, `cpp/basics.cpp`) show you the same ideas written for real in each language — this document is the "what and why," not the "how do I type it."
 
-The running example throughout: a small program that reads a sensor value (say, a distance reading from a rangefinder on an arm) and decides what the robot should do about it. Simple, but it touches every idea below.
+Two running examples carry the topic: a match-scoring calculator (add up points from goals scored and a climb) for variables, types, and functions, and a rangefinder reading on an arm (deciding whether it's close enough to a hard stop to halt) for control flow. Simple, but together they touch every idea below.
 
 ## Variables
 
@@ -35,12 +35,16 @@ The important habit to build now: before you write a variable or a function, ask
 
 - **Sequence** — instructions run one after another, top to bottom. The default.
 - **Selection** (`if` / `else`) — the program picks between two or more paths based on a condition. "If the sensor reads less than 6 inches, stop the arm; otherwise, keep driving it toward the setpoint."
-- **Iteration** (loops) — the program repeats a block of instructions, either a fixed number of times or until some condition becomes true. A robot's main control loop is itself a loop: "forever, read sensors, decide what to do, send motor commands, repeat" — this runs dozens of times per second for the entire match.
+- **Iteration** (loops) — the program repeats a block of instructions, either a fixed number of times or until some condition becomes true. These are the two shapes you'll reach for constantly, and most languages give you a dedicated construct for each:
+  - A **for loop** runs a known number of times, or once per item in a collection — reach for it when you know the loop's bound ahead of time, like "check every reading in this list."
+  - A **while loop** keeps repeating as long as a condition stays true, with no built-in notion of "how many times" — reach for it when the stopping point depends on something that only becomes known while the loop is running, like "keep reading the sensor until it says stop."
+
+  A robot's main control loop is really a while loop in spirit: "while the match is running, read sensors, decide what to do, send motor commands" — it doesn't run a fixed number of times, it runs until something external (the match clock, a disable signal) tells it to stop. This runs dozens of times per second for the entire match.
 
 Every control flow structure you will ever use is some combination of these three patterns, layered on top of each other.
 
 ## Putting it together
 
-The sensor-reading example from the top of this document uses all four ideas at once: a **variable** holds the current sensor reading (whose **type** is a floating-point number), a **function** wraps up the logic for deciding whether that reading means "stop," and **control flow** (an `if` inside a loop that runs continuously) is what actually calls that function every cycle and acts on the answer.
+The two examples from the top of this document use all four ideas together: the match-scoring calculator holds **variables** (goal counts, whether the robot climbed) with clear **types** (integers, a boolean) and a **function** that turns them into a score, while the rangefinder example adds **control flow** — an `if` inside a loop that runs continuously — to call a similar function every cycle and decide whether the reading means "stop."
 
 Once you've read this, go work through `java.ipynb` and `python.ipynb`, and then `cpp/basics.cpp`, to see this exact example written for real in each language. Pay attention to what each language makes you spell out explicitly versus what it lets you skip — that gap is where a language's personality shows up.
