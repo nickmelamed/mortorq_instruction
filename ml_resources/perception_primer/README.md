@@ -9,3 +9,43 @@ In robotics, Perception refers to the ability of the robot to use sensors to gat
 ## Why should I care? 
 
 Perception fuels every action of our robot - from estimating position on the field by reading in AprilTags from Limelights, to using CANRange to estimate intake capacity, all of these fall under the field of Perception. Since this field is so vast, our focus is going to be understanding some key concepts in Perception to build a deeper understanding of how our robots can process information. 
+
+## Key Terms
+
+A running glossary of vocabulary introduced across this primer, in the order you'll meet it. See also the [ml_primer](../ml_primer/README.md) and [cv_primer](../cv_primer/README.md) glossaries for foundational terms like model, regression, classification, and camera intrinsics, which this primer builds on directly.
+
+- **Loss**: the metric used to guide model training (e.g., minimized during fitting).
+- **Performance**: the metric(s) used to evaluate a trained model's results, which may or may not be the same as the loss.
+- **Binary Cross Entropy (BCE) Loss**: the standard loss function for binary classification, based on predicted probabilities.
+- **Accuracy**: the proportion of all predictions a model got correct - misleading on imbalanced datasets.
+- **Specificity / True Negative Rate (TNR)**: out of all true-negative cases, the proportion correctly predicted negative.
+- **F1 Score**: the harmonic mean of precision and recall, balancing the two into a single metric.
+- **Object Detection**: the combined task of classifying an object and localizing it within a frame.
+- **Localization**: determining where an object is within a frame, typically via a bounding box.
+- **Bounding Box**: a rectangle, defined by coordinates and a height/width, marking where an object is located in an image.
+- **Ground Truth**: the manually- or expert-verified "true" label or bounding box a prediction is compared against.
+- **Intersection over Union (IoU)**: the ratio of overlap area to total area between a predicted and ground-truth bounding box, used to score localization accuracy.
+- **YOLO (You Only Look Once)**: a family of object detection models that treats detection as a single regression problem over the whole image, rather than first proposing regions.
+- **Intrinsic Matrix ($K$)**: the matrix encoding a camera's focal length(s) and principal point, used to map camera-coordinate points to pixel coordinates.
+- **Extrinsic Matrix ($M = [R \mid t]$)**: the matrix encoding a camera's rotation and position in the world, used to map world coordinates to camera coordinates.
+- **Rotation Matrix ($R$)**: a matrix that rotates points in space without changing their size or shape.
+- **Translation Matrix ($t$)**: a vector that shifts points in space by a fixed amount in a given direction.
+- **Triangulation**: recovering a 3D point's position from two (or more) viewing rays, e.g. from two cameras or one moving camera.
+- **Stereo Depth**: a triangulation technique that computes depth from the pixel disparity between two calibrated, rectified cameras.
+- **Disparity**: the horizontal pixel difference between corresponding points in a rectified stereo image pair.
+- **Structure from Motion**: recovering 3D structure via triangulation using a single moving camera over time, instead of two cameras.
+- **Perspective-n-Point (PnP)**: the technique of estimating a camera's extrinsics from known 3D geometry (e.g., an AprilTag) and its observed 2D projection.
+- **Monocular Depth Estimation**: predicting per-pixel depth from a single 2D image using a trained ML model, rather than geometric triangulation.
+- **Pose Estimation**: determining the 3D position (and orientation) of an object or camera.
+- **Displacement**: the change in a pixel's (or object's) position between two frames, often denoted $\Delta$ or $d$.
+- **Optical Flow**: tracking the apparent motion of pixels between consecutive frames, under the assumption of brightness constancy.
+- **Brightness Constancy**: the assumption that a tracked point's intensity doesn't change between frames, only its position.
+- **Sparse Optical Flow**: optical flow computed for only a selected subset of "important" pixels (e.g., corners/edges).
+- **Dense Optical Flow**: optical flow computed for every pixel in the frame.
+- **Occlusion**: when a tracked object becomes hidden or leaves the frame, breaking simple frame-to-frame matching.
+- **Kalman Filter**: an algorithm that predicts an object's next state (e.g., position, velocity) and corrects that prediction using new measurements, robust to occlusion.
+- **Hungarian Algorithm**: an algorithm that finds the lowest-cost one-to-one matching between two sets of items (e.g., predicted vs. detected boxes).
+- **Velocity**: an object's rate of change of position in a given direction, calculated per axis as $\Delta x / \Delta t$.
+- **SORT (Simple Online and Realtime Tracking)**: a tracking algorithm combining the Kalman filter and Hungarian algorithm to maintain object tracks across frames.
+- **Object Motion**: the movement of a tracked object itself, as distinct from the camera's own movement.
+- **Ego Motion**: the motion of the camera itself, which must be separated out from object motion for accurate 3D tracking.
