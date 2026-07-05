@@ -12,7 +12,7 @@
 // Watch tick 8's printed timing: instead of finishing in a few milliseconds
 // like every other tick, it blows straight through the 20ms budget. On a
 // real robot, this is exactly what a WPILib "loop overrun" warning is
-// reporting -- and while it's blocked, EVERY subsystem is stalled with it,
+// reporting, and while it's blocked, EVERY subsystem is stalled with it,
 // not just whichever one made the slow call.
 public class BlockingCallBug {
 
@@ -53,14 +53,15 @@ public class BlockingCallBug {
             + "sharing this loop would all have frozen together, not just the one thing that was actually slow.");
     }
 
-    // BEFORE (see PeriodicLoopDemo.java): fast, bounded, local work.
+    // Before (see PeriodicLoopDemo.java): fast, bounded, local work.
     static void fakeSubsystemWork(int tick) {
         double angle = Math.sin(tick) * 90.0;
         double motorOutput = angle / 90.0;
+        // (assert is a no-op unless run with `java -ea`; kept here just to document the invariant.)
         assert motorOutput >= -1.0 && motorOutput <= 1.0;
     }
 
-    // AFTER: the exact same kind of call a real robot might make -- e.g.
+    // After: the exact same kind of call a real robot might make -- e.g.
     // asking a coprocessor for a vision result, or reading a sensor over a
     // connection that's momentarily unresponsive -- except here it's forced
     // to take 300ms so the effect is impossible to miss. Thread.sleep() is

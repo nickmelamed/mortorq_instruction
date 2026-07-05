@@ -1,7 +1,7 @@
 // 01 - Concurrency & Real-Time Loops: the periodic loop model
 //
-// This simulates the shape of WPILib's periodic loop -- a fixed-rate `while`
-// loop, ticking roughly every PERIOD_MS milliseconds -- without any real
+// This simulates the shape of WPILib's periodic loop (a fixed-rate `while`
+// loop, ticking roughly every PERIOD_MS milliseconds) without any real
 // robot hardware. On a real robot, WPILib's scheduler calls every
 // Subsystem's periodic() and every running Command's execute() once per
 // tick, automatically, for the whole match. Here, fakeSubsystemWork() stands
@@ -55,6 +55,7 @@ public class PeriodicLoopDemo {
         // No sleeping, no network calls, no unbounded loops -- just fast, local math.
         // (motorOutput is computed only to show a realistic "read -> decide" shape; nothing
         // reads it further in this demo.)
+        // (assert is a no-op unless run with `java -ea`; kept here just to document the invariant.)
         assert motorOutput >= -1.0 && motorOutput <= 1.0;
     }
 }
