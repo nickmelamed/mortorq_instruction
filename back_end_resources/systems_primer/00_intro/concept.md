@@ -4,11 +4,11 @@ The `language_primer` taught you to write code: variables, classes, data structu
 
 That question matters more in FRC than in almost any other context you'll write software for. If your robot code hangs, throws an uncaught exception, or silently does the wrong thing thirty seconds into a match, you cannot pause the game, attach a debugger, and step through it. You get whatever your code does, live, in front of the judges and the other alliance, and you find out what actually happened afterward (if you logged it in the first place).
 
-That's the theme underneath every topic in this primer: **things fail live, you usually can't fix them mid-match, and your only way to understand a failure after the fact is whatever evidence your code left behind.** Nine topics, each a different angle on that theme:
+That's the theme underneath every topic in this primer: things fail live, you can't do anything about it during the match, and your only hope of figuring out is a post-mortem analysis after the match. 
 
 1. **Concurrency & real-time loops** — your robot code runs inside a loop that ticks roughly every 20 milliseconds, forever, for the whole match. Understanding what can and can't safely happen inside that loop is the single most important mental model in this primer.
 2. **Communication & serialization** — a competition robot isn't one program. A roboRIO, a driver station, and sometimes a coprocessor all talk to each other constantly, and they need a shared format to agree on what they're saying.
-3. **State machines** — most of what a robot *does* (an autonomous routine, a game piece's path through the robot) is naturally a sequence of named states and the events that move between them. Modeling it explicitly beats a tangle of booleans.
+3. **State machines** — most of what a robot *does* (an autonomous routine, a game piece's path through the robot) is naturally a sequence of named states and the events that move between them. Modeling it explicitly beats a tangle of booleans. Also, we discuss the contrast between this form of programming and the traditional command-based programming encouraged by WPILib. 
 4. **Control loops (PID)** — the specific "read a sensor, decide, act" pattern that shows up anywhere a physical system needs to hit and hold a target, whether that's an arm angle or a drivetrain heading.
 5. **APIs & networking (light touch)** — a quick conceptual bridge to the frontend unit: how a dashboard or web tool would talk to a backend over HTTP. The deep networking material lives in its own unit; this is just enough to make that unit's starting point make sense.
 6. **Testing & debugging** — how you gain confidence in code before it ever touches a field, since you don't get a mid-match do-over.
@@ -17,14 +17,6 @@ That's the theme underneath every topic in this primer: **things fail live, you 
 9. **Configuration & constants management** — keeping the numbers that differ between your practice bot and your competition bot (or between this year's robot and any tuning changes) in one place instead of scattered through your codebase.
 
 None of these topics are unique to robots. Every one of them is a real backend concern in web services, embedded systems, and distributed software generally. FRC just gives you an unusually sharp, unusually visible version of each: a live match with no pause button is a great way to notice why concurrency, error handling, and logging actually matter, instead of taking someone's word for it.
-
-## What this primer deliberately leaves out
-
-Three things you might expect here are covered elsewhere, on purpose:
-
-- **Git and version control** has its own dedicated unit.
-- **Dependency management and documentation practices** live in the main programming unit, since they apply just as much to frontend work as backend work.
-- **Deep networking and hardware communication** (sockets, the details of CAN/serial protocols) belong to a larger, separate networking/hardware unit. Topic `05` in this primer touches networking only at the conceptual level, as a bridge to the frontend unit.
 
 ## How to work through this
 
