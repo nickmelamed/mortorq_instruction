@@ -23,11 +23,11 @@ struct Tracker {
     }
 };
 
-// Returns a pointer to a LOCAL (stack) variable -- undefined behavior.
+// Returns a pointer to a LOCAL (stack) variable, whic hisundefined behavior.
 // Left here commented out on purpose, so you can see what NOT to do: the
 // instant makeDangling() returns, `local`'s stack memory is freed and may
 // be reused by the very next function call. The pointer this returns no
-// longer points to anything valid -- dereferencing it is a bug that might
+// longer points to anything valid, so dereferencing it is a bug that might
 // "work" by pure luck, or might crash, or might silently corrupt unrelated
 // data, unpredictably. We are not calling this function.
 //

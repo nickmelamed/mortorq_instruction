@@ -28,7 +28,7 @@ struct Resource {
     }
 };
 
-// PITFALL: this function has a real bug. If mightFail() throws, the
+// Pitfall: this function has a real bug. If mightFail() throws, the
 // exception unwinds straight past `delete resource;` at the bottom -- it is
 // simply never reached -- and the Resource leaks. This is one of the most
 // common raw-pointer mistakes in real C++ code: any early return, any
@@ -40,7 +40,7 @@ void withRawPointerBuggy(bool shouldFail) {
     delete resource;
 }
 
-// FIXED, but fragile: correct now, because we added a catch block whose
+// Fixed, but fragile: correct now, because we added a catch block whose
 // only job is to delete resource before rethrowing. Every new exit path
 // added to this function in the future has to remember to do the same
 // thing, by hand, forever, or the bug comes right back.
@@ -56,7 +56,7 @@ void withRawPointerFixed(bool shouldFail) {
     delete resource;
 }
 
-// unique_ptr: correct AND not fragile. Its destructor runs automatically no
+// unique_ptr: correct and not fragile. Its destructor runs automatically no
 // matter how this function exits -- normal return, early return, or an
 // exception unwinding straight through it -- so there is no delete to
 // forget, anywhere, ever.
