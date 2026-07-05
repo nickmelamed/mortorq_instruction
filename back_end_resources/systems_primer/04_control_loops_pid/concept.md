@@ -2,9 +2,9 @@
 
 ## The shape underneath PID
 
-Strip away the physics and the tuning theory for a moment, and a PID controller is doing something you've already seen twice in this primer: **poll a sensor, decide what to do based on the difference between what you have and what you want, act on that decision.** That's the same read-decide-write loop as `03_state_machines`'s `periodic()` method, running inside the same 20ms loop `01_concurrency_realtime_loops` described. PID isn't a separate, mysterious thing bolted onto robot code — it's this primer's core loop pattern, applied to a physical system that needs to *hit and hold* a specific target instead of just moving through a sequence of states.
+Strip away the physics and the tuning theory for a moment, and a PID controller is doing something you've already seen twice in this primer: poll a sensor, decide what to do based on the difference between what you have and what you want, act on that decision. That's the same read-decide-write loop as `03_state_machines`'s `periodic()` method, running inside the same 20ms loop `01_concurrency_realtime_loops` described. PID isn't a separate, mysterious thing bolted onto robot code: it's this primer's core loop pattern, applied to a physical system that needs to *hit and hold* a specific target instead of just moving through a sequence of states.
 
-That target might be an arm angle, a drivetrain heading, a flywheel's spin speed — anything where "close enough, eventually" isn't good enough and you need the system to actually converge on a number and stay there.
+That target might be an arm angle, a drivetrain heading, a flywheel's spin speed; really, anything where "close enough, eventually" isn't good enough and you need the system to actually converge on a number and stay there.
 
 ## What P, I, and D each respond to
 
@@ -14,7 +14,7 @@ A PID controller looks at **error** — the difference between where you want to
 - **I (Integral)** — react to how long and how consistently error has been building up over time, to correct small, persistent errors that P alone never quite eliminates.
 - **D (Derivative)** — react to how fast the error is changing, to dampen overshoot instead of slamming into the target and oscillating past it.
 
-You are not expected to become a PID tuning expert from this paragraph, or this topic. Actually tuning `kP`, `kI`, and `kD` for a real mechanism — what to change first, how to recognize oscillation versus sluggishness — belongs in a mechanical/controls-focused resource, not here. What you should walk away with is narrower: recognizing "read a sensor, compute an error, produce an output" as the same backend shape as everything else in this primer, just applied to a physical system instead of a data structure or a network message.
+You are not expected to become a PID tuning expert from this paragraph, or this topic. Actually tuning `kP`, `kI`, and `kD` for a real mechanism — what to change first, how to recognize oscillation versus sluggishness — will have its own unit. What you should walk away with is narrower: recognizing "read a sensor, compute an error, produce an output" as the same backend shape as everything else in this primer, just applied to a physical system instead of a data structure or a network message.
 
 ## Feedforward, briefly
 

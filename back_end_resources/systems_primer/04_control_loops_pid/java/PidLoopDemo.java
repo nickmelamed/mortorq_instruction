@@ -18,6 +18,14 @@
 public class PidLoopDemo {
 
     static class SimplePIDController {
+        // Caps how much the accumulated integral can contribute to the
+        // output. Without this, a long stretch of large error early on (the
+        // arm is far from setpoint for many ticks) piles up in `integral`
+        // and keeps pushing the output well after the error is gone -- a
+        // classic PID bug called integral windup. Real WPILib PIDControllers
+        // guard against this the same way, via setIntegratorRange().
+        private static final double MAX_INTEGRAL = 5.0;
+
         private final double kP, kI, kD;
         private double integral = 0.0;
         private double previousError = 0.0;
@@ -36,6 +44,7 @@ public class PidLoopDemo {
             double error = setpoint - measurement;
 
             integral += error * dtSeconds;
+            integral = Math.max(-MAX_INTEGRAL, Math.min(MAX_INTEGRAL, integral));
 
             double derivative = 0.0;
             if (hasPreviousError) {
@@ -71,19 +80,19 @@ public class PidLoopDemo {
         double setpointDegrees = 90.0;
         double dtSeconds = 0.02; // matches the 20ms periodic loop period
 
-        SimplePIDController pid = new SimplePIDController(0.06, 0.02, 0.01);
+        SimplePIDController pid = new SimplePIDController(0.06, 0.02, 0.006);
         SimulatedArm arm = new SimulatedArm();
 
         System.out.printf("Driving a simulated arm toward a %.0f degree setpoint...%n%n", setpointDegrees);
 
-        for (int tick = 1; tick <= 40; tick++) {
+        for (int tick = 1; tick <= 150; tick++) {
             double measurement = arm.getAngleDegrees();
             double output = pid.calculate(measurement, setpointDegrees, dtSeconds);
             arm.applyOutput(output);
 
-            if (tick % 4 == 0 || tick == 1) {
+            if (tick % 10 == 0 || tick == 1) {
                 System.out.printf(
-                    "tick %2d: angle=%6.2f deg  error=%6.2f deg  output=%+.3f%n",
+                    "tick %3d: angle=%6.2f deg  error=%6.2f deg  output=%+.3f%n",
                     tick, measurement, setpointDegrees - measurement, output);
             }
         }
