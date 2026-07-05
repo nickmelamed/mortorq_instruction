@@ -15,3 +15,6 @@ Quick reference only. See `concept.md` for the "why," and `java.ipynb` / `python
 | Enable dynamic dispatch (derived override runs through base type) | automatic (always dynamic) | automatic (always dynamic) | base method must be declared `virtual` |
 | Access a member through a plain object | `motor.describe()` | `motor.describe()` | `motor.describe()` |
 | Access a member through a pointer | N/A (no raw pointers) | N/A (no raw pointers) | `motorPtr->describe()` |
+| Visible everywhere | `public` | no enforcement (just don't prefix with `_`) | `public:` |
+| Visible in this class and its subclasses only | `protected` | no enforcement (convention: single `_` prefix) | `protected:` |
+| Visible in this class only | `private` | no enforcement (convention: double `__` prefix triggers name-mangling) | `private:` |

@@ -7,7 +7,7 @@
 #include <iostream>
 #include "Robot.h"
 
-// Takes a `const Motor&` -- a REFERENCE to a Motor, not a copy of one.
+// Takes a `const Motor&`, which is a REFERENCE to a Motor, not a copy of one.
 // Because it's a reference (not a plain `Motor`), calling describe() here
 // still runs the actual object's overridden version, whatever concrete
 // subclass that object really is.
@@ -22,7 +22,7 @@ int main() {
     // Motor sliced = talon;
     // ^ This line won't compile if you uncomment it: Motor is abstract (it
     // has a pure virtual setPower), so C++ won't let you declare a plain
-    // Motor variable at all -- which means you can't accidentally slice a
+    // Motor variable at all, which means you can't accidentally slice a
     // TalonMotor into one either. The language is enforcing, at compile
     // time, exactly the rule from concept.md: polymorphism here can only
     // happen through a pointer or a reference to Motor, never a plain copy.
