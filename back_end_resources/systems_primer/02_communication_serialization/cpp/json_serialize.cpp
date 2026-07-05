@@ -26,7 +26,7 @@
 // languages primer's OrchestratorExample.java, plus an x/y position that
 // example didn't need but a real targeting system would.
 struct DetectionResult {
-    int classId;
+    int label;
     double confidence;
     double x;
     double y;
@@ -40,7 +40,7 @@ struct DetectionResult {
 std::string toJson(const DetectionResult& result) {
     std::ostringstream out;
     out << "{"
-        << "\"classId\":" << result.classId << ","
+        << "\"label\":" << result.label << ","
         << "\"confidence\":" << result.confidence << ","
         << "\"x\":" << result.x << ","
         << "\"y\":" << result.y
