@@ -54,7 +54,7 @@ $ javac OrchestratorExample.java
 $ java OrchestratorExample
 ```
 
-This simulates receiving the kind of results `infer_demo` just produced and shows the decision logic a real `Subsystem`/`Command` would run in response — no WPILib project needed to see it work.
+This simulates receiving the kind of results `infer_demo` just produced (plus one extra frame added specifically to show the "detected, but not confident enough to act" case, which none of `infer_demo`'s three vectors happens to trigger) and shows the decision logic a real `Subsystem`/`Command` would run in response — no WPILib project needed to see it work.
 
 ## How this maps onto a real robot
 

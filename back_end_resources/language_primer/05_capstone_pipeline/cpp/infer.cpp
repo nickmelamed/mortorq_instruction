@@ -9,7 +9,7 @@ Detector::Detector(const std::string& modelPath)
       memoryInfo_(Ort::MemoryInfo::CreateCpu(OrtArenaAllocator, OrtMemTypeDefault)) {}
 
 std::pair<int, float> Detector::classify(const std::array<float, 4>& features) {
-    // Shape {1, 4}: one detection, four features -- matches the fixed batch
+    // Shape {1, 4}: one detection, four features; matches the fixed batch
     // size python_train.ipynb exported the model with.
     std::array<int64_t, 2> inputShape{1, 4};
 

@@ -15,7 +15,7 @@
 // Wraps an ONNX Runtime session for the game-piece-vs-noise detector trained
 // in python_train.ipynb. One Detector loads the model once; classify() can
 // then be called repeatedly, once per candidate blob per camera frame,
-// without reloading anything -- exactly how this would run for real on a
+// without reloading anything; exactly how this would run for real on a
 // coprocessor for the length of a match.
 class Detector {
 public:
