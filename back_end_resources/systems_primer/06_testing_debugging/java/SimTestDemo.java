@@ -32,8 +32,14 @@ public class SimTestDemo {
         long simElapsedMs = (System.nanoTime() - simStart) / 1_000_000;
 
         boolean reachedExpectedState = autonomous.getState() == EXPECTED_FINAL_STATE;
+        // The for-loop's own increment still runs once more before its
+        // condition fails when the loop reaches MAX_TICKS without ever
+        // hitting `break` (the FAIL case below) -- clamp back to MAX_TICKS
+        // so a FAIL run doesn't report having simulated one tick more than
+        // periodic() was actually called.
+        int ticksRun = Math.min(tick, MAX_TICKS);
 
-        System.out.printf("%nsimulated %d ticks in %dms of real time%n", tick, simElapsedMs);
+        System.out.printf("%nsimulated %d ticks in %dms of real time%n", ticksRun, simElapsedMs);
         System.out.printf("final state: %s (expected %s)%n", autonomous.getState(), EXPECTED_FINAL_STATE);
 
         if (reachedExpectedState) {
@@ -42,13 +48,13 @@ public class SimTestDemo {
             System.out.println("FAIL: routine did not reach IDLE within " + MAX_TICKS + " ticks");
         }
 
-        // On a real robot, those same ticks would take tick * 20ms of real,
-        // wall-clock match time to actually happen -- roughly
-        // (tick * 20) milliseconds. Simulating them takes only however long
-        // the CPU needs to run the logic itself, which is why simulation is
-        // both faster to iterate on and safe to run as many times as you want.
+        // On a real robot, those same ticks would take ticksRun * 20ms of
+        // real, wall-clock match time to actually happen. Simulating them
+        // takes only however long the CPU needs to run the logic itself,
+        // which is why simulation is both faster to iterate on and safe to
+        // run as many times as you want.
         System.out.printf(
             "(on a real robot, those same %d ticks would take about %dms of real match time)%n",
-            tick, tick * 20);
+            ticksRun, ticksRun * 20);
     }
 }
