@@ -1,7 +1,7 @@
 // 07 - Logging & Observability: structured logs for the 03 state machine
 //
-// StructuredLogger gives every log line the same consistent shape --
-// timestamp, level, message, relevant state -- instead of a scattered
+// StructuredLogger gives every log line the same consistent shape (
+// timestamp, level, message, relevant state) instead of a scattered
 // System.out.println. It's attached below to AutonomousStateMachine's
 // transition listener (03_state_machines/java/AutonomousStateMachine.java,
 // the same class 06_testing_debugging unit-tested), so every state
@@ -51,9 +51,9 @@ public class StructuredLoggingDemo {
         AutonomousStateMachine autonomous = new AutonomousStateMachine();
         int[] tick = {0};
 
-        // Every transition now produces one structured line -- timestamp,
+        // Every transition now produces one structured line: timestamp,
         // level, message, and exactly the fields that matter (which tick,
-        // which states) -- instead of AutonomousStateMachine's own
+        // which states), instead of AutonomousStateMachine's own
         // System.out.println calls being the only record of what happened.
         autonomous.addTransitionListener((from, to) ->
             logger.log(Level.INFO, "state transition", "tick", tick[0], "from", from, "to", to));
