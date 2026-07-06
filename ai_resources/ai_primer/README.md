@@ -28,6 +28,6 @@ Read these in order:
 6. [05 - Thought Process](05-thought-process.md) - how to verify and reason about AI output
 7. [06 - Sample Prompt](06-sample-prompt.md) - a full case study putting it all together
 
+## Exercises
 
-
-
+Reading about prompting only gets you so far - the `exercises` folder has a hands-on task paired with each file above. Each one asks you to actually run prompts against a real model (ChatGPT, Claude, Gemini, whichever you have) and check the result against a self-check checklist, rather than just reading along. Start with `exercise-0-spot-the-bad-prompt.md` (a quick self-check quiz), then work through the rest in order alongside the numbered files, finishing with `exercise-5-capstone.md`, which has you run the full 8-turn process from `06-sample-prompt.md` yourself on a new problem.
