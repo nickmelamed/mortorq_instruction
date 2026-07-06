@@ -1,6 +1,6 @@
 # General Thought Process when Using AI
 
-Everything so far has been about getting good outputs. This file is about the habits and instincts that help you use those outputs well once you have them.
+Everything so far has been about getting good outputs. Recall from `05-structured-and-validated-outputs.md`: checking that a structured output actually matches the schema and types you asked for. This file broadens that same instinct - verify, don't trust - to AI output in general, not just structured formats.
 
 ## Checking your Work
 If you are using ChatGPT, for instance, you have a history of your chats and therefore the prompts you used and the outputs it produced. It is good practice to keep track of these, as they can be a big help in figuring out why code breaks.
@@ -29,7 +29,7 @@ All of these can help structure your debugging process.
 - If AI gives you too much output, ask it to be more concise (see Output Control in 04-prompt-engineering.md)
 - If AI gives you too little, add more context
 
-These can help you recalibrate how you're approaching AI usage. Now that you have the concepts and the habits, 06-sample-prompt.md walks through a full example that puts all of it together. Happy programming!
+These can help you recalibrate how you're approaching AI usage. Now that you have the concepts and the habits, 07-sample-prompt.md walks through a full example that puts all of it together. Happy programming!
 
 ## Resources
 

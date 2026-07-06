@@ -25,9 +25,10 @@ Read these in order:
 3. [02 - Common Prompts](02-common-prompts.md) - reusable prompt patterns for everyday coding
 4. [03 - Multi-Turn](03-multi-turn.md) - carrying a conversation across multiple turns
 5. [04 - Prompt Engineering](04-prompt-engineering.md) - more advanced techniques (Chain-of-Thought, personas, constraints)
-6. [05 - Thought Process](05-thought-process.md) - how to verify and reason about AI output
-7. [06 - Sample Prompt](06-sample-prompt.md) - a full case study putting it all together
+6. [05 - Structured and Validated Outputs](05-structured-and-validated-outputs.md) - getting machine-parseable output (JSON) and checking it before you trust it
+7. [06 - Thought Process](06-thought-process.md) - how to verify and reason about AI output
+8. [07 - Sample Prompt](07-sample-prompt.md) - a full case study putting it all together
 
 ## Exercises
 
-Reading about prompting only gets you so far - the `exercises` folder has a hands-on task paired with each file above. Each one asks you to actually run prompts against a real model (ChatGPT, Claude, Gemini, whichever you have) and check the result against a self-check checklist, rather than just reading along. Start with `exercise-0-spot-the-bad-prompt.md` (a quick self-check quiz), then work through the rest in order alongside the numbered files, finishing with `exercise-5-capstone.md`, which has you run the full 8-turn process from `06-sample-prompt.md` yourself on a new problem.
+Reading about prompting only gets you so far - the `exercises` folder has a hands-on task paired with each file above. Each one asks you to actually run prompts against a real model (ChatGPT, Claude, Gemini, whichever you have) and check the result against a self-check checklist, rather than just reading along. Start with `exercise-0-spot-the-bad-prompt.md` (a quick self-check quiz), then work through the rest in order alongside the numbered files, finishing with `exercise-6-capstone.md`, which has you run the full 8-turn process from `07-sample-prompt.md` yourself on a new problem.

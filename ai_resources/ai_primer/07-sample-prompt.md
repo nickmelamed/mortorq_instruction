@@ -163,7 +163,7 @@ Now review the final solution and answer:
 
 Here, we check for any issues, possible improvements, and a basic summary that shows learning outcomes.
 
-Before you consider this done, actually paste the final function into your own environment and run it against the six rows from Turn 7 yourself. The model's conceptual pass/fail answers are a good sanity check, not a substitute for seeing the real output - see Verify, Don't Trust in 05-thought-process.md.
+Before you consider this done, actually paste the final function into your own environment and run it against the six rows from Turn 7 yourself. The model's conceptual pass/fail answers are a good sanity check, not a substitute for seeing the real output - see Verify, Don't Trust in 06-thought-process.md.
 
 ## Recap: Techniques Used Per Turn
 
@@ -186,4 +186,4 @@ You have now seen how prompting can give you much improved outputs - happy promp
 - [WPILib Documentation](https://docs.wpilib.org/) - official docs for the library our robot code actually runs on, useful for real (non made-up) sensor and API references (docs)
 - [pytest: Get Started](https://docs.pytest.org/en/stable/getting-started.html) - for turning Turn 7's conceptual edge cases into real automated tests (docs)
 
-This file is a synthesis, so for the primary sources behind each individual technique used here, see the Resources sections in `02-common-prompts.md` and `04-prompt-engineering.md`.
+This file is a synthesis, so for the primary sources behind each individual technique used here, see the Resources sections in `02-common-prompts.md`, `04-prompt-engineering.md`, and `05-structured-and-validated-outputs.md` (Turn 5's output control).

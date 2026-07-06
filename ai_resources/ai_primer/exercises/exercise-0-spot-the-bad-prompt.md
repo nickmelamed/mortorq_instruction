@@ -44,7 +44,7 @@ Is this code secure? Just answer yes or no.
 <details>
 <summary>Answer</summary>
 
-Bad, on two counts: no code was actually included, and forcing a yes/no answer on an inherently nuanced question (security) invites an overconfident, possibly hallucinated answer instead of a reasoned one. See `00-ai-for-programming.md` on hallucination and `05-thought-process.md` on verifying rather than trusting.
+Bad, on two counts: no code was actually included, and forcing a yes/no answer on an inherently nuanced question (security) invites an overconfident, possibly hallucinated answer instead of a reasoned one. See `00-ai-for-programming.md` on hallucination and `06-thought-process.md` on verifying rather than trusting.
 </details>
 
 ## 4
@@ -82,5 +82,5 @@ That looks right, I'll just trust it and move on.
 <details>
 <summary>Answer</summary>
 
-Not really a prompt so much as a habit to avoid - see "Verify, Don't Trust" in `05-thought-process.md`. Confident-looking output still needs to be run and checked before you rely on it.
+Not really a prompt so much as a habit to avoid - see "Verify, Don't Trust" in `06-thought-process.md`. Confident-looking output still needs to be run and checked before you rely on it.
 </details>

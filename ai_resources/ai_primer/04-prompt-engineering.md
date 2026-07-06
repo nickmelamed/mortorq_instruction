@@ -99,6 +99,8 @@ If you don't want any explanation at all, and just want something you can immedi
 Reply with only the code, in a single Python code block. No explanation, no comments outside the code.
 ```
 
+This same technique is how you'd ask for output in a machine-parseable format like JSON instead of code or prose - `05-structured-and-validated-outputs.md` covers that specifically, including what tends to go wrong and how to check the result before you trust it.
+
 ## Decomposition Prompting
 
 Breaking down the problem into steps can give the model a framework of how to answer your question instead of spewing out a long, drawn-out answer. For instance:
@@ -112,7 +114,7 @@ I need some code that counts the number of odd numbers in a sequence. Follow the
 
 ## Combining Techniques
 
-None of these techniques are mutually exclusive - the strongest prompts usually stack several of them at once (a role, a few constraints, a decomposition step, maybe an exemplar). `06-sample-prompt.md` walks through a full example that does exactly this, so keep an eye out for how many of these techniques show up together in a single prompt.
+None of these techniques are mutually exclusive - the strongest prompts usually stack several of them at once (a role, a few constraints, a decomposition step, maybe an exemplar). `07-sample-prompt.md` walks through a full example that does exactly this, so keep an eye out for how many of these techniques show up together in a single prompt.
 
 ## Resources
 

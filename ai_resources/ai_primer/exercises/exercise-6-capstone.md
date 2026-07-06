@@ -1,6 +1,6 @@
-# Exercise 5: Capstone - Do It Yourself
+# Exercise 6: Capstone - Do It Yourself
 
-`06-sample-prompt.md` walked you through all 8 turns with the prompts already written out. This time, you write every prompt yourself, on a problem the primer never covered, so there's nothing to copy.
+`07-sample-prompt.md` walked you through all 8 turns with the prompts already written out. This time, you write every prompt yourself, on a problem the primer never covered, so there's nothing to copy.
 
 ## Goal
 Run the full 8-turn structure end to end on a new problem, applying the techniques from every prior file.
@@ -19,7 +19,7 @@ Rules to give the model in Turn 1 (don't mention the exception below yet):
 **Save this for Turn 3, don't reveal it up front:** the very first waypoint's `heading_deg` must be exactly `0` (robot always starts facing forward).
 
 ## Steps
-Write your own prompt for each turn. Use `06-sample-prompt.md` as a reference for what each turn is trying to accomplish, not for wording to copy.
+Write your own prompt for each turn. Use `07-sample-prompt.md` as a reference for what each turn is trying to accomplish, not for wording to copy.
 
 1. **Good Context + Constraints:** role, explicit context, constraints, decomposition (rules restated + step-by-step approach, no code yet)
 2. **React to the AI's response:** correct anything it got wrong before moving on
@@ -38,4 +38,4 @@ Once you have a final function, paste it into your own environment and run it ag
 - [ ] Ran the final function myself against the edge cases and confirmed the real output
 
 ## Reflection
-Fill in your own version of the recap table from `06-sample-prompt.md`: which technique(s) did you use on each turn?
+Fill in your own version of the recap table from `07-sample-prompt.md`: which technique(s) did you use on each turn?
