@@ -43,3 +43,9 @@ They aren't really opposed, either: a `CommandScheduler` is, underneath, managin
 ## Putting it together
 
 `java/AutonomousStateMachine.java` implements the `Intake -> Transport -> Score -> Idle` routine as a Java `enum` (one value per state) with a `periodic()`-style update method that runs the current state's logic and checks whether it's time to transition. This same class gets reused directly in `07_logging_observability`, where its transitions get wrapped with structured logging — so it's worth understanding this file well before moving on.
+
+## Resources
+
+- [Game Programming Patterns: State](https://gameprogrammingpatterns.com/state.html) - a full chapter, free online, on the state pattern this unit's enum-based approach is a simplified version of.
+- [Wikipedia: Finite-state machine](https://en.wikipedia.org/wiki/Finite-state_machine) - the formal definition and vocabulary behind states, transitions, and events.
+- [WPILib Command-Based Programming](https://docs.wpilib.org/en/stable/docs/software/commandbased/index.html) - the real framework this unit's "vs. command-based programming" section contrasts against.

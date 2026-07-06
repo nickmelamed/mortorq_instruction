@@ -57,3 +57,17 @@ There's one more piece C++ requires that Java and Python don't: a base class met
 ## Putting it together
 
 `java.ipynb` and `python.ipynb` build the same `Motor` / `TalonMotor` / `SparkMotor` hierarchy idiomatically in each language, then show a loop that treats a mix of motor objects uniformly through polymorphism. You'll notice neither one needs to think about pointers or references at all to make that work. `cpp/Robot.h`, `cpp/Robot.cpp`, and `cpp/main.cpp` build the identical hierarchy for real, and use pointers plus `virtual` methods to get the same uniform-loop behavior — you'll see exactly where C++ has to be explicit about something the other two languages hide from you.
+
+## Resources
+
+- **Java:**
+  - [Oracle Java Tutorials: Interfaces and Inheritance](https://docs.oracle.com/javase/tutorial/java/IandI/index.html) - the official walkthrough of `extends`, `abstract`, and `interface`.
+  - [WPILib `SubsystemBase`](https://docs.wpilib.org/en/stable/docs/software/commandbased/subsystems.html) - the real abstract base class every robot subsystem you write inherits from.
+  - [WPILib `MotorController` interface](https://github.com/wpilibsuite/allwpilib/blob/main/wpilibj/src/main/java/org/wpilib/hardware/motor/MotorController.java) - the real interface unifying Talon, Spark, and Victor motor controllers in WPILib itself.
+- **Python:**
+  - [Python `abc` module docs](https://docs.python.org/3/library/abc.html) - abstract base classes in depth.
+  - [Real Python: Inheritance and Composition](https://realpython.com/inheritance-composition-python/) - a deeper look at when to use inheritance vs. an alternative.
+  - [WPILib `SubsystemBase`](https://docs.wpilib.org/en/stable/docs/software/commandbased/subsystems.html) - the real base class every robot subsystem you write inherits from.
+- **C++:**
+  - [cppreference: `virtual` function specifier](https://en.cppreference.com/w/cpp/language/virtual) - the official reference for the keyword this unit's "just enough pointers and references" section builds up to.
+  - [cppreference: References](https://en.cppreference.com/w/cpp/language/reference) - the other half of "pointer or reference to `Motor`," covered precisely.

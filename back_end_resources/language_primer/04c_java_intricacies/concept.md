@@ -19,3 +19,9 @@ Work through these with a mentor or the rest of your subteam — there's no note
 1. If Java never lets you choose when memory is freed, how would you even begin debugging a Java program that's slowly using more and more memory over time (a "memory leak," even without a `delete` keyword to forget)? What would still have to be true about your code for that to happen?
 2. `04a_cpp_intricacies` argued C++'s manual memory management matters for edge inference because of predictable timing and a tight memory budget. Robot orchestration code (Java, on the roboRIO) also runs on constrained hardware with a real time budget. Why does the tradeoff come out differently for that code than it does for the inference pipeline?
 3. Every `Motor` object in `02_oop_inheritance`'s Java notebook is heap-allocated by the JVM, yet nothing in that notebook ever looks like C++'s pointers or references from that same topic. What is the JVM doing on your behalf, every time you write `Motor motor = new TalonMotor(...)`, that C++ makes you do by hand instead?
+
+## Resources
+
+- [Oracle: Garbage Collection Basics](https://docs.oracle.com/javase/8/docs/technotes/guides/vm/gctuning/basics.html) - a real (more detailed than you need yet) look at how the JVM's garbage collector actually works.
+- [Runtime (Java SE documentation)](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Runtime.html) - `freeMemory()`, `totalMemory()`, and friends, used above.
+- [Baeldung: JVM Garbage Collectors](https://www.baeldung.com/jvm-garbage-collectors) - a more approachable, example-driven tour of the different GC algorithms the JVM can run.

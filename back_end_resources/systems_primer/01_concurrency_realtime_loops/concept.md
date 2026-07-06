@@ -35,3 +35,9 @@ This is also where "loop overrun" stops being an abstract term: WPILib tracks ti
 ## Putting it together
 
 `java/PeriodicLoopDemo.java` simulates the periodic loop itself — a fixed-rate `while` loop, no real robot hardware required — so you can see the timing model directly. `java/BlockingCallBug.java` takes that same loop and breaks it on purpose with a single blocking call, so you can see, in output you can actually read, what a stall looks like and why it happens. Run both; compare the printed tick timings.
+
+## Resources
+
+- [TimedRobot (WPILib API)](https://github.wpilib.org/allwpilib/docs/release/java/edu/wpi/first/wpilibj/TimedRobot.html) - the real class implementing the periodic loop this unit simulates.
+- [Oracle Java Tutorials: Concurrency](https://docs.oracle.com/javase/tutorial/essential/concurrency/) - the official introduction to threads and the hazards of sharing data between them.
+- [Wikipedia: Race condition](https://en.wikipedia.org/wiki/Race_condition) - a precise definition and further examples of the bug this unit's "Threads, briefly" section warns about.

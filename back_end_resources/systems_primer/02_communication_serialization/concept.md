@@ -23,3 +23,9 @@ Recall the languages primer's capstone pipeline: Python trains a model, C++ runs
 ## Putting it together
 
 `java/NetworkTablesDemo.java` demonstrates publish/subscribe using a simplified, in-memory stand-in for real NetworkTables (no live robot or driver station connection needed to run it — see its header comment for what the real API call looks like in its place). `cpp/serial_demo.cpp` shows a minimal simulated serial write. `cpp/json_serialize.cpp` builds and serializes a detection-result struct to JSON by hand, mirroring the exact data a vision coprocessor would need to hand off. Build the C++ files with `make` in `cpp/` — see that folder's `Makefile`.
+
+## Resources
+
+- [What is NetworkTables?](https://docs.wpilib.org/en/stable/docs/software/networktables/networktables-intro.html) - the official introduction to the real publish/subscribe system `NetworkTablesDemo.java` stands in for.
+- [JSON](https://www.json.org/json-en.html) - the format's own reference site: a complete description of the syntax in about one page.
+- [Protocol Buffers](https://protobuf.dev/) - the binary serialization format `concept.md` mentions as an alternative to JSON, from the team that built it.

@@ -19,3 +19,9 @@ With a centralized pattern, this becomes a single flag: `java/ConfigPatternDemo.
 ## Putting it together
 
 `java/Constants.java` is a WPILib-style constants file, organized by subsystem. `java/ConfigPatternDemo.java` shows code consuming those constants instead of hardcoding values, plus a brief demonstration of switching between two named profiles to support a practice bot and a competition bot side by side.
+
+## Resources
+
+- [WPILib: Structuring a Command-Based Robot Project](https://docs.wpilib.org/en/stable/docs/software/commandbased/structuring-command-based-project.html) - the official docs describing the real `Constants.java` convention this unit's file follows, subsystem-grouped inner classes and all.
+- [The Twelve-Factor App: Config](https://12factor.net/config) - a widely-referenced methodology essay on keeping configuration separate from code, from outside the FRC world entirely.
+- [Wikipedia: Magic number (programming)](https://en.wikipedia.org/wiki/Magic_number_(programming)) - a fuller catalog of the anti-pattern this unit opens with.

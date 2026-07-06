@@ -24,3 +24,9 @@ The FRC Driver Station application automatically records a log for every match a
 ## Putting it together
 
 `java/StructuredLoggingDemo.java` reuses `03_state_machines/java/AutonomousStateMachine.java` directly — the same class `06_testing_debugging` unit-tested — and attaches a structured logger to its transition listener (the same publish/subscribe hook used throughout this primer). Instead of the state machine's own scattered `System.out.println` calls being your only record, every transition now produces one consistent, structured log line: timestamp, level, message, and the specific from/to states involved.
+
+## Resources
+
+- [WPILib: Driver Station Log File Viewer](https://docs.wpilib.org/en/stable/docs/software/driverstation/driver-station-log-viewer.html) - the official docs for the real log this unit's "Reading driver station logs" section describes.
+- [Google SRE Book: Monitoring Distributed Systems](https://sre.google/sre-book/monitoring-distributed-systems/) - Google's own writeup on why consistent, structured signals matter for finding out what actually happened, at a much larger scale than one robot.
+- [Charity Majors: Live Your Best Life With Structured Events](https://charity.wtf/2022/08/15/live-your-best-life-with-structured-events/) - a well-known, opinionated blog post on why structured events beat scattered text logs, from one of the more prominent voices in observability engineering.

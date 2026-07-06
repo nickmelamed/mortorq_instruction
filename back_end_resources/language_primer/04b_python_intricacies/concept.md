@@ -23,3 +23,9 @@ None of this means Python is "better" in some absolute sense. Plenty of producti
 ## Putting it together
 
 `python.ipynb` walks through `numpy` and `pandas` basics, includes a small concrete duck typing demonstration, and ends with a minimal training loop using `scikit-learn` on a toy robotics dataset — the same kind of loop, just larger and on real data, that you'll build again in `05_capstone_pipeline`.
+
+## Resources
+
+- [numpy Quickstart](https://numpy.org/doc/stable/user/quickstart.html) - the official basics of arrays and vectorized operations.
+- [10 Minutes to pandas](https://pandas.pydata.org/docs/user_guide/10min.html) - a fast tour of `DataFrame`/`Series` operations.
+- [scikit-learn: `LogisticRegression`](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html) - the model used above, and what its hyperparameters control.

@@ -23,3 +23,9 @@ You don't need to master these yet, just recognize the words when they show up a
 **Static vs. dynamic typing.** In a statically typed language (Java, C++), every variable's type is fixed and checked *before* the program ever runs — if you try to put text into a variable declared to hold a number, the compiler stops you before you can even build the program. In a dynamically typed language (Python), a variable's type is only checked *while the program is running*, and the same variable can hold a number at one moment and text the next. Static typing catches a whole category of mistakes early and makes large codebases (like a season's worth of robot code) easier to maintain; dynamic typing makes quick experimentation (like trying out an idea in a training notebook) faster to write.
 
 Keep both distinctions in mind as you move through the next few topics, and you will begin to understand why each language looks the way it does. 
+
+## Resources
+
+- **Java:** [What is WPILib?](https://docs.wpilib.org/en/latest/docs/software/what-is-wpilib.html) - the official orientation to the library and toolchain Java's role in this curriculum is built around.
+- **Python:** [Python.org: About Python](https://www.python.org/about/) - the language's own pitch for itself, from the source.
+- **C++:** [isocpp.org](https://isocpp.org/) - the Standard C++ Foundation's home page: news, FAQs, and the people who steward the language.

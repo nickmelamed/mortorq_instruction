@@ -31,3 +31,9 @@ The bridge between the two is WPILib's `DriverStation.reportError(String, boolea
 ## Putting it together
 
 `java/SensorFaultHandlingDemo.java` wraps a simulated sensor read (one that sometimes returns a stale or missing value, on purpose) with exactly this pattern: check whether the reading is fresh and present, and if it isn't, fall back to a safe default instead of letting a `null` or a stale value flow into whatever would have used it next.
+
+## Resources
+
+- [DriverStation (WPILib API)](https://github.wpilib.org/allwpilib/docs/release/java/edu/wpi/first/wpilibj/DriverStation.html) - the real class behind `reportError`/`reportWarning`, referenced above.
+- [Martin Fowler: Circuit Breaker](https://martinfowler.com/bliki/CircuitBreaker.html) - a related fault-tolerance pattern for a different failure shape: stop calling something that's already failing, instead of retrying it forever.
+- [Wikipedia: Defensive programming](https://en.wikipedia.org/wiki/Defensive_programming) - the general discipline this unit's null/bounds checks, timeouts, and fallback behavior are all specific instances of.

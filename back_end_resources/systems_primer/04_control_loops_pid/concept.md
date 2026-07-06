@@ -23,3 +23,9 @@ You are not expected to become a PID tuning expert from this paragraph, or this 
 ## Putting it together
 
 `java/PidLoopDemo.java` implements a minimal PID controller from scratch (mirroring the shape of WPILib's own `PIDController` class) and runs it against a simulated system: no real motor or sensor, just a mock value that responds to the controller's output a little bit each tick, so you can watch it converge toward a setpoint over time, print by print.
+
+## Resources
+
+- [WPILib: Introduction to PID](https://docs.wpilib.org/en/stable/docs/software/advanced-controls/introduction/introduction-to-pid.html) - the official conceptual walkthrough of P, I, and D.
+- [WPILib PIDController](https://docs.wpilib.org/en/stable/docs/software/advanced-controls/controllers/pidcontroller.html) - the real class `PidLoopDemo.java`'s `SimplePIDController` is modeled after.
+- [PID Without a PhD](https://www.dsprelated.com/showarticle/943/pid-without-a-phd) - Tim Wescott's widely-read, practically-minded introduction to actually tuning a PID loop, for whenever you're ready to go beyond "recognize the shape."

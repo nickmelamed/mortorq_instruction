@@ -21,3 +21,9 @@ None of these topics are unique to robots. Every one of them is a real backend c
 ## How to work through this
 
 Go in order. Topics `02` through `08` lean on each other and on shared examples — the state machine you build in `03` shows back up, wired to a logger, in `07`. Topic `09` is standalone and can wait until last. Most examples here are Java, because that's the language your robot code actually runs in; a few pull in C++ or Python where the concept genuinely lives there instead (serialization at the coprocessor boundary, a quick REST example). Read each `concept.md` before touching its code — the code is there to make the idea concrete, not to teach it from scratch.
+
+## Resources
+
+- [What is WPILib?](https://docs.wpilib.org/en/latest/docs/software/what-is-wpilib.html) - the official orientation to the library every topic in this primer builds on.
+- [How Complex Systems Fail](https://how.complexsystems.fail/) - Richard Cook's classic essay on why failures in complex systems happen, and why they're never one single cause. The mindset underneath this whole primer.
+- [Google SRE Book: Table of Contents](https://sre.google/sre-book/table-of-contents/) - Google's own field guide to running production software reliably; the FRC version of this discipline is smaller in scope but the same in spirit.

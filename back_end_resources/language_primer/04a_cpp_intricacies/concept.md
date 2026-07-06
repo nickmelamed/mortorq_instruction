@@ -41,3 +41,9 @@ This whole topic exists in this curriculum because of `05_capstone_pipeline`. A 
 - **Precise memory footprint.** Edge coprocessors typically have far less RAM than a laptop. Knowing exactly when memory is allocated and freed, instead of trusting a garbage collector to eventually notice something is unreachable and clean it up "at some point", is what makes it possible to reason about whether your inference pipeline will actually fit in the memory budget you have, with headroom to spare, instead of finding out the hard way at competition.
 
 None of this makes C++ strictly "better" than Java or Python: it makes it the right tool for one specific job in this stack, at the cost of exactly the manual bookkeeping this topic just walked through.
+
+## Resources
+
+- [cppreference: RAII](https://en.cppreference.com/w/cpp/language/raii) - the official reference for the pattern this unit's whole approach to safe cleanup is built on.
+- [cppreference: `std::unique_ptr`](https://en.cppreference.com/w/cpp/memory/unique_ptr) - the real type behind this unit's `unique_ptr` discussion, including the move-only mechanics that prevent double ownership.
+- [Google C++ Style Guide: Ownership and Smart Pointers](https://google.github.io/styleguide/cppguide.html#Ownership_and_Smart_Pointers) - a widely-used industry style guide's take on when to reach for `unique_ptr` vs. `shared_ptr` vs. a raw pointer at all.

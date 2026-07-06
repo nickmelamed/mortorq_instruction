@@ -25,3 +25,14 @@ The trained model itself needs to survive the handoff from step 1 to step 2 abov
 ## Putting it together
 
 Work through this topic in order: `python_train.ipynb` first (it produces the `.onnx` file the next step depends on), then `cpp/infer.h`/`cpp/infer.cpp` (build and run it against that exported model), then `java/OrchestratorExample.java` (see how the result would actually be consumed on the robot). `README.md` in this folder ties all three pieces together with the exact commands to run each step and a diagram of how they'd map onto a real robot's hardware.
+
+## Resources
+
+- **Python:**
+  - [PyTorch: `torch.onnx.export`](https://pytorch.org/docs/stable/onnx.html) - the official export API used above.
+  - [ONNX Runtime Python API](https://onnxruntime.ai/docs/api/python/) - what we used to sanity-check the export.
+  - [ONNX format overview](https://onnx.ai/onnx/intro/) - what's actually inside a `.onnx` file.
+- **C++:**
+  - [ONNX Runtime: Get Started with C++](https://onnxruntime.ai/docs/get-started/with-cpp.html) - the official guide to the exact API `cpp/infer.cpp` uses to load and run the exported model.
+- **Java:**
+  - [WPILib: Writing a Simple NetworkTables Robot Program](https://docs.wpilib.org/en/stable/docs/software/networktables/robot-program.html) - what `OrchestratorExample.java` would actually read from, instead of the simulated frames it uses here, in a real robot integration.

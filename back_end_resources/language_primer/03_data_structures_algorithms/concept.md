@@ -66,3 +66,19 @@ Big-O isn't about memorizing which structure is "best" — it's the tool for ask
 ## Putting it together
 
 `java.ipynb` and `python.ipynb` build this exact fault-stack / action-queue / CAN-ID-lookup set using each language's built-in collection types, add a hand-built binary search tree over the same CAN ID table, and run a three-way Big-O demo comparing a linear scan, binary search over sorted data, and a hashmap lookup as the amount of data grows. `cpp/dsa.h` and `cpp/dsa.cpp` build the same structures. For the stack and the tree specifically, build them from scratch out of nodes connected by pointers, which is exactly the pointer and reference material from `02_oop_inheritance` put to real, practical use.
+
+## Resources
+
+- **Java:**
+  - [Oracle Java Tutorials: The Collections Framework](https://docs.oracle.com/javase/tutorial/collections/index.html) - `Deque`, `HashMap`, and the rest of Java's built-in data structures.
+  - [Big-O Cheat Sheet](https://www.bigocheatsheet.com/) - time/space complexity for common data structures and algorithms.
+  - [GeeksforGeeks: Binary Search Tree](https://www.geeksforgeeks.org/binary-search-tree-data-structure/) - a deeper look at BST operations, including the delete/rebalancing cases this notebook doesn't cover.
+  - [WPILib `SequentialCommandGroup`](https://docs.wpilib.org/en/stable/docs/software/commandbased/command-groups.html) - the real queue-like structure behind chained autonomous actions on the robot.
+- **Python:**
+  - [Python `collections.deque` docs](https://docs.python.org/3/library/collections.html#collections.deque) - the real implementation behind the queue example above.
+  - [Big-O Cheat Sheet](https://www.bigocheatsheet.com/) - time/space complexity for common data structures and algorithms.
+  - [GeeksforGeeks: Binary Search Tree](https://www.geeksforgeeks.org/binary-search-tree-data-structure/) - a deeper look at BST operations, including the delete/rebalancing cases this notebook doesn't cover.
+  - [WPILib `SequentialCommandGroup`](https://docs.wpilib.org/en/stable/docs/software/commandbased/command-groups.html) - the real queue-like structure behind chained autonomous actions on the robot.
+- **C++:**
+  - [cppreference: Containers library](https://en.cppreference.com/w/cpp/container) - the official overview of `std::deque` and friends, the built-in equivalents of the structures `dsa.h`/`dsa.cpp` build by hand.
+  - [cppreference: `std::deque`](https://en.cppreference.com/w/cpp/container/deque) - the specific container backing the queue example, if you'd reach for the standard library instead of hand-rolled nodes.

@@ -33,3 +33,9 @@ $ cd java
 $ javac -cp junit-4.13.2.jar:hamcrest-core-1.3.jar -d bin ExampleUnitTest.java ../../03_state_machines/java/AutonomousStateMachine.java
 $ java -cp bin:junit-4.13.2.jar:hamcrest-core-1.3.jar org.junit.runner.JUnitCore ExampleUnitTest
 ```
+
+## Resources
+
+- [JUnit 4](https://junit.org/junit4/) - the official site for the testing framework `ExampleUnitTest.java` uses.
+- [WPILib: Introduction to Robot Simulation](https://docs.wpilib.org/en/stable/docs/software/wpilib-tools/robot-simulation/introduction.html) - the real simulation framework `SimTestDemo.java` is a simplified stand-in for.
+- [Martin Fowler: Test Pyramid](https://martinfowler.com/bliki/TestPyramid.html) - why you want many fast, narrow tests (like this unit's) and far fewer slow, broad ones.

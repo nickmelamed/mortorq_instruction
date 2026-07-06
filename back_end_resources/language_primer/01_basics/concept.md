@@ -48,3 +48,17 @@ Every control flow structure you will ever use is some combination of these thre
 The two examples from the top of this document use all four ideas together: the match-scoring calculator holds **variables** (goal counts, whether the robot climbed) with clear **types** (integers, a boolean) and a **function** that turns them into a score, while the rangefinder example adds **control flow** — an `if` inside a loop that runs continuously — to call a similar function every cycle and decide whether the reading means "stop."
 
 Once you've read this, go work through `java.ipynb` and `python.ipynb`, and then `cpp/basics.cpp`, to see this exact example written for real in each language. Pay attention to what each language makes you spell out explicitly versus what it lets you skip — that gap is where a language's personality shows up.
+
+## Resources
+
+- **Java:**
+  - [Oracle Java Tutorials: Language Basics](https://docs.oracle.com/javase/tutorial/java/nutsandbolts/index.html) - the official walkthrough of variables, types, and control flow.
+  - [WPILib Command-Based Programming docs](https://docs.wpilib.org/en/stable/docs/software/commandbased/index.html) - how these basics scale up into the framework your robot code actually uses.
+  - [IJava kernel](https://github.com/SpencerPark/IJava) - the Jupyter kernel powering `java.ipynb`, if you're curious how Java code cells run outside a normal `.java` file.
+- **Python:**
+  - [The Python Tutorial](https://docs.python.org/3/tutorial/) - the official start-to-finish walkthrough of the language.
+  - [Python `for` loops](https://docs.python.org/3/tutorial/controlflow.html#for-statements) - how iteration over collections works in more depth.
+  - [WPILib docs](https://docs.wpilib.org/) - for how these same ideas (control loops, subsystems) show up on the actual robot in Java.
+- **C++:**
+  - [Learn C++: Introduction to C++](https://www.learncpp.com/cpp-tutorial/introduction-to-cplusplus/) - a free, thorough tutorial series covering exactly the ground `cpp/basics.cpp` assumes.
+  - [cppreference: Basic concepts](https://en.cppreference.com/w/cpp/language/basic_concepts) - the terse, precise official reference for the same variable/type/control-flow vocabulary, once you want the exact rules instead of a tutorial's pace.

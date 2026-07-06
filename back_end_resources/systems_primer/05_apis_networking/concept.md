@@ -38,3 +38,10 @@ Sockets, how a request actually travels over a network, TCP/IP, ports, and real 
 ## Putting it together
 
 `python/simple_server.ipynb` starts a minimal HTTP server with a `GET /status` endpoint (returning mock robot status as JSON) and a `POST /autonomous` endpoint (accepting a new autonomous routine selection), then makes real requests against it using the `requests` library, all within the same notebook, so you can watch the full round trip happen.
+
+## Resources
+
+- [MDN: HTTP request methods](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods) - GET, POST, and the others, explained in more depth.
+- [MDN: HTTP response status codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status) - the full list, beyond the three used here.
+- [Flask Quickstart](https://flask.palletsprojects.com/en/stable/quickstart/) - the web framework the notebook builds on.
+- [`requests` quickstart](https://requests.readthedocs.io/en/latest/user/quickstart/) - the client library used above.
