@@ -2,11 +2,11 @@
 
 ## Scope note
 
-This topic is deliberately shallow. A separate, larger networking/hardware unit covers sockets, CAN, and hardware communication protocols in real depth — this topic exists only to give you enough of a mental model to bridge into the **frontend unit** that sits alongside this primer. If you want the deeper mechanics, that's where to find them; don't expect them here.
+This topic is deliberately shallow. A separate, larger networking/hardware unit covers sockets, CAN, and hardware communication protocols in real depth. This is really meant to give you a soft intro in things like API calls. If you want the deeper mechanics, that's where to find them; don't expect them here.
 
 ## Why this comes up at all
 
-Everything else in this primer has been about the robot talking to itself: subsystems, NetworkTables, a coprocessor. But a frontend unit is coming up next, and a frontend — a dashboard, a scouting app, a web tool your team builds — needs some way to talk to a backend. The most common way anything on the web talks to a backend is **HTTP** (HyperText Transfer Protocol), and the pattern built on top of it that you'll hear constantly is **REST** (a set of conventions for organizing that communication around resources and standard verbs). This topic is just enough of both to make sense of what the frontend unit will build on top of.
+Everything else in this primer has been about the robot talking to itself: subsystems, NetworkTables, a coprocessor. But for front-end work — a dashboard, a scouting app, a web tool — there has to be some way to talk to a backend. The most common way anything on the web talks to a backend is **HTTP** (HyperText Transfer Protocol), and the pattern built on top of it that you'll hear constantly is **REST** (a set of conventions for organizing that communication around resources and standard verbs). This topic is just enough of both to make sense of what the frontend unit will build on top of.
 
 ## Request/response, verbs, and status codes
 
@@ -27,7 +27,7 @@ You've almost certainly seen `404` before, in a browser. That's this same system
 
 ## A concrete picture
 
-Imagine a dashboard that shows your robot's current status during a match: battery voltage, which autonomous routine is selected, whether a sensor is reporting healthy. That dashboard (the client) would send a `GET` request to some backend endpoint — say, `/status` — and get back a response whose body is the current status, formatted as JSON (the same serialization idea from `02_communication_serialization`, just carried over HTTP instead of NetworkTables or a raw socket). If the dashboard needed to change something on the robot — selecting a different autonomous routine before a match — it might send a `POST` request instead, with the new selection in the request body.
+Imagine our Elastic dashboard that shows your robot's current status during a match: battery voltage, which autonomous routine is selected, whether a sensor is reporting healthy. That dashboard (the client) would send a `GET` request to some backend endpoint — say, `/status` — and get back a response whose body is the current status, formatted as JSON (the same serialization idea from `02_communication_serialization`, just carried over HTTP instead of NetworkTables or a raw socket). If the dashboard needed to change something on the robot — selecting a different autonomous routine before a match — it might send a `POST` request instead, with the new selection in the request body.
 
 This is exactly the shape you'll build on top of in the frontend unit: a frontend that renders whatever data a `GET` request returns, and triggers backend actions with a `POST`.
 
