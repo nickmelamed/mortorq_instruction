@@ -10,11 +10,11 @@
 // code before every practice session or match. A real team with a physical
 // difference they can read at startup (a jumper wire, a DIO pin tied high
 // or low on one robot and not the other) could instead set this from that
-// reading at boot time, so the exact same *compiled* code works correctly
-// on whichever robot it happens to be running on -- see ConfigPatternDemo.java.
+// reading at boot time, so the exact same compiled code works correctly
+// on whichever robot it happens to be running on. See ConfigPatternDemo.java.
 public final class Constants {
 
-    private Constants() {} // never instantiated -- this class is just a namespace for constants
+    private Constants() {} // just a namespace for constants
 
     public enum RobotProfile {
         PRACTICE_BOT,
@@ -27,8 +27,7 @@ public final class Constants {
         private DrivetrainConstants() {}
 
         // The practice bot's chassis measures slightly differently from the
-        // competition bot's -- exactly the kind of value that used to mean
-        // hand-editing code before swapping which robot you deploy to.
+        // competition bot's exactly, hence the profile switch 
         public static final double WHEEL_DIAMETER_INCHES =
             (ACTIVE_PROFILE == RobotProfile.COMP_BOT) ? 4.00 : 3.85;
 
@@ -53,7 +52,7 @@ public final class Constants {
         // competition bot's, even running the same code.
         public static final double KP = (ACTIVE_PROFILE == RobotProfile.COMP_BOT) ? 0.060 : 0.050;
         public static final double KI = 0.020;
-        public static final double KD = 0.010;
+        public static final double KD = 0.006; // see 04_control_loops_pid's PidLoopDemo.java for why not 0.01
 
         public static final double SETPOINT_DEGREES = 90.0;
     }

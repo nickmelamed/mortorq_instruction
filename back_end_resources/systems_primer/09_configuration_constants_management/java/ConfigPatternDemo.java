@@ -2,7 +2,7 @@
 //
 // Every value below is read from Constants rather than hardcoded here --
 // that's the entire pattern. Compare how little this file says about
-// *what the numbers are*: it just names which constant it needs, and
+// what the numbers are: it just names which constant it needs, and
 // Constants.java is the one place that actually documents and owns each value.
 //
 // Compile and run directly, no dependencies:
@@ -15,8 +15,7 @@ public class ConfigPatternDemo {
         System.out.println();
 
         // Drivetrain code reaches for Constants.DrivetrainConstants instead
-        // of a bare literal -- if this number is ever wrong, there's exactly
-        // one place to go fix it, and every caller picks up the fix.
+        // of a bare literal. If something's wrong, easy fix. 
         double wheelCircumferenceInches =
             Constants.DrivetrainConstants.WHEEL_DIAMETER_INCHES * Math.PI;
         System.out.printf("wheel diameter:      %.2f in%n", Constants.DrivetrainConstants.WHEEL_DIAMETER_INCHES);
@@ -34,9 +33,8 @@ public class ConfigPatternDemo {
 
         // The point of this whole pattern: flip Constants.ACTIVE_PROFILE
         // from COMP_BOT to PRACTICE_BOT (and recompile) and every value
-        // above that depends on it -- wheel diameter, PID gains -- updates
-        // consistently, with no other line in this file, or anywhere else
-        // in the codebase, needing to change at all.
+        // above that depends on it updates with no other line in this file,
+        // or anywhere else in the codebase, needing to change at all.
         System.out.println();
         System.out.println("Switching Constants.ACTIVE_PROFILE to PRACTICE_BOT would change "
             + "WHEEL_DIAMETER_INCHES and KP above (and anything else that depends on the profile), "
