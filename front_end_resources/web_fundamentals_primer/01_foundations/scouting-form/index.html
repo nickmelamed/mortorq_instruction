@@ -2,33 +2,67 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Scouting Form</title>
+  <title>1515 Match Scouting</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-<div>1515 Match Scouting</div>
+  <header>
+    <h1>1515 Match Scouting</h1>
+    <p>Foundations version — no framework, no network, entries live only in this tab until you refresh.</p>
+  </header>
 
-<div>
-  <div>Team Number</div>
-  <div><input type="text" id="team-number"></div>
+  <main>
+    <form id="scouting-form" novalidate>
+      <fieldset>
+        <legend>New entry</legend>
 
-  <div>Match Number</div>
-  <div><input type="text" id="match-number"></div>
+        <div class="field">
+          <label for="team-number">Team number</label>
+          <input type="text" id="team-number" name="team-number" inputmode="numeric" autocomplete="off" />
+          <p class="error" id="team-number-error"></p>
+        </div>
 
-  <div>Alliance</div>
-  <div><input type="text" id="alliance"></div>
+        <div class="field">
+          <label for="match-number">Match number</label>
+          <input type="text" id="match-number" name="match-number" inputmode="numeric" autocomplete="off" />
+          <p class="error" id="match-number-error"></p>
+        </div>
 
-  <div>Scouter Name</div>
-  <div><input type="text" id="scouter-name"></div>
+        <div class="field">
+          <label for="alliance">Alliance</label>
+          <select id="alliance" name="alliance">
+            <option value="red">Red</option>
+            <option value="blue">Blue</option>
+          </select>
+        </div>
 
-  <div>Notes</div>
-  <div><input type="text" id="notes"></div>
+        <div class="field">
+          <label for="scouter-name">Scouter name</label>
+          <input type="text" id="scouter-name" name="scouter-name" autocomplete="off" />
+          <p class="error" id="scouter-name-error"></p>
+        </div>
 
-  <div><input type="submit" value="Submit"></div>
-</div>
+        <div class="field field--wide">
+          <label for="notes">Notes</label>
+          <textarea id="notes" name="notes" rows="3"></textarea>
+        </div>
 
-<div>Recent Entries</div>
-<div id="entries"></div>
+        <div class="field field--actions">
+          <button type="submit" id="submit-button">Submit</button>
+          <span id="status" role="status" aria-live="polite"></span>
+        </div>
+      </fieldset>
+    </form>
 
+    <section aria-labelledby="entries-heading">
+      <h2 id="entries-heading">Recent entries</h2>
+      <div id="entries" class="entries-grid">
+        <p id="entries-empty">No entries yet — submit the form above.</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
 </body>
 </html>
