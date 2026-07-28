@@ -10,15 +10,31 @@ import { useEffect, useState } from "react";
 import { Header } from "./components/Header.tsx";
 import { ScoutingForm } from "./components/ScoutingForm.tsx";
 import { EntryList } from "./components/EntryList.tsx";
-import type { ScoutingEntry, StoredEntry } from "./types.ts";
+import type { StoredEntry } from "./types.ts";
+import { fetchRecentEntries, isSupabaseConfigured } from "./api/supabase.ts";
 
 export function App() {
   const [entries, setEntries] = useState<StoredEntry[]>([]);
+  const [loadError, setLoadError] = useState<string | null>(null);
 
-  function handleEntrySaved(entry: ScoutingEntry) {
-    const stored: StoredEntry = { ...entry, id: crypto.randomUUID() };
-    setEntries((prev) => [stored, ...prev]);
+  function handleEntrySaved(entry: StoredEntry) {
+    setEntries((prev) => [entry, ...prev]);
   }
+
+  // Load whatever's already in the database once, on mount. If Supabase
+  // isn't configured, this is a no-op and the app behaves exactly like
+  // web_fundamentals_primer's version: in-memory only, empty on load.
+  // This is the actual payoff of persisting data at all -- refresh the
+  // page and your entries are still here.
+  useEffect(() => {
+    if (!isSupabaseConfigured) return;
+
+    fetchRecentEntries()
+      .then((fetched) => setEntries(fetched))
+      .catch((error) => {
+        setLoadError(error instanceof Error ? error.message : "Could not load saved entries.");
+      });
+  }, []);
 
   // Synchronizing with something outside React (document.title) -- the
   // textbook reason useEffect exists. No cleanup needed: setting a title
@@ -35,6 +51,12 @@ export function App() {
         subtitle="React version — the same form, now built from components instead of hand-written DOM calls."
       />
       <main>
+        <p className="data-source-note">
+          {isSupabaseConfigured
+            ? "Connected to Supabase — entries persist across refreshes."
+            : "Not connected to a database — entries only last as long as this tab is open. See 02_data_beyond_the_spreadsheet/concept.md."}
+        </p>
+        {loadError && <p className="team-lookup-error">{loadError}</p>}
         <ScoutingForm onEntrySaved={handleEntrySaved} />
         <EntryList entries={entries} />
       </main>

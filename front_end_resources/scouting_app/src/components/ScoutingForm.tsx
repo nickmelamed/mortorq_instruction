@@ -7,9 +7,9 @@
 // alone couldn't do this job.
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import type { ScoutingEntry } from "../types.ts";
+import type { ScoutingEntry, StoredEntry } from "../types.ts";
 import { validateEntry } from "../validation.ts";
-import { fakeSubmitToServer } from "../api/scouting.ts";
+import { saveEntry } from "../api/scouting.ts";
 import { TeamLookup } from "./TeamLookup.tsx";
 
 const emptyDraft: ScoutingEntry = {
@@ -24,7 +24,9 @@ interface ScoutingFormProps {
   // The "events up" half of one-way data flow: ScoutingForm doesn't
   // decide what happens to a saved entry -- it hands the finished entry
   // back to whoever rendered it, via a function passed in as a prop.
-  onEntrySaved: (entry: ScoutingEntry) => void;
+  // saveEntry() (real Supabase insert or in-memory fallback) is what
+  // decides the entry's id now, not App -- see api/scouting.ts.
+  onEntrySaved: (entry: StoredEntry) => void;
 }
 
 export function ScoutingForm({ onEntrySaved }: ScoutingFormProps) {
@@ -75,13 +77,23 @@ export function ScoutingForm({ onEntrySaved }: ScoutingFormProps) {
     setSaving(true);
     setStatus("Saving...");
 
-    const saved = await fakeSubmitToServer(result.entry);
-    onEntrySaved(saved);
-
-    setStatus("Saved.");
-    setSaving(false);
-    setDraft(emptyDraft);
-    setTimeout(() => setStatus(""), 2000);
+    // Unlike fakeSubmitToServer, saveEntry can genuinely fail now (a real
+    // network call to Supabase can time out, get rejected, etc.) -- so
+    // this needs a real error path, not just a success path. On failure,
+    // the draft is deliberately left exactly as it was: a scout who just
+    // typed three sentences of notes should never lose them because a
+    // request failed.
+    try {
+      const saved = await saveEntry(result.entry);
+      onEntrySaved(saved);
+      setStatus("Saved.");
+      setDraft(emptyDraft);
+      setTimeout(() => setStatus(""), 2000);
+    } catch (error) {
+      setStatus(error instanceof Error ? error.message : "Could not save this entry.");
+    } finally {
+      setSaving(false);
+    }
   }
 
   return (
