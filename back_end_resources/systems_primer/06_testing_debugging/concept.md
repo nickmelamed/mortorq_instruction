@@ -34,6 +34,8 @@ $ javac -cp junit-4.13.2.jar:hamcrest-core-1.3.jar -d bin ExampleUnitTest.java .
 $ java -cp bin:junit-4.13.2.jar:hamcrest-core-1.3.jar org.junit.runner.JUnitCore ExampleUnitTest
 ```
 
+This unit teaches the *mechanics*: JUnit and WPILib simulation specifically. The underlying philosophy of what makes a test worth having at all, and a repeatable method for debugging any bug in any language, live in `general_programming_resources/07_testing_philosophy` and `general_programming_resources/06_debugging_methodology`.
+
 ## Resources
 
 - [JUnit 4](https://junit.org/junit4/) - the official site for the testing framework `ExampleUnitTest.java` uses.

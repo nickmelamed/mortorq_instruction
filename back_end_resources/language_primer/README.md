@@ -40,3 +40,4 @@ Work through the topics in numeric order. `01`–`03` build on each other direct
 - **Python notebooks** run on a standard Jupyter Python 3 kernel with `numpy`, `pandas`, `scikit-learn`, and `torch` available.
 - **Java notebooks** run on the [IJava](https://github.com/SpencerPark/IJava) Jupyter kernel (a real JShell-backed JDK, not simulated Java) — you'll need a JDK installed and the IJava kernel registered with Jupyter to run them.
 - **C++ files** need a C++17-capable compiler (`g++` or `clang++`) and `make`. `05_capstone_pipeline/cpp` additionally links against [ONNX Runtime](https://onnxruntime.ai/) — see that topic's `README.md` for install instructions.
+- If you want to understand what `pip install` and similar setup commands are actually doing, see `general_programming_resources/05_dependency_management`.

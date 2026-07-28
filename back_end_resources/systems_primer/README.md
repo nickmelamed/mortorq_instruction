@@ -35,7 +35,7 @@ Work through `00` through `08` in numeric order — they build on shared context
 ## What this primer intentionally leaves out
 
 - **Git and version control** has its own dedicated unit.
-- **Dependency management and documentation practices** live in the main programming unit — they apply to frontend work just as much as backend work.
+- **Dependency management and documentation practices** live in `general_programming_resources` (`05_dependency_management`, `04_documentation`) — they apply to frontend work just as much as backend work.
 - **Deep networking and hardware communication** (sockets, the details of CAN/serial protocols) belong to a separate, larger networking/hardware unit. `05_apis_networking` only touches networking at the conceptual level, as a bridge to the frontend unit.
 
 ## Setup notes

@@ -42,7 +42,7 @@ The one precondition that makes this work is that the data has to already be sor
 
 ## Big-O: How "fast" and "slow" get made precise
 
-**Big-O notation** describes how the *cost* of an operation grows as the *amount of data* grows. This is not about how many milliseconds it takes on one specific machine, but the underlying shape of the growth. You'll see three shapes constantly:
+**Big-O notation** describes how the *cost* of an operation grows as the *amount of data* grows. This is not about how many milliseconds it takes on one specific machine, but the underlying shape of the growth. (If you want a gentler, notation-free warm-up to this idea first, `general_programming_resources/12_complexity_performance_intuition` covers the same instinct — noticing when a nested loop's cost is going to blow up — without the formal notation below.) You'll see three shapes constantly:
 
 - **O(1) — constant time.** The cost doesn't depend on how much data there is. A hashmap lookup by key is (on average) O(1): whether you have 5 entries or 5,000, finding the one you want takes roughly the same amount of work.
 - **O(log n) — logarithmic time.** The cost grows, but much slower than the data does — every *doubling* of the data adds only one more step. Binary search (and a balanced BST lookup) is O(log n): searching 1,000 sorted entries takes about 10 comparisons, and searching 1,000,000 takes only about 20.
