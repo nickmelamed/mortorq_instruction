@@ -1,0 +1,148 @@
+/* Same box-model discipline as scouting_app/scouting-form/styles.css --
+   box-sizing: border-box everywhere, flexbox for one-dimensional layout
+   (the nav, the fact list), grid for genuinely two-dimensional layout
+   (the sponsor cards). */
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --color-bg: #f7f7f8;
+  --color-surface: #ffffff;
+  --color-border: #d7d7db;
+  --color-text: #1c1c1e;
+  --color-muted: #6b6b70;
+  --color-accent: #2a5adf;
+  --radius: 8px;
+  --gap: 1rem;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+header {
+  padding: 1.5rem 2rem 0;
+}
+
+header h1 {
+  margin: 0 0 1rem;
+}
+
+main {
+  padding: 1.5rem 2rem 3rem;
+  max-width: 800px;
+}
+
+footer {
+  padding: 1.5rem 2rem;
+  border-top: 1px solid var(--color-border);
+  color: var(--color-muted);
+  font-size: 0.85rem;
+}
+
+/* Flexbox: the nav is a one-dimensional row of buttons. */
+nav ul {
+  display: flex;
+  gap: 0.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.nav-link {
+  border: none;
+  background: none;
+  font: inherit;
+  padding: 0.6rem 0.9rem;
+  cursor: pointer;
+  color: var(--color-muted);
+  border-bottom: 2px solid transparent;
+}
+
+.nav-link.active {
+  color: var(--color-accent);
+  border-bottom-color: var(--color-accent);
+  font-weight: 600;
+}
+
+.fact-grid {
+  display: flex;
+  gap: 2rem;
+  margin: 1.5rem 0 0;
+}
+
+.fact-grid dt {
+  font-size: 0.8rem;
+  color: var(--color-muted);
+}
+
+.fact-grid dd {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+/* Grid: sponsor cards are genuinely two-dimensional -- as many equal
+   columns as fit, wrapping to new rows. */
+.sponsor-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--gap);
+  margin-top: 1rem;
+}
+
+.sponsor-card {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  padding: 1rem;
+}
+
+.sponsor-card.tier-title {
+  border-color: var(--color-accent);
+  border-width: 2px;
+}
+
+.tier-label {
+  margin: 0 0 0.3rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-muted);
+}
+
+.sponsor-card h3 {
+  margin: 0 0 0.4rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 0.6rem 0.5rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.contact-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+
+a {
+  color: var(--color-accent);
+}

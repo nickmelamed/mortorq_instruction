@@ -7,7 +7,7 @@ This primer follows `back_end_resources/language_primer`. That primer taught you
 Like `language_primer`, each topic teaches one concept and pairs it with real, runnable code — here, that code is always a slice of the same app: an FRC scouting form. Each topic has:
 
 - **`concept.md`** — the idea itself, explained with minimal prose, plus an explicit callback to whatever from `language_primer` or `systems_primer` it transfers from. Read this first.
-- **Working code** — either `01_foundations/scouting-form/` (plain HTML/CSS/JS, no tooling) or a slice of `../scouting_app/` (from `02_why_typescript` on), left runnable before you touch it and runnable after you're done.
+- **Working code** — `01_foundations/scouting-form/` (plain HTML/CSS/JS, no tooling), a slice of `../scouting_app/` (from `02_why_typescript` through `04_hooks_and_lifecycle`), or `../team_site/` (`05_team_site` only) — left runnable before you touch it and runnable after you're done.
 - **`exercises/`** — one or more numbered exercise files with a clear done condition. Some are "extend this," some are "this is broken, find out why."
 
 ## Directory structure
@@ -19,7 +19,7 @@ web_fundamentals_primer/
 ├── 02_why_typescript/        Static typing tradeoffs, continuing the typing thread from language_primer
 ├── 03_react_core/            Components, props, state, one-way data flow, composition before global state
 ├── 04_hooks_and_lifecycle/   useState, useEffect, and why effects/cleanup exist
-├── 05_team_site/             Lighter track: a static/simple React team site, needs only 01-04
+├── 05_team_site/             Capstone: a second React project (../team_site/), applying 01-04 fresh
 └── README.md                 This file
 ```
 
