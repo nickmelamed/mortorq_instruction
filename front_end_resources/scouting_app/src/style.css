@@ -1,0 +1,168 @@
+/* Ported from 01_foundations/scouting-form/styles.css, unchanged in
+   substance -- this module is about typing the logic, not restyling it. */
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --color-bg: #f7f7f8;
+  --color-surface: #ffffff;
+  --color-border: #d7d7db;
+  --color-text: #1c1c1e;
+  --color-muted: #6b6b70;
+  --color-accent: #2a5adf;
+  --color-error: #c0392b;
+  --radius: 8px;
+  --gap: 1rem;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+header {
+  padding: 1.5rem 2rem;
+}
+
+header h1 {
+  margin: 0 0 0.25rem;
+}
+
+header p {
+  margin: 0;
+  color: var(--color-muted);
+}
+
+main {
+  padding: 0 2rem 3rem;
+  max-width: 640px;
+}
+
+fieldset {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  padding: 1.25rem;
+}
+
+legend {
+  padding: 0 0.5rem;
+  font-weight: 600;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.field label {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.field input,
+.field select,
+.field textarea {
+  padding: 0.5rem 0.6rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  font: inherit;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 1px;
+}
+
+.field.invalid input {
+  border-color: var(--color-error);
+}
+
+.error {
+  margin: 0;
+  min-height: 1.1em;
+  font-size: 0.8rem;
+  color: var(--color-error);
+}
+
+.field--actions {
+  flex-direction: row;
+  align-items: center;
+  gap: var(--gap);
+}
+
+button {
+  align-self: flex-start;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--color-accent);
+  color: white;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:disabled {
+  background: var(--color-border);
+  color: var(--color-muted);
+  cursor: wait;
+}
+
+#status {
+  font-size: 0.875rem;
+  color: var(--color-muted);
+}
+
+.entries-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--gap);
+  margin-top: 0.75rem;
+}
+
+.entry-card {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  padding: 0.9rem;
+}
+
+.entry-card h3 {
+  margin: 0 0 0.4rem;
+  font-size: 1rem;
+}
+
+.entry-card p {
+  margin: 0.2rem 0;
+  font-size: 0.85rem;
+  color: var(--color-muted);
+}
+
+.entry-card .alliance-red {
+  color: #c0392b;
+  font-weight: 600;
+}
+
+.entry-card .alliance-blue {
+  color: #2a5adf;
+  font-weight: 600;
+}
