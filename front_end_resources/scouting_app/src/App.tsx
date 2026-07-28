@@ -5,13 +5,20 @@
 // props. Neither component could accidentally desync from the other,
 // because neither one owns a copy of the data -- there's exactly one
 // copy, here, and everything else is a view of it or a way to change it.
+//
+// As of 03_state_as_a_systems_problem: also wraps everything in
+// <ScouterIdentityProvider>, the app's one genuine use of Context -- see
+// context/ScouterIdentityContext.tsx for why entries/handleEntrySaved
+// below stayed as plain props while scouterName didn't.
 
 import { useEffect, useState } from "react";
 import { Header } from "./components/Header.tsx";
+import { ScouterBadge } from "./components/ScouterBadge.tsx";
 import { ScoutingForm } from "./components/ScoutingForm.tsx";
 import { EntryList } from "./components/EntryList.tsx";
 import type { StoredEntry } from "./types.ts";
 import { fetchRecentEntries, isSupabaseConfigured } from "./api/supabase.ts";
+import { ScouterIdentityProvider } from "./context/ScouterIdentityContext.tsx";
 
 export function App() {
   const [entries, setEntries] = useState<StoredEntry[]>([]);
@@ -45,11 +52,14 @@ export function App() {
   }, [entries.length]);
 
   return (
-    <>
-      <Header
-        title="1515 Match Scouting"
-        subtitle="React version — the same form, now built from components instead of hand-written DOM calls."
-      />
+    <ScouterIdentityProvider>
+      <div className="app-header">
+        <Header
+          title="1515 Match Scouting"
+          subtitle="React version — the same form, now built from components instead of hand-written DOM calls."
+        />
+        <ScouterBadge />
+      </div>
       <main>
         <p className="data-source-note">
           {isSupabaseConfigured
@@ -60,6 +70,6 @@ export function App() {
         <ScoutingForm onEntrySaved={handleEntrySaved} />
         <EntryList entries={entries} />
       </main>
-    </>
+    </ScouterIdentityProvider>
   );
 }

@@ -37,6 +37,40 @@ header p {
   color: var(--color-muted);
 }
 
+.app-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.scouter-badge {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 1.5rem 2rem 0 0;
+}
+
+.scouter-badge label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-muted);
+}
+
+.scouter-badge input {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  font: inherit;
+}
+
+.scouter-readout {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--color-muted);
+}
+
 main {
   padding: 0 2rem 3rem;
   max-width: 640px;

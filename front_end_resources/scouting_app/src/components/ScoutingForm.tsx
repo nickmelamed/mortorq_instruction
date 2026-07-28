@@ -2,23 +2,39 @@
 //
 // As of 04_hooks_and_lifecycle: also owns a keydown-driven keyboard
 // shortcut (press "n" to jump to the team number field), which is what
-// the useEffect + useRef below exist for. See concept.md for the full
-// explanation of why the effect needs a cleanup function and useState
-// alone couldn't do this job.
+// the useEffect + useRef below exist for.
+//
+// As of 03_state_as_a_systems_problem: no longer owns a "scouter name"
+// field at all -- that's session-level identity now, read from
+// ScouterIdentityContext -- and its submit status is one state machine
+// instead of two booleans that had to be kept in sync by hand.
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import type { ScoutingEntry, StoredEntry } from "../types.ts";
 import { validateEntry } from "../validation.ts";
 import { saveEntry } from "../api/scouting.ts";
 import { TeamLookup } from "./TeamLookup.tsx";
+import { useScouterIdentity } from "../context/ScouterIdentityContext.tsx";
 
-const emptyDraft: ScoutingEntry = {
+const emptyDraft: Omit<ScoutingEntry, "scouterName"> = {
   teamNumber: "",
   matchNumber: "",
   alliance: "red",
-  scouterName: "",
   notes: "",
 };
+
+// The same shape systems_primer/03_state_machines argued for by hand,
+// applied here: one named state at a time instead of a `saving: boolean`
+// and a `status: string` that were supposed to always agree with each
+// other but had nothing enforcing it. Ask "what is this form doing right
+// now?" and the answer is always exactly one of these four -- there's no
+// way to end up with saving === true and an error message displayed at
+// the same time, because that would require being in two states at once.
+type SubmitStatus =
+  | { phase: "idle" }
+  | { phase: "saving" }
+  | { phase: "saved" }
+  | { phase: "error"; message: string };
 
 interface ScoutingFormProps {
   // The "events up" half of one-way data flow: ScoutingForm doesn't
@@ -30,10 +46,10 @@ interface ScoutingFormProps {
 }
 
 export function ScoutingForm({ onEntrySaved }: ScoutingFormProps) {
-  const [draft, setDraft] = useState<ScoutingEntry>(emptyDraft);
+  const { scouterName } = useScouterIdentity();
+  const [draft, setDraft] = useState(emptyDraft);
   const [errors, setErrors] = useState<Partial<Record<keyof ScoutingEntry, string>>>({});
-  const [saving, setSaving] = useState(false);
-  const [status, setStatus] = useState("");
+  const [submitStatus, setSubmitStatus] = useState<SubmitStatus>({ phase: "idle" });
 
   // useRef, unlike useState, doesn't trigger a re-render when it changes --
   // it's just a mutable box that survives across renders. That's exactly
@@ -42,7 +58,7 @@ export function ScoutingForm({ onEntrySaved }: ScoutingFormProps) {
   // both unnecessary and wrong.
   const teamNumberInputRef = useRef<HTMLInputElement>(null);
 
-  function updateField<K extends keyof ScoutingEntry>(field: K, value: ScoutingEntry[K]) {
+  function updateField<K extends keyof typeof emptyDraft>(field: K, value: (typeof emptyDraft)[K]) {
     setDraft((prev) => ({ ...prev, [field]: value }));
   }
 
@@ -67,15 +83,18 @@ export function ScoutingForm({ onEntrySaved }: ScoutingFormProps) {
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const result = validateEntry(draft);
+    // scouterName comes from context, not from a field in this form --
+    // still validated the same way, just merged in here instead of typed
+    // into a per-entry input.
+    const candidate: ScoutingEntry = { ...draft, scouterName };
+    const result = validateEntry(candidate);
     if (!result.valid) {
       setErrors(result.errors);
       return;
     }
 
     setErrors({});
-    setSaving(true);
-    setStatus("Saving...");
+    setSubmitStatus({ phase: "saving" });
 
     // Unlike fakeSubmitToServer, saveEntry can genuinely fail now (a real
     // network call to Supabase can time out, get rejected, etc.) -- so
@@ -86,13 +105,14 @@ export function ScoutingForm({ onEntrySaved }: ScoutingFormProps) {
     try {
       const saved = await saveEntry(result.entry);
       onEntrySaved(saved);
-      setStatus("Saved.");
+      setSubmitStatus({ phase: "saved" });
       setDraft(emptyDraft);
-      setTimeout(() => setStatus(""), 2000);
+      setTimeout(() => setSubmitStatus({ phase: "idle" }), 2000);
     } catch (error) {
-      setStatus(error instanceof Error ? error.message : "Could not save this entry.");
-    } finally {
-      setSaving(false);
+      setSubmitStatus({
+        phase: "error",
+        message: error instanceof Error ? error.message : "Could not save this entry.",
+      });
     }
   }
 
@@ -141,13 +161,9 @@ export function ScoutingForm({ onEntrySaved }: ScoutingFormProps) {
         </div>
 
         <div className={`field${errors.scouterName ? " invalid" : ""}`}>
-          <label htmlFor="scouter-name">Scouter name</label>
-          <input
-            id="scouter-name"
-            autoComplete="off"
-            value={draft.scouterName}
-            onChange={(e) => updateField("scouterName", e.target.value)}
-          />
+          <p className="scouter-readout">
+            Scouting as <strong>{scouterName || "(not set)"}</strong> — set your name above, next to the title.
+          </p>
           <p className="error">{errors.scouterName}</p>
         </div>
 
@@ -162,11 +178,13 @@ export function ScoutingForm({ onEntrySaved }: ScoutingFormProps) {
         </div>
 
         <div className="field field--actions">
-          <button type="submit" disabled={saving}>
+          <button type="submit" disabled={submitStatus.phase === "saving"}>
             Submit
           </button>
           <span role="status" aria-live="polite">
-            {status}
+            {submitStatus.phase === "saving" && "Saving..."}
+            {submitStatus.phase === "saved" && "Saved."}
+            {submitStatus.phase === "error" && submitStatus.message}
           </span>
         </div>
       </fieldset>
