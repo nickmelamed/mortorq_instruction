@@ -9,7 +9,8 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import type { ScoutingEntry } from "../types.ts";
 import { validateEntry } from "../validation.ts";
-import { fakeSubmitToServer } from "../api.ts";
+import { fakeSubmitToServer } from "../api/scouting.ts";
+import { TeamLookup } from "./TeamLookup.tsx";
 
 const emptyDraft: ScoutingEntry = {
   teamNumber: "",
@@ -85,6 +86,8 @@ export function ScoutingForm({ onEntrySaved }: ScoutingFormProps) {
 
   return (
     <form onSubmit={handleSubmit} noValidate>
+      <TeamLookup onTeamSelected={(teamNumber) => updateField("teamNumber", teamNumber)} />
+
       <fieldset>
         <legend>New entry</legend>
 

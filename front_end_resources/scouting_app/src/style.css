@@ -103,6 +103,53 @@ fieldset {
   color: var(--color-error);
 }
 
+.team-lookup {
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius);
+  padding: 0.9rem;
+  margin-bottom: var(--gap);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.team-lookup-label {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-muted);
+}
+
+.team-lookup-source {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.team-lookup-source label {
+  font-size: 0.8rem;
+}
+
+.team-lookup-source input,
+.team-lookup-source textarea {
+  padding: 0.4rem 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  font: inherit;
+}
+
+.team-lookup-source button {
+  align-self: flex-start;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+}
+
+.team-lookup-error {
+  margin: 0;
+  color: var(--color-error);
+  font-size: 0.85rem;
+}
+
 .field--actions {
   flex-direction: row;
   align-items: center;
