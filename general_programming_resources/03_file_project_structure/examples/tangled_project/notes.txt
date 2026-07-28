@@ -1,0 +1,9 @@
+scouting stats tool
+
+run with: python main.py
+needs match_data.csv in the same folder, with a cycle_time_seconds column
+
+helpers.py has the actual logic
+test_helpers.py has one test, run it directly with python test_helpers.py
+
+old_main_v2.py is from before we split things up, probably safe to remove but nobody's checked
