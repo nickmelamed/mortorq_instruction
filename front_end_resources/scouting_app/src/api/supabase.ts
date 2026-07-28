@@ -10,9 +10,15 @@
 // see schema.sql. Converting at this boundary, once, is the job of
 // rowToStoredEntry/entryToRow below, so nothing else in the app has to
 // think about the difference.
+//
+// As of 05_offline_and_multi_user: writes take a StoredEntry (already
+// carrying the id api/scouting.ts generated client-side) and upsert
+// instead of insert -- see that topic's concept.md for why a stable,
+// client-chosen id plus upsert is what makes retrying a queued write
+// safe instead of a source of duplicate rows.
 
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
-import type { Alliance, ScoutingEntry, StoredEntry } from "../types.ts";
+import type { Alliance, StoredEntry } from "../types.ts";
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
@@ -42,20 +48,30 @@ function rowToStoredEntry(row: EntryRow): StoredEntry {
   };
 }
 
-export async function insertEntry(entry: ScoutingEntry): Promise<StoredEntry> {
+export async function upsertEntry(entry: StoredEntry): Promise<StoredEntry> {
   if (client === null) {
     throw new Error("Supabase isn't configured -- see 02_data_beyond_the_spreadsheet/concept.md.");
   }
 
+  // upsert, keyed on the id api/scouting.ts already generated -- not
+  // insert. If this exact entry was already queued and retried (the
+  // request succeeded once before, but the response never made it back
+  // before the connection dropped), this lands on the same row instead
+  // of creating a second one. insert() has no way to know that; upsert()
+  // on a stable id does.
   const { data, error } = await client
     .from("entries")
-    .insert({
-      team_number: Number(entry.teamNumber),
-      match_number: Number(entry.matchNumber),
-      alliance: entry.alliance,
-      scouter_name: entry.scouterName,
-      notes: entry.notes,
-    })
+    .upsert(
+      {
+        id: entry.id,
+        team_number: Number(entry.teamNumber),
+        match_number: Number(entry.matchNumber),
+        alliance: entry.alliance,
+        scouter_name: entry.scouterName,
+        notes: entry.notes,
+      },
+      { onConflict: "id" },
+    )
     .select()
     .single();
 

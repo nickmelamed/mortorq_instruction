@@ -6,15 +6,22 @@
 // (App -> EntryList -> EntryCard), and nothing here reaches for
 // anything like Context or a global store, because three shallow levels
 // of props is genuinely simpler than the alternative at this size.
+//
+// As of 05_offline_and_multi_user: also passes pendingIds straight
+// through to each EntryCard, the same shallow-prop shape as entries
+// itself -- this is a value every card individually needs to check
+// against its own id, not one that skips this component, so it doesn't
+// get the Context treatment scouterName did in 03.
 
 import type { StoredEntry } from "../types.ts";
 import { EntryCard } from "./EntryCard.tsx";
 
 interface EntryListProps {
   entries: StoredEntry[];
+  pendingIds: Set<string>;
 }
 
-export function EntryList({ entries }: EntryListProps) {
+export function EntryList({ entries, pendingIds }: EntryListProps) {
   return (
     <section aria-labelledby="entries-heading">
       <h2 id="entries-heading">Recent entries</h2>
@@ -27,7 +34,9 @@ export function EntryList({ entries }: EntryListProps) {
           // entry is added to the front of the list (as this app does),
           // which would make React think every card changed identity on
           // every submission instead of one new card being added.
-          entries.map((entry) => <EntryCard key={entry.id} entry={entry} />)
+          entries.map((entry) => (
+            <EntryCard key={entry.id} entry={entry} isPending={pendingIds.has(entry.id)} />
+          ))
         )}
       </div>
     </section>

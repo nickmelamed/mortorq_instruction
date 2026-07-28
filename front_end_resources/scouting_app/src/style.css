@@ -119,6 +119,28 @@ main {
   color: var(--color-muted);
 }
 
+.offline-banner {
+  margin: 0 0 1rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius);
+  background: #fdf3d0;
+  border: 1px solid #e0c15c;
+  font-size: 0.85rem;
+  color: #6b5a12;
+}
+
+.pending-badge {
+  display: inline-block;
+  margin: 0.4rem 0 0;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  background: #fdf3d0;
+  border: 1px solid #e0c15c;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #6b5a12;
+}
+
 fieldset {
   border: 1px solid var(--color-border);
   border-radius: var(--radius);

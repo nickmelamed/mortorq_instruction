@@ -11,15 +11,22 @@
 // through. That's the actual point of Context -- not "shared state" in
 // the abstract, but skipping a component that has no reason to know
 // this value exists.
+//
+// As of 05_offline_and_multi_user: also shows a "Pending sync" badge
+// when isPending is true -- this entry is real, already visible, already
+// counted in the header count, and only missing from Supabase itself
+// until the queue behind it flushes. See ../offline/pendingQueue.ts and
+// this topic's concept.md.
 
 import type { StoredEntry } from "../types.ts";
 import { useScouterIdentity } from "../context/ScouterIdentityContext.tsx";
 
 interface EntryCardProps {
   entry: StoredEntry;
+  isPending: boolean;
 }
 
-export function EntryCard({ entry }: EntryCardProps) {
+export function EntryCard({ entry, isPending }: EntryCardProps) {
   const { scouterName } = useScouterIdentity();
   const isMine = scouterName.length > 0 && entry.scouterName === scouterName;
 
@@ -38,6 +45,7 @@ export function EntryCard({ entry }: EntryCardProps) {
         {isMine && " (you)"}
       </p>
       {entry.notes && <p>{entry.notes}</p>}
+      {isPending && <p className="pending-badge">Pending sync</p>}
     </article>
   );
 }
