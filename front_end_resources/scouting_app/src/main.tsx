@@ -1,39 +1,22 @@
-// main.ts -- event wiring. Same shape as 01_foundations/scouting-form/
-// script.js's submit handler, now operating entirely on typed values.
+// main.tsx -- the one unavoidable direct DOM query left in the entire
+// app: React has to be told which real DOM node to take over. Compare
+// this single line to 02_why_typescript's main.ts, which called
+// requireElement() three separate times to find the form, the submit
+// button, and the status span individually -- every one of those is now
+// a piece of App's JSX instead of something looked up by id.
 
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
 import "./style.css";
-import { readAndValidateForm, requireElement } from "./validation.ts";
-import { renderEntry } from "./render.ts";
-import { fakeSubmitToServer } from "./api.ts";
-import type { ScoutingEntry } from "./types.ts";
+import { App } from "./App.tsx";
 
-const form = requireElement<HTMLFormElement>("scouting-form");
-const submitButton = requireElement<HTMLButtonElement>("submit-button");
-const statusEl = requireElement<HTMLElement>("status");
+const rootEl = document.getElementById("root");
+if (rootEl === null) {
+  throw new Error('Expected an element with id="root" to exist in index.html.');
+}
 
-// Still in-memory only, still gone on refresh. Still not this primer's
-// problem to solve -- see frontend_systems_primer/01_consuming_apis.
-const entries: ScoutingEntry[] = [];
-
-form.addEventListener("submit", async (event: SubmitEvent) => {
-  event.preventDefault();
-
-  const result = readAndValidateForm();
-  if (!result.valid) return;
-
-  submitButton.disabled = true;
-  statusEl.textContent = "Saving...";
-
-  const saved = await fakeSubmitToServer(result.entry);
-
-  entries.push(saved);
-  renderEntry(saved);
-
-  statusEl.textContent = "Saved.";
-  submitButton.disabled = false;
-  form.reset();
-
-  setTimeout(() => {
-    statusEl.textContent = "";
-  }, 2000);
-});
+createRoot(rootEl).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+);

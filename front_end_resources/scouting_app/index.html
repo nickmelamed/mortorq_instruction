@@ -7,62 +7,13 @@
     <title>1515 Match Scouting</title>
   </head>
   <body>
-    <header>
-      <h1>1515 Match Scouting</h1>
-      <p>TypeScript version — same form as 01_foundations, now with types on every value it handles.</p>
-    </header>
-
-    <main>
-      <form id="scouting-form" novalidate>
-        <fieldset>
-          <legend>New entry</legend>
-
-          <div class="field">
-            <label for="team-number">Team number</label>
-            <input type="text" id="team-number" name="team-number" inputmode="numeric" autocomplete="off" />
-            <p class="error" id="team-number-error"></p>
-          </div>
-
-          <div class="field">
-            <label for="match-number">Match number</label>
-            <input type="text" id="match-number" name="match-number" inputmode="numeric" autocomplete="off" />
-            <p class="error" id="match-number-error"></p>
-          </div>
-
-          <div class="field">
-            <label for="alliance">Alliance</label>
-            <select id="alliance" name="alliance">
-              <option value="red">Red</option>
-              <option value="blue">Blue</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label for="scouter-name">Scouter name</label>
-            <input type="text" id="scouter-name" name="scouter-name" autocomplete="off" />
-            <p class="error" id="scouter-name-error"></p>
-          </div>
-
-          <div class="field field--wide">
-            <label for="notes">Notes</label>
-            <textarea id="notes" name="notes" rows="3"></textarea>
-          </div>
-
-          <div class="field field--actions">
-            <button type="submit" id="submit-button">Submit</button>
-            <span id="status" role="status" aria-live="polite"></span>
-          </div>
-        </fieldset>
-      </form>
-
-      <section aria-labelledby="entries-heading">
-        <h2 id="entries-heading">Recent entries</h2>
-        <div id="entries" class="entries-grid">
-          <p id="entries-empty">No entries yet — submit the form above.</p>
-        </div>
-      </section>
-    </main>
-
-    <script type="module" src="/src/main.ts"></script>
+    <!--
+      Everything that was hand-written markup in 02_why_typescript's
+      index.html now lives inside App.tsx and its child components.
+      This file's only job from here on is handing React one element
+      to render into -- see main.tsx.
+    -->
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

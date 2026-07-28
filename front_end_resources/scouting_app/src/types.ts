@@ -15,12 +15,17 @@ export interface ScoutingEntry {
   notes: string;
 }
 
-// A discriminated union: the `valid` field's literal type (`true` vs.
-// `false`) tells the compiler which of the two shapes you're holding.
-// Inside an `if (result.valid)` check, TypeScript narrows the type on
-// its own -- `result.entry` is only accessible where `valid` is `true`,
-// with no cast, no `!`, and no runtime check beyond the one you already
-// wrote for validation itself.
+// What EntryList/EntryCard actually render: a saved ScoutingEntry plus an
+// id assigned once it's stored. Kept separate from ScoutingEntry itself --
+// a fresh entry a form is validating doesn't have an id yet, and doesn't
+// need one until App decides to keep it.
+export interface StoredEntry extends ScoutingEntry {
+  id: string;
+}
+
+// A discriminated union, same idea as 02_why_typescript's version, now
+// carrying field-level error messages in the invalid case so ScoutingForm
+// can show each one next to the field it belongs to.
 export type ValidationResult =
   | { valid: true; entry: ScoutingEntry }
-  | { valid: false };
+  | { valid: false; errors: Partial<Record<keyof ScoutingEntry, string>> };
