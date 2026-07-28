@@ -24,6 +24,9 @@ import { Header } from "./components/Header.tsx";
 import { ScouterBadge } from "./components/ScouterBadge.tsx";
 import { ScoutingForm } from "./components/ScoutingForm.tsx";
 import { EntryList } from "./components/EntryList.tsx";
+import { EntriesTable } from "./components/EntriesTable.tsx";
+import { TeamCoverageChart } from "./components/TeamCoverageChart.tsx";
+import { PickList } from "./components/PickList.tsx";
 import type { StoredEntry } from "./types.ts";
 import { fetchRecentEntries, isSupabaseConfigured } from "./api/supabase.ts";
 import { syncPendingEntries } from "./api/scouting.ts";
@@ -155,6 +158,16 @@ export function App() {
         )}
         <ScoutingForm onEntrySaved={handleEntrySaved} />
         <EntryList entries={entries} pendingIds={pendingIds} />
+
+        <section aria-labelledby="team-output-heading">
+          <h2 id="team-output-heading">Team summary & pick list</h2>
+          <h3>Coverage</h3>
+          <TeamCoverageChart entries={entries} />
+          <h3>All entries</h3>
+          <EntriesTable entries={entries} />
+          <h3>Pick list</h3>
+          <PickList entries={entries} />
+        </section>
       </main>
     </ScouterIdentityProvider>
   );
