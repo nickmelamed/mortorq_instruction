@@ -6,7 +6,7 @@
 // because neither one owns a copy of the data -- there's exactly one
 // copy, here, and everything else is a view of it or a way to change it.
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Header } from "./components/Header.tsx";
 import { ScoutingForm } from "./components/ScoutingForm.tsx";
 import { EntryList } from "./components/EntryList.tsx";
@@ -19,6 +19,14 @@ export function App() {
     const stored: StoredEntry = { ...entry, id: crypto.randomUUID() };
     setEntries((prev) => [stored, ...prev]);
   }
+
+  // Synchronizing with something outside React (document.title) -- the
+  // textbook reason useEffect exists. No cleanup needed: setting a title
+  // isn't acquiring anything that later needs releasing, unlike the
+  // keydown listener in ScoutingForm.tsx.
+  useEffect(() => {
+    document.title = entries.length > 0 ? `1515 Match Scouting (${entries.length})` : "1515 Match Scouting";
+  }, [entries.length]);
 
   return (
     <>

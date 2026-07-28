@@ -1,16 +1,12 @@
 // ScoutingForm.tsx -- owns the in-progress entry as it's being typed.
 //
-// This file uses useState, a React "hook," several times below, as a
-// tool to make a component hold data that changes. That's genuinely all
-// you need to know about it for this module: calling its setter function
-// stores a new value *and* tells React to re-render this component with
-// it. 04_hooks_and_lifecycle is where the rules behind hooks (why they
-// have to be called in the same order every render, what "stale state"
-// means, useEffect and cleanup) actually get explained -- this module is
-// "components, props, and data flow," and useState is only here because
-// an interactive form is not optional for that story to make sense.
+// As of 04_hooks_and_lifecycle: also owns a keydown-driven keyboard
+// shortcut (press "n" to jump to the team number field), which is what
+// the useEffect + useRef below exist for. See concept.md for the full
+// explanation of why the effect needs a cleanup function and useState
+// alone couldn't do this job.
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import type { ScoutingEntry } from "../types.ts";
 import { validateEntry } from "../validation.ts";
 import { fakeSubmitToServer } from "../api.ts";
@@ -36,9 +32,34 @@ export function ScoutingForm({ onEntrySaved }: ScoutingFormProps) {
   const [saving, setSaving] = useState(false);
   const [status, setStatus] = useState("");
 
+  // useRef, unlike useState, doesn't trigger a re-render when it changes --
+  // it's just a mutable box that survives across renders. That's exactly
+  // what an imperative DOM handle needs: nothing about focusing an input
+  // is "this component's output changed," so re-rendering for it would be
+  // both unnecessary and wrong.
+  const teamNumberInputRef = useRef<HTMLInputElement>(null);
+
   function updateField<K extends keyof ScoutingEntry>(field: K, value: ScoutingEntry[K]) {
     setDraft((prev) => ({ ...prev, [field]: value }));
   }
+
+  // Acquire (add the listener) once, on mount ([] -- no dependencies).
+  // Release (remove it) once, on unmount, via the returned cleanup
+  // function. Skipping the cleanup here would mean every remount of this
+  // component stacks up one more "n" listener that never goes away.
+  useEffect(() => {
+    function handleShortcut(event: KeyboardEvent) {
+      const isTypingElsewhere = document.activeElement instanceof HTMLElement
+        && ["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement.tagName);
+      if (event.key === "n" && !isTypingElsewhere) {
+        event.preventDefault();
+        teamNumberInputRef.current?.focus();
+      }
+    }
+
+    window.addEventListener("keydown", handleShortcut);
+    return () => window.removeEventListener("keydown", handleShortcut);
+  }, []);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -71,6 +92,7 @@ export function ScoutingForm({ onEntrySaved }: ScoutingFormProps) {
           <label htmlFor="team-number">Team number</label>
           <input
             id="team-number"
+            ref={teamNumberInputRef}
             inputMode="numeric"
             autoComplete="off"
             value={draft.teamNumber}
