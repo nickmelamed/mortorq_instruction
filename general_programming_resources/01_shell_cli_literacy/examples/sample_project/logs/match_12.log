@@ -1,0 +1,8 @@
+[12:00:01] INFO  Robot code started
+[12:00:02] INFO  Drivetrain initialized
+[12:00:05] ERROR CAN timeout on motor controller 3
+[12:00:06] INFO  Retrying motor controller 3
+[12:00:07] INFO  Motor controller 3 recovered
+[12:00:15] ERROR Sensor read returned NaN on Arm encoder
+[12:00:16] INFO  Autonomous routine started
+[12:00:45] INFO  Autonomous routine complete
