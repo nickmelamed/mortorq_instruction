@@ -107,6 +107,12 @@ export function ScoutingForm({ onEntrySaved }: ScoutingFormProps) {
       onEntrySaved(saved);
       setSubmitStatus({ phase: "saved" });
       setDraft(emptyDraft);
+      // Fast, error-resistant entry under time pressure means the next
+      // entry should be one keystroke away, not a tap back into the team
+      // number field every single time -- a scout entering a dozen
+      // matches in a row shouldn't have to reach for the mouse/trackpad
+      // (or find the field by hand on a tablet) after every submission.
+      teamNumberInputRef.current?.focus();
       setTimeout(() => setSubmitStatus({ phase: "idle" }), 2000);
     } catch (error) {
       setSubmitStatus({
@@ -132,8 +138,12 @@ export function ScoutingForm({ onEntrySaved }: ScoutingFormProps) {
             autoComplete="off"
             value={draft.teamNumber}
             onChange={(e) => updateField("teamNumber", e.target.value)}
+            aria-invalid={Boolean(errors.teamNumber)}
+            aria-describedby="team-number-error"
           />
-          <p className="error">{errors.teamNumber}</p>
+          <p className="error" id="team-number-error">
+            {errors.teamNumber}
+          </p>
         </div>
 
         <div className={`field${errors.matchNumber ? " invalid" : ""}`}>
@@ -144,21 +154,47 @@ export function ScoutingForm({ onEntrySaved }: ScoutingFormProps) {
             autoComplete="off"
             value={draft.matchNumber}
             onChange={(e) => updateField("matchNumber", e.target.value)}
+            aria-invalid={Boolean(errors.matchNumber)}
+            aria-describedby="match-number-error"
           />
-          <p className="error">{errors.matchNumber}</p>
+          <p className="error" id="match-number-error">
+            {errors.matchNumber}
+          </p>
         </div>
 
-        <div className="field">
-          <label htmlFor="alliance">Alliance</label>
-          <select
-            id="alliance"
-            value={draft.alliance}
-            onChange={(e) => updateField("alliance", e.target.value as ScoutingEntry["alliance"])}
-          >
-            <option value="red">Red</option>
-            <option value="blue">Blue</option>
-          </select>
-        </div>
+        {/* Native radio inputs, not a styled <div onClick>: a real
+            radiogroup gets arrow-key navigation and screen-reader
+            announcement ("Red, radio button, 1 of 2") for free. The
+            inputs themselves are visually-hidden, not display:none --
+            display:none would remove them from the tab order and from
+            assistive tech entirely. Big tap targets exist because a
+            two-option <select> costs a scout two taps (open, then pick)
+            under time pressure, where this costs one. */}
+        <fieldset className="alliance-toggle">
+          <legend>Alliance</legend>
+          <label className={`alliance-option alliance-option--red${draft.alliance === "red" ? " selected" : ""}`}>
+            <input
+              className="visually-hidden"
+              type="radio"
+              name="alliance"
+              value="red"
+              checked={draft.alliance === "red"}
+              onChange={() => updateField("alliance", "red")}
+            />
+            Red
+          </label>
+          <label className={`alliance-option alliance-option--blue${draft.alliance === "blue" ? " selected" : ""}`}>
+            <input
+              className="visually-hidden"
+              type="radio"
+              name="alliance"
+              value="blue"
+              checked={draft.alliance === "blue"}
+              onChange={() => updateField("alliance", "blue")}
+            />
+            Blue
+          </label>
+        </fieldset>
 
         <div className={`field${errors.scouterName ? " invalid" : ""}`}>
           <p className="scouter-readout">

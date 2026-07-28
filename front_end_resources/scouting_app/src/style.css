@@ -5,6 +5,23 @@
   box-sizing: border-box;
 }
 
+/* The standard "visually hidden but still accessible" pattern -- unlike
+   display: none or visibility: hidden, this keeps an element in the tab
+   order and announced by screen readers; it just removes it from the
+   visual layout. Used for the real <input type="radio"> elements behind
+   the big alliance-toggle buttons below. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 :root {
   --color-bg: #f7f7f8;
   --color-surface: #ffffff;
@@ -76,6 +93,22 @@ main {
   max-width: 640px;
 }
 
+/* A phone in portrait (the narrowest realistic case a scout actually
+   uses trackside) doesn't have 2rem of padding to spare on each side --
+   that's real form-field width lost on the smallest screen where every
+   pixel of a touch target matters most. */
+@media (max-width: 480px) {
+  header,
+  main {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .alliance-toggle {
+    flex-direction: column;
+  }
+}
+
 .data-source-note {
   margin: 0 0 1rem;
   padding: 0.5rem 0.75rem;
@@ -123,10 +156,20 @@ fieldset {
 .field input,
 .field select,
 .field textarea {
+  /* min-height 44px matches the commonly-cited minimum comfortable touch
+     target (WCAG 2.5.5, Apple's and Google's own platform guidelines) --
+     smaller than that and a thumb miss-tap becomes routine, not rare,
+     which is exactly the kind of error this whole topic is about
+     preventing. font-size at least 1rem (16px) matters for a different
+     reason: iOS Safari auto-zooms the page on focusing any input with a
+     smaller computed font size, which is its own kind of error-inducing
+     surprise mid-match. */
+  min-height: 44px;
   padding: 0.5rem 0.6rem;
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
   font: inherit;
+  font-size: 1rem;
 }
 
 .field input:focus,
@@ -138,6 +181,52 @@ fieldset {
 
 .field.invalid input {
   border-color: var(--color-error);
+}
+
+.alliance-toggle {
+  display: flex;
+  flex-direction: row;
+  gap: var(--gap);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 0.75rem;
+  margin: 0;
+}
+
+.alliance-toggle legend {
+  padding: 0 0.4rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.alliance-option {
+  flex: 1;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius);
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+}
+
+.alliance-option:has(:focus-visible) {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.alliance-option--red.selected {
+  border-color: #c0392b;
+  background: rgba(192, 57, 43, 0.1);
+  color: #c0392b;
+}
+
+.alliance-option--blue.selected {
+  border-color: var(--color-accent);
+  background: rgba(42, 90, 223, 0.1);
+  color: var(--color-accent);
 }
 
 .error {
@@ -202,6 +291,7 @@ fieldset {
 
 button {
   align-self: flex-start;
+  min-height: 44px;
   padding: 0.6rem 1.2rem;
   border: none;
   border-radius: var(--radius);
