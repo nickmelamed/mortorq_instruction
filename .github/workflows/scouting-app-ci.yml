@@ -1,0 +1,49 @@
+# CI for scouting_app -- see front_end_resources/frontend_systems_primer/
+# 08_deployment/concept.md. This is the "CI" half of "CI/CD": it verifies
+# every change, automatically, on a machine that isn't yours. Deploying
+# the verified result (the "CD" half) is Vercel's own GitHub integration,
+# configured separately in the Vercel dashboard -- the two are not
+# wired together by default, see this topic's concept.md for what that
+# actually means in practice.
+#
+# `paths:` keeps this from running on every commit to this whole
+# curriculum repo -- a markdown edit in an unrelated primer shouldn't
+# spend CI minutes installing and building this one app.
+name: scouting_app CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "front_end_resources/scouting_app/**"
+      - ".github/workflows/scouting-app-ci.yml"
+  pull_request:
+    paths:
+      - "front_end_resources/scouting_app/**"
+      - ".github/workflows/scouting-app-ci.yml"
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: front_end_resources/scouting_app
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: front_end_resources/scouting_app/.nvmrc
+          cache: npm
+          cache-dependency-path: front_end_resources/scouting_app/package-lock.json
+
+      - run: npm ci
+
+      # Three separate steps, not one "npm run build" -- the same reason
+      # 07_testing wants a test that "fails for exactly one reason." A
+      # red typecheck step, a red test step, and a red build step each
+      # tell you something different at a glance, before you open a
+      # single log.
+      - run: npx tsc --noEmit
+      - run: npm test
+      - run: npm run build
