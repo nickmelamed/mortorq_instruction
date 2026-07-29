@@ -49,3 +49,8 @@ A running glossary of vocabulary introduced across this primer, in the order you
 - **SORT (Simple Online and Realtime Tracking)**: a tracking algorithm combining the Kalman filter and Hungarian algorithm to maintain object tracks across frames.
 - **Object Motion**: the movement of a tracked object itself, as distinct from the camera's own movement.
 - **Ego Motion**: the motion of the camera itself, which must be separated out from object motion for accurate 3D tracking.
+- **Visual Odometry (VO)**: estimating a camera's own motion (rotation and translation) between frames using only the image sequence, with no external sensors involved.
+- **Essential Matrix**: a matrix relating two calibrated camera views to each other from matched 2D points alone, decomposable into the relative rotation and translation between the views.
+- **Scale Ambiguity**: the inherent limitation of monocular visual odometry, which recovers the direction of camera translation but not its true magnitude, without an outside reference.
+- **Visual-Inertial Odometry (VIO)**: visual odometry fused with IMU measurements to resolve the scale ambiguity of a single camera.
+- **Drift**: the accumulation of small pose errors over time in odometry (visual or wheel-based), which compounds because each estimate builds on the previous one without external correction.
