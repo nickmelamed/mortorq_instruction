@@ -28,4 +28,4 @@ Below is the structure of this directory:
 
 Our `CONTRIBUTING.md` file outlines rules to follow to ensure our repository is orderly, and the `git_primer` folder contains a quick overview of using git and some exercises to verify your knowledge. 
 
-Also, note that for the most part, this will focus on command line interface (CLI) for Git, not using the actual GitHub website. The reason for this is that we want to build intuition for using CLI, as this will be universal for any programming you do.
+Also, note that for the most part, this will focus on command line interface (CLI) for Git, not using the actual GitHub website. The reason for this is that we want to build intuition for using CLI, as this will be universal for any programming you do. If you want that CLI intuition covered directly and on its own first, see `general_programming_resources/01_shell_cli_literacy`.
