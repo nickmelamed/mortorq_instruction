@@ -26,7 +26,11 @@ is mostly matrix multiplication.
 So, this primer isn't introducing a new application - it's giving a name and a set of
 rules to math you've already been running inside `numpy` calls, so the modules after
 this one (Deep Learning, and the Reinforcement Learning module built on top of it) make
-sense as math, not just as code you copy and run.
+sense as math, not just as code you copy and run. The same is true further out: the
+`Q @ K.T` at the center of `genai_architecture_primer`'s attention mechanism and the
+distance-to-every-centroid step in `unsupervised_learning_primer`'s K-Means are both
+just the "compute every pair at once" pattern from
+`03-batches-and-pairwise-operations.ipynb`, not new math either.
 
 ## Key Terms
 
@@ -59,6 +63,13 @@ it.
   transformation; not every matrix has one.
 - **Determinant**: a single number computed from a matrix that tells you (among other
   things) whether that matrix is invertible.
+- **Batch**: many vectors stacked together as the rows or columns of a single matrix, so
+  the same operation can be applied to all of them in one matrix multiplication instead
+  of a loop.
+- **All-Pairs Operation**: computing a relationship (a dot product, a distance) between
+  every vector in one batch and every vector in another, all at once, via a single
+  matrix multiplication or broadcasted expression - rather than a nested loop over every
+  pair individually.
 
 ## What's in this Primer?
 
@@ -69,13 +80,21 @@ Read these in order:
 2. [02 - Matrices and Transformations](02-matrices-and-transformations.ipynb) - matrices
    as linear transformations, matrix multiplication, identity, transpose, and
    invertibility
+3. [03 - Batches and Pairwise Operations](03-batches-and-pairwise-operations.ipynb) -
+   naming the "matrix as many stacked vectors" and "compute every pair at once" patterns
+   every downstream training loop and attention computation actually relies on
 
 ## Where This Goes Next
 
 Everything here is deliberately scoped to "just enough to read the rest of the
 curriculum," not a full linear algebra course - there's no eigenvectors, no singular
-value decomposition, none of the machinery a full course would build toward. If you want
-that depth, see the Resources section in each notebook. What you get here is the direct
-prerequisite for the Deep Learning module that follows this primer, where a neural
-network layer turns out to be nothing more than the matrix-vector product from
-`02-matrices-and-transformations.ipynb`, run over and over.
+value decomposition, none of the machinery a full course would build toward (eigenvectors
+and eigenvalues are picked up later, in
+`ml_resources/unsupervised_learning_primer/02-dimensionality-reduction.ipynb`, exactly
+where they're actually needed). If you want that depth, see the Resources section in
+each notebook. What you get here is the direct prerequisite for the Deep Learning module
+that follows this primer, where a neural network layer turns out to be nothing more than
+the matrix-vector product from `02-matrices-and-transformations.ipynb`, run over and
+over - and, via `03`, the direct prerequisite for reading `genai_architecture_primer`'s
+attention mechanism and `unsupervised_learning_primer`'s K-Means as exactly the same
+matrix operations at a larger scale, not new math.
