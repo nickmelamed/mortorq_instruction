@@ -12,7 +12,7 @@ Perception fuels every action of our robot - from estimating position on the fie
 
 ## Key Terms
 
-A running glossary of vocabulary introduced across this primer, in the order you'll meet it. See also the [ml_primer](../ml_primer/README.md) and [cv_primer](../cv_primer/README.md) glossaries for foundational terms like model, regression, classification, and camera intrinsics, which this primer builds on directly.
+A running glossary of vocabulary introduced across this primer, in the order you'll meet it. See also the [ml_primer](../ml_primer/README.md) and [cv_primer](../cv_primer/README.md) glossaries for foundational terms like model, regression, classification, and camera intrinsics, which this primer builds on directly, and the [linear_algebra_primer](../linear_algebra_primer/README.md) glossary for the vector/matrix vocabulary (Rotation Matrix, Translation Matrix, Euclidean distance) this primer's pose-estimation and tracking math is built from.
 
 - **Loss**: the metric used to guide model training (e.g., minimized during fitting).
 - **Performance**: the metric(s) used to evaluate a trained model's results, which may or may not be the same as the loss.

@@ -14,7 +14,7 @@ So, if you understand these fundamental concepts, you can build a *very* powerfu
 
 ## Key Terms
 
-A running glossary of vocabulary introduced across this primer, in the order you'll meet it. See also the [ml_primer](../ml_primer/README.md) glossary for terms like model, regression, classification, and regularization, which this primer builds on directly.
+A running glossary of vocabulary introduced across this primer, in the order you'll meet it. See also the [ml_primer](../ml_primer/README.md) glossary for terms like model, regression, classification, and regularization, which this primer builds on directly, and the [linear_algebra_primer](../linear_algebra_primer/README.md) glossary for the vector/matrix vocabulary (dot product, matrix-vector product) behind this primer's neuron and convolution math.
 
 - **Pixel**: the smallest unit of an image - a single value (grayscale) or set of values (color) representing intensity/color at one point in a grid.
 - **Grayscale**: an image with a single intensity channel per pixel ($H \times W$), rather than separate color channels.
