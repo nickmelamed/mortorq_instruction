@@ -20,7 +20,12 @@ Three general software-engineering ideas come together in this module:
 - **Path planning / trajectory generation** is the general problem of computing a
   smooth, physically-achievable path from a start state to a goal state, subject to
   constraints like maximum velocity and acceleration — a core problem in mobile
-  robotics generally, not unique to FRC.
+  robotics generally, not unique to FRC. What those constraints actually mean (motion
+  profiling) and how a robot follows the resulting path in real time (Pure Pursuit,
+  and the odometry that feeds it) is covered in
+  `back_end_resources/systems_primer/04b_motion_control_and_trajectories` — this
+  module is about the tools that produce and correct the path, not the control theory
+  underneath it.
 
 ## 2. What This Looks Like in FRC
 
@@ -45,11 +50,53 @@ and both natively support **swerve drive** (holonomic motion, where the robot ca
 translate and rotate independently). They replace **PathWeaver**, which is deprecated
 and scheduled for removal starting the 2027 season.
 
+Laying out the path in the editor is only half the job — PathPlannerLib's
+`FollowPathCommand` is what actually drives the robot along it, and it's worth being
+concrete about how, since "PathPlanner follows the path" hides a real design choice.
+For a swerve drivetrain, it uses `PPHolonomicDriveController`: separate PID controllers
+for X, Y, and heading, each correcting against the trajectory's target state for the
+current moment in time. This is a *different* mechanism than the classic Pure Pursuit
+algorithm covered generally in
+`back_end_resources/systems_primer/04b_motion_control_and_trajectories` — Pure Pursuit's
+lookahead-point/curvature trick exists specifically to let a non-holonomic (differential
+drive) robot, which can't strafe, convert "get to this point" into a turning radius. A
+swerve robot doesn't have that constraint at all, so PathPlanner drives it with direct
+per-axis PID instead; for differential drivetrains, PathPlanner instead uses
+`PPLTVController`, a different (LTV, or Linear Time-Varying) controller suited to that
+drivetrain's constraints. Both are still the same underlying idea `04b` covers in
+general — closed-loop correction against a live position estimate, every cycle — just
+two different concrete algorithms for two different drivetrain geometries, not "the"
+one path-following algorithm.
+
+That live position estimate is where vision actually enters the picture, and it enters
+in two distinct ways worth telling apart:
+
+1. **Vision corrects the pose estimator PathPlanner reads from.** PathPlanner's
+   controllers only ever see whatever pose your `SwerveDrivePoseEstimator` (or
+   equivalent) reports as "current position" — PathPlanner itself has no idea whether
+   that pose came from pure wheel/gyro odometry or from odometry fused with AprilTag
+   readings via `addVisionMeasurement()`. Feeding it a vision-corrected pose is exactly
+   the drift-correction idea from `04b`, just supplied to PathPlanner's controller
+   instead of read directly.
+2. **PathPlanner can generate a fresh path to a vision-derived target pose in real
+   time**, via its on-the-fly pathfinding feature: instead of running a path drawn in
+   the editor ahead of time, you hand it a `Pose2d` goal and it plans (and re-plans, as
+   obstacles or the target move) a path to it live. A target pose computed from a
+   detected AprilTag — "the scoring position half a meter in front of this tag" — is
+   exactly the shape of input this expects, though PathPlanner itself doesn't do the
+   vision detection or the pose math; that conversion from a Limelight/PhotonVision
+   reading to a `Pose2d` happens in your own code (see `02_limelight`). PathPlanner's
+   own docs recommend combining the two: pathfind to get close, then hand off to a
+   precision, editor-authored path for delicate final alignment (a human player
+   station, a scoring position) where on-the-fly replanning's small path changes
+   mid-execution would be a liability rather than a convenience.
+
 The synthesis point this module is building toward: a real autonomous routine combines
-all three ideas — a path from Choreo/PathPlanner, run through a drivetrain subsystem,
-corrected in real time using AprilTag pose estimates from a Limelight or PhotonVision
-pipeline (see `02_limelight`), all of it testable in simulation before the robot is
-mechanically finished.
+all three ideas — a path from Choreo/PathPlanner, run through a drivetrain subsystem
+using whichever of the controllers above matches its geometry, corrected in real time
+using AprilTag pose estimates from a Limelight or PhotonVision pipeline (see
+`02_limelight`), all of it testable in simulation before the robot is mechanically
+finished.
 
 ## 3. Where It Diverges From the General Case
 
@@ -71,6 +118,19 @@ drivetrain, a path-planning tool that couldn't natively express holonomic motion
 being good enough, which is why WPILib is retiring it rather than continuing to maintain
 it alongside swerve-aware alternatives.
 
+The same swerve dominance explains why the textbook Pure Pursuit path-following
+algorithm (`back_end_resources/systems_primer/04b_motion_control_and_trajectories`)
+isn't what's actually running on most current FRC robots, even though it's the classic
+algorithm for the general "follow a path" problem. Pure Pursuit's whole reason for
+existing — converting "reach this point" into a turning radius — is a workaround for
+not being able to move sideways. A swerve robot doesn't have that limitation, so the
+constraint the algorithm exists to work around simply isn't there anymore, and
+PathPlanner drives swerve robots with direct per-axis PID instead. It's the same
+underlying pressure as the PathWeaver deprecation above, just showing up one layer
+down: as swerve became dominant, tools and algorithms built around differential-drive
+assumptions stopped being the default, not because they became wrong, but because
+FRC's hardware landscape moved out from under the assumption they were built on.
+
 Command-based architecture itself is a fairly direct import of a general software
 pattern, but FRC's version of "resource conflict" is physical, not just logical — two
 commands fighting over the same subsystem in FRC usually means two pieces of code
@@ -84,8 +144,12 @@ actually damaging hardware.
 - [WPILib: Simulation](https://docs.wpilib.org/en/stable/docs/software/wpilib-tools/robot-simulation/introduction.html) — official docs on physics simulation and Glass.
 - [Choreo Documentation](https://choreo.autos/) — official docs for the current-standard trajectory tool.
 - [PathPlanner Documentation](https://pathplanner.dev/home.html) — official docs for the other current-standard trajectory tool.
+- [PathPlannerLib: Following a Single Path](https://pathplanner.dev/pplib-follow-a-single-path.html) — the actual `PPHolonomicDriveController`/`PPLTVController` mechanism described in §2, straight from the source.
+- [PathPlannerLib: Pathfinding](https://pathplanner.dev/pplib-pathfinding.html) — the on-the-fly, `Pose2d`-target pathfinding feature described in §2, including the navgrid/obstacle setup and the "pathfind-then-precision-path" pattern.
+- [WPILib: Pose Estimators](https://docs.wpilib.org/en/stable/docs/software/advanced-controls/state-space/state-space-pose-estimators.html) — how `addVisionMeasurement()` actually fuses AprilTag readings into the pose estimate PathPlanner's controllers consume.
 - [WPILib: Path Planning overview](https://docs.wpilib.org/en/stable/docs/software/pathplanning/index.html) — WPILib's own comparison of Choreo, PathPlanner, and (legacy) PathWeaver; check this each season for the current recommendation.
 
 **Check for understanding / hands-on exercise suggestions:**
 - Have students write a two-command autonomous sequence (e.g. "drive forward, then run intake") purely in simulation, using Glass to confirm it behaves correctly before ever touching a real robot.
 - Give students a simple field layout and have them build the same path in both Choreo and PathPlanner, then compare the resulting autonomous run time and discuss any tradeoffs they noticed between the two tools.
+- Ask students to trace, in words, everything that happens between "a Limelight detects an AprilTag" and "the drivetrain motors turn a specific amount" for a robot following a PathPlanner path — which piece is vision, which piece is the pose estimator, and which piece is `PPHolonomicDriveController` — to make sure the three distinct roles from §2 don't collapse into one fuzzy "the robot uses vision to follow the path" idea.

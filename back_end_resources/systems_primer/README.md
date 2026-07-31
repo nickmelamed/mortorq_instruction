@@ -20,6 +20,7 @@ systems_primer/
 ├── 02_communication_serialization/        CAN/serial/NetworkTables, and JSON as a shared format across them
 ├── 03_state_machines/                     States, transitions, events -- applied to an autonomous routine
 ├── 04_control_loops_pid/                  PID/feedforward as a "poll -> decide -> act" backend pattern
+├── 04b_motion_control_and_trajectories/   Open-loop vs. closed-loop, motion profiling, Pure Pursuit, odometry/drift
 ├── 05_apis_networking/                    HTTP/REST, lightly -- a bridge to the frontend unit
 ├── 06_testing_debugging/                  Unit testing and WPILib-style simulation, without hardware
 ├── 07_logging_observability/               Structured logging, applied to 03's state machine
@@ -30,7 +31,7 @@ systems_primer/
 
 ## Suggested order
 
-Work through `00` through `08` in numeric order — they build on shared context. In particular, `03_state_machines`'s `AutonomousStateMachine.java` gets reused directly in `06_testing_debugging` (unit-tested and simulation-tested) and again in `07_logging_observability` (wrapped with structured logging), so it's worth understanding that file well before moving past it. `09_configuration_constants_management` is standalone and can wait until last.
+Work through `00` through `08` in numeric order — they build on shared context. `04b_motion_control_and_trajectories` sits between `04` and `05`: it leans directly on `04`'s PID and `01`'s periodic loop, and is itself leaned on by `ml_resources/perception_primer/05-objects-in-motion.ipynb`'s odometry/drift discussion. In particular, `03_state_machines`'s `AutonomousStateMachine.java` gets reused directly in `06_testing_debugging` (unit-tested and simulation-tested) and again in `07_logging_observability` (wrapped with structured logging), so it's worth understanding that file well before moving past it. `09_configuration_constants_management` is standalone and can wait until last.
 
 ## What this primer intentionally leaves out
 
