@@ -12,7 +12,7 @@ Perception fuels every action of our robot - from estimating position on the fie
 
 ## Key Terms
 
-A running glossary of vocabulary introduced across this primer, in the order you'll meet it. See also the [ml_primer](../ml_primer/README.md) and [cv_primer](../cv_primer/README.md) glossaries for foundational terms like model, regression, classification, and camera intrinsics, which this primer builds on directly, and the [linear_algebra_primer](../linear_algebra_primer/README.md) glossary for the vector/matrix vocabulary (Rotation Matrix, Translation Matrix, Euclidean distance) this primer's pose-estimation and tracking math is built from.
+A running glossary of vocabulary introduced across this primer, in the order you'll meet it. See also the [ml_primer](../ml_primer/README.md) and [cv_primer](../cv_primer/README.md) glossaries for foundational terms like model, regression, classification, and camera intrinsics, which this primer builds on directly, and the [linear_algebra_primer](../linear_algebra_primer/README.md) glossary for the vector/matrix vocabulary (Rotation Matrix, Translation Matrix, Euclidean distance) this primer's pose-estimation and tracking math is built from. `06-trajectory-prediction.ipynb` additionally builds directly on the [deep_learning_primer](../deep_learning_primer/README.md)'s Regression Head and backpropagation. `07-multi-hypothesis-prediction.ipynb` further builds on the Classification Head/softmax machinery from `deep_learning_primer/02` and the same cross-entropy-shaped gradient used in [rl_primer](../rl_primer/README.md)'s `02-policy-gradients.ipynb`.
 
 - **Loss**: the metric used to guide model training (e.g., minimized during fitting).
 - **Performance**: the metric(s) used to evaluate a trained model's results, which may or may not be the same as the loss.
@@ -54,3 +54,13 @@ A running glossary of vocabulary introduced across this primer, in the order you
 - **Scale Ambiguity**: the inherent limitation of monocular visual odometry, which recovers the direction of camera translation but not its true magnitude, without an outside reference.
 - **Visual-Inertial Odometry (VIO)**: visual odometry fused with IMU measurements to resolve the scale ambiguity of a single camera.
 - **Drift**: the accumulation of small pose errors over time in odometry (visual or wheel-based), which compounds because each estimate builds on the previous one without external correction.
+- **History Window**: the fixed number of past observed positions given to a trajectory-prediction model as input.
+- **Prediction Horizon**: the number of future positions a trajectory-prediction model is asked to forecast.
+- **Trajectory Prediction**: forecasting an object's future positions from a history of its past observed positions, without assuming constant velocity or acceleration.
+- **Average Displacement Error (ADE)**: the mean prediction error across an entire prediction horizon, one aggregate number per method.
+- **Final Displacement Error (FDE)**: the prediction error at just the last step of the horizon - often the more decision-relevant number, since it isolates where a naive extrapolation is wrong the most.
+- **Mode Averaging**: the failure mode where a single deterministic model, trained on genuinely ambiguous data (multiple real, distinct outcomes), predicts something close to the average of those outcomes - which may not resemble any outcome that actually occurs.
+- **Multi-Hypothesis Prediction**: predicting several distinct candidate future paths at once, each with an associated probability, instead of a single deterministic path.
+- **Winner-Take-All Loss**: a training rule for multi-hypothesis models where, per example, only the closest-matching hypothesis head is updated toward the true target, letting different heads specialize into different modes.
+- **Hypothesis Collapse**: a failure mode in winner-take-all training where one hypothesis head wins a disproportionate share of examples early on and comes to dominate training, leaving other heads under-trained.
+- **minADE-k / minFDE-k**: ADE/FDE computed only against the single closest of a multi-hypothesis model's k predictions, rather than penalizing it for its other, non-matching hypotheses.
