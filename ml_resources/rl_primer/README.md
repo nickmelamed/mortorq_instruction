@@ -109,5 +109,7 @@ decide when to reach for it. Its recommendation still isn't something that shoul
 reach the drive team unreviewed - it goes through the same approval gate every other
 scouting-agent recommendation does, per
 `ai_resources/agent_primer/10-human-in-the-loop-design.md`. Wiring that connection up
-for real is left as an extension of the existing `agent_primer` capstone, not new
-content in this primer.
+for real - the tool schema, which worker owns the inference call, what the observability
+trace needs that a rule-based tool didn't - is covered in
+`ai_resources/agent_primer/13-integrating-a-trained-model.md`, an extension of the
+existing `agent_primer` capstone rather than new content in this primer.

@@ -55,6 +55,8 @@ A working decision framework:
 
 This is the same logic FRC teams already use for autonomous mode: the robot executes a pre-set sequence without live driver input specifically because that sequence was tested and approved in advance to be safe to run unsupervised. An agent's approval gates work the same way.
 
+This applies without exception once one of the agent's tools is a trained model instead of a rule-based lookup - a value or policy network's recommendation still reaches "a message sent to a person" the moment it influences what gets shown to the drive team, and a model's reasoning being harder to inspect than a hand-written formula is a reason for *more* scrutiny at the gate, not less. See `13-integrating-a-trained-model.md` for what changes (and what doesn't) once a real trained model is one of the agent's tools.
+
 ## Build It
 
 Take the scouting agent as it stands after `09-observability.md` and design its human-in-the-loop layer.

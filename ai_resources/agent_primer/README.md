@@ -34,6 +34,10 @@ Read these in order:
 
 Starting with module 04, every file builds one running project: a scouting/strategy agent for FRC matches, adding one new capability per module until it's a finished system in `12-capstone-build.md`.
 
+**Optional extension, once you have a trained model:**
+
+13. [13 - Integrating a Trained Model](13-integrating-a-trained-model.md) - wiring a real value/policy network from `ml_resources/rl_primer` into the agent as a tool. Not part of the core twelve-module arc or the capstone rubric above - a follow-on for once that model actually exists.
+
 ## Try It
 
 Before reading any further, open any chatbot you have access to (ChatGPT, Claude, Gemini) and give it a goal, not a question - something that requires more than one real-world step to actually finish, like:

@@ -25,7 +25,9 @@ Supervisor -> Worker: "Fetch match history and climb rate for team 2056, event 2
 Supervisor: Now comparing all three summaries against our own weaknesses to rank picks.
 ```
 
-Notice the worker's context never grows past "one team's raw data": it does its job and hands back a short, distilled result, exactly the pattern described for sub-agents in `03-context-engineering.md`. The supervisor's context grows by one clean summary per team. 
+Notice the worker's context never grows past "one team's raw data": it does its job and hands back a short, distilled result, exactly the pattern described for sub-agents in `03-context-engineering.md`. The supervisor's context grows by one clean summary per team.
+
+A third kind of worker becomes relevant once this team has a trained model to call: a **strategy-inference worker** that runs a value or policy network's forward pass on one team's stats and returns a single number or probability distribution, nothing else - the same narrow-job argument as the data-fetching worker above, just wrapping a model instead of an API call. See `13-integrating-a-trained-model.md` for this in depth, once `ml_resources/rl_primer` has produced a real model to wrap.
 
 ## Why Split at All
 
