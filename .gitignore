@@ -8,6 +8,9 @@
 *.venv
 mortorq/
 
+# Ignore per-machine editor config (contains local, user-specific paths)
+.vscode/
+
 # Ignore downloaded models
 *ml_resources/perception_primer/yolov8n.pt
 
