@@ -14,6 +14,10 @@ Codex, Claude Code, Cursor, etc. fall under the category of coding agents. Their
 
 If you ask any working professional in the tech world, there is a good chance that using coding agents will be **mandatory** to be more productive. Learning how to use agents will increase your productivity, and ideally help you learn simultaneously so you become a more well-rounded engineer. 
 
+## Where this fits relative to the rest of the curriculum
+
+This is  more advanced material, and it's a different skill from *using* AI tools well, which `ai_primer` already covers on its own. It's worth working through once the fundamentals elsewhere in this curriculum (`general_programming_resources`, `back_end_resources`, and whichever of `front_end_resources`/`ml_resources` you're focused on) are solid, not as a substitute for them or a detour before them. `11-agentic-coding-tools.md` is the one module worth pulling forward earlier than the rest, since it covers day-to-day practices (reviewing an agent's diffs, CLAUDE.md-style rules files) you'll actually use while working through everything else in this repo.
+
 ## What's in this Primer?
 
 Read these in order:

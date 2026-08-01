@@ -47,6 +47,16 @@ Every field with a validation error now carries `aria-invalid` and `aria-describ
 
 Visually, this changes nothing — the error text was already right there, right below the field. What it changes is what a screen reader announces: without this, a screen reader user tabbing into an invalid field hears only the label, with no indication anything is wrong or why, and has to hunt separately for an error message that a sighted user sees instantly, adjacent to the field. `aria-describedby` is the programmatic version of "the error text is right below the input" — it makes an already-existing visual relationship explicit for anyone who can't see it. This is the same "information hierarchy" idea in miniature: the error is the single most important thing about that field at that moment, and every user — sighted or not — should get that priority communicated to them immediately, not after searching.
 
+## Responsive layout: two techniques already in this app, and one gap
+
+"Responsive" isn't one technique — `scouting_app` already uses two genuinely different ones, and seeing both side by side is more useful than a general lecture on breakpoints.
+
+`.alliance-toggle`'s two buttons sit side by side at desktop width, but on a narrow phone (the actual device this whole module is designed around) there isn't room for that — so `style.css`'s `@media (max-width: 480px)` block switches it to `flex-direction: column` below that width, an **explicit breakpoint override**: a hard rule that says "below this width, do something different."
+
+`.entries-grid` (the card view `EntryList` renders) never needed a breakpoint at all — `grid-template-columns: repeat(auto-fill, minmax(220px, 1fr))` tells the grid "fit as many 220px-minimum columns as the available width allows," so it naturally goes from several columns down to one as the viewport narrows, with zero media queries written for it. This is **intrinsic responsiveness**: instead of predicting specific widths where the layout should change, you describe the constraint (each card needs at least 220px) and let the browser work out how many fit.
+
+Neither technique reaches `EntriesTable` (`components/EntriesTable.tsx`), and that's a real gap, not a hypothetical one: `.entries-table` (`style.css`) is `width: 100%` with five columns — Team, Match, Alliance, Scouter, Notes, each with its own sort button — and nothing in either the component or the stylesheet wraps it in a horizontally-scrollable container. A five-column table forced into `100%` of a narrow phone's width doesn't reflow the way `.entries-grid` does; it either crushes every column until the text wraps or truncates unpredictably, or overflows the viewport outright depending on the browser. Unlike the alliance toggle or the card grid, this one hasn't been fixed yet — see `exercises/exercise-3-scroll-the-table-not-the-page.md`.
+
 ## Putting it together
 
 ```text
@@ -54,7 +64,7 @@ $ cd scouting_app
 $ npm run dev
 ```
 
-Resize your browser down to a narrow phone width (or open dev tools' device toolbar) and confirm the alliance buttons stack vertically and remain comfortably tappable. Submit an entry and confirm focus jumps back to the team number field automatically. Then try tabbing through the form with your keyboard alone, with your mouse untouched: confirm you can reach and select an alliance with arrow keys, and that an invalid field's error is something you'd actually notice without looking at the screen.
+Resize your browser down to a narrow phone width (or open dev tools' device toolbar) and confirm the alliance buttons stack vertically and remain comfortably tappable, and watch the card grid go from several columns down to one with no visible jump or overlap. Submit an entry and confirm focus jumps back to the team number field automatically. Then try tabbing through the form with your keyboard alone, with your mouse untouched: confirm you can reach and select an alliance with arrow keys, and that an invalid field's error is something you'd actually notice without looking at the screen. Finally, switch to the table view at the same narrow width and see the gap from the section above for yourself.
 
 ## Resources
 
@@ -62,3 +72,5 @@ Resize your browser down to a narrow phone width (or open dev tools' device tool
 - [MDN: ARIA: describedby](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-describedby) - the full behavior of the attribute used to link inputs to their error messages.
 - [The A11Y Project: CSS `visually-hidden`](https://www.a11yproject.com/posts/how-to-hide-content/) - the exact hiding pattern used for the alliance toggle's real radio inputs, and why `display: none` doesn't substitute for it.
 - [Nielsen Norman Group: Mobile Form Design](https://www.nngroup.com/articles/mobile-form-design/) - broader mobile form UX principles beyond what this topic covers.
+- [MDN: Responsive design](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/CSS_layout/Responsive_Design) - the general techniques behind both the explicit-breakpoint and intrinsic-grid approaches this topic contrasts.
+- [CSS-Tricks: A Complete Guide to CSS Grid](https://css-tricks.com/snippets/css/complete-guide-grid/) - see the `repeat()`/`minmax()`/`auto-fill` section for exactly what `.entries-grid`'s one-line responsiveness is doing.

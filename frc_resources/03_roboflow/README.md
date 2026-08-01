@@ -23,6 +23,14 @@ rotated, brightness-shifted, cropped, noise-added) is a cheap way to multiply a 
 labeled set and make the model more robust to conditions you haven't captured real
 photos of yet.
 
+"Labeling" here means drawing bounding boxes and assigning them ground-truth classes —
+and "the model got it wrong" in step 4 is measured against exactly the metric
+[`ml_resources/perception_primer/02-object-detection.ipynb`](../../ml_resources/perception_primer/02-object-detection.ipynb)
+covers in general: Intersection over Union (IoU) between a predicted box and the
+ground-truth one you drew. That notebook is the general detection task and vocabulary
+(bounding box, ground truth, IoU) this entire loop is built around; this module is about
+the FRC-specific tool that runs it.
+
 ## 2. What This Looks Like in FRC
 
 **Roboflow** (current as of the 2026 season) is the tool most FRC teams use to run this
@@ -88,6 +96,7 @@ computer-vision settings:
 - [Limelight: Training a Custom Detector Model](https://docs.limelightvision.io/docs/docs-limelight/pipeline-neural/training-your-own-detector) — Limelight's own walkthrough of the Roboflow-to-Limelight pipeline end to end.
 - [Limelight: Training a Custom Classifier Model](https://docs.limelightvision.io/docs/docs-limelight/pipeline-neural/training-your-own-classifier) — the classifier-specific version of the same pipeline.
 - [`ml_resources/edge_computing_primer`](../../ml_resources/edge_computing_primer/README.md) — the general deployment pipeline (§2) and continual-learning tradeoffs (§3) behind what "export to Limelight" and "restart every season" actually involve.
+- [`ml_resources/perception_primer`](../../ml_resources/perception_primer/README.md) — the general object-detection task, ground truth, and IoU vocabulary behind what "labeling" and "the model got it wrong" mean in §1's loop.
 
 **Check for understanding / hands-on exercise suggestions:**
 - Have students label a small set of images of an everyday object (not the game piece) in Roboflow, apply a couple of augmentations, and inspect what the augmented images actually look like — a fast way to build intuition for what augmentation is actually doing before it's applied to season-critical data.

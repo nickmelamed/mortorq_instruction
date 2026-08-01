@@ -37,14 +37,24 @@ Limelight ships several **pipelines** (processing modes you switch between):
   publishes a fixed field map of AprilTag positions; a robot that sees a tag can solve
   not just "where is the tag relative to me" but, because the tag's field position is
   known, **"where am I on the field"** — this is full field-pose estimation, not just
-  target-tracking. Limelight 4's onboard IMU fuses with AprilTag detections for more
+  target-tracking. The underlying math here is **Perspective-n-Point (PnP)** — estimating
+  a camera's position and orientation from a known 3D geometry and its observed 2D
+  projection — covered generally, with an AprilTag as its own worked example, in
+  [`ml_resources/perception_primer/03-intrinsics-extrinsics.ipynb`](../../ml_resources/perception_primer/03-intrinsics-extrinsics.ipynb).
+  Limelight 4's onboard IMU fuses with AprilTag detections for more
   stable pose estimates, and a neural-net-assisted detector (added in recent LLOS
   releases) first roughly locates candidate tag regions before running the precise
   geometric solve on just that region, which helps at longer distances and difficult
   angles.
 - **Neural Detector / Classifier pipelines** — object detection (find and locate a game
   piece) and classification (label what's in frame) using custom-trained neural
-  networks, run on one of several supported accelerators: onboard CPU, **Google Coral**
+  networks — the general detection/classification task and vocabulary (bounding boxes,
+  IoU, confidence) are covered in
+  [`ml_resources/perception_primer/02-object-detection.ipynb`](../../ml_resources/perception_primer/02-object-detection.ipynb),
+  built on the neuron/layer/CNN mechanics from
+  [`ml_resources/cv_primer/03-neural-networks.ipynb`](../../ml_resources/cv_primer/03-neural-networks.ipynb)
+  and [`04-convolution.ipynb`](../../ml_resources/cv_primer/04-convolution.ipynb) —
+  run on one of several supported accelerators: onboard CPU, **Google Coral**
   (USB3 EdgeTPU accelerator), or **Hailo-8 / Hailo-8L** (up to 26 TOPS on Hailo-8, with
   Hailo-8L support and a default detector model added across the LLOS 2026.0/2026.1
   releases). These are concrete points on the CPU/GPU/NPU/FPGA flexibility-vs-efficiency
@@ -94,6 +104,8 @@ wouldn't have time to use anyway.
 - [PhotonVision Documentation](https://docs.photonvision.org/) — official docs for the open-source alternative discussed in §2.
 - [WPILib: Vision Processing](https://docs.wpilib.org/en/stable/docs/software/vision-processing/index.html) — how vision results (from either tool) get consumed on the robot-code side.
 - [`ml_resources/edge_computing_primer`](../../ml_resources/edge_computing_primer/README.md) — the general local/edge/cloud framing and accelerator mechanics (TOPS, latency budgets, CPU/GPU/NPU/FPGA) behind everything named in §2 above.
+- [`ml_resources/perception_primer`](../../ml_resources/perception_primer/README.md) — the general object-detection and camera-pose (PnP) math behind the Neural Detector and AprilTag pipelines, respectively.
+- [`ml_resources/cv_primer`](../../ml_resources/cv_primer/README.md) — the neuron/layer/convolution mechanics a Neural Detector's CNN is built from.
 
 **Check for understanding / hands-on exercise suggestions:**
 - Have students point a Limelight at a printed AprilTag at three different known distances and compare the reported pose to a tape-measure ground truth — a fast way to build intuition for what "pose estimation error" actually looks like in practice.

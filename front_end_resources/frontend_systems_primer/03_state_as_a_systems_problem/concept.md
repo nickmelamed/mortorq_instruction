@@ -47,6 +47,15 @@ export function ScouterIdentityProvider({ children }: { children: ReactNode }) {
 
 Underneath, this is still just `useState` — Context doesn't replace state, it changes *where a component reaches to find it*. `useScouterIdentity()` wraps `useContext` and throws if it's called outside the provider, rather than quietly returning a default. That's a deliberate design choice, not an oversight: a component reading this hook with no provider above it has a real bug (it will never see updates from anywhere else in the app), and a thrown error at the exact call site tells you that immediately instead of a value silently sitting stale three components away.
 
+## When Context Stops Being Enough
+
+Right now, `scouterName` is the only piece of app-wide state, and one `useState` wrapped in a provider handles it completely. That won't stay true forever, and it's worth knowing the actual failure mode before you hit it, not after.
+
+Two different symptoms mean Context has stopped being enough, and they call for two different fixes:
+
+- **Too many independent pieces of shared state, updated by too many different actions, to track by hand.** The fix is the one already linked below: a reducer *inside* the provider, centralizing the transition logic the same way `systems_primer/03_state_machines`'s enum did for a robot, instead of letting more raw `useState` calls pile up inside the provider, each one a fresh chance to fall out of sync with the others.
+- **Every consumer re-renders on every Context change, even ones that only read one field.** This is a real, well-documented Context limitation, not a style preference: a Provider re-render pushes a new value to *every* consumer of that context, so a component that only ever reads `scouterName` still re-renders when some unrelated field in the same context value changes. This is the actual reason a library-based store (Redux Toolkit, Zustand, Jotai — any of them) exists: they let a component subscribe to just the slice of state it actually reads, instead of the whole context value. `scouting_app` doesn't need one of these yet — `scouterName` is a single string read by three components, so the re-render cost described above is invisible in practice — but the judgment call worth internalizing isn't "Context is for small apps, a store is for big ones." It's narrower than that: one shared value with a couple of consumers is a fine fit for Context; many independent, frequently-changing pieces of state with narrow, performance-sensitive consumers is where a selector-based store starts actually paying for itself.
+
 ## Putting it together
 
 ```text
@@ -60,3 +69,5 @@ Type your name into the "Scouting as" field next to the header, then open the fo
 
 - [React: Passing Data Deeply with Context](https://react.dev/learn/passing-data-deeply-with-context) - the official walkthrough, including its own version of the "does this actually need Context" test.
 - [React: Scaling Up with Reducer and Context](https://react.dev/learn/scaling-up-with-reducer-and-context) - what to reach for once a single `useState` inside a provider stops being enough — not needed yet in this app, but the natural next step.
+- [Zustand](https://github.com/pmndrs/zustand) - a widely-used, minimal selector-based store, and a good first example of the "subscribe to just the slice you read" fix described above once a reducer-in-Context stops being enough on its own.
+- [Redux Toolkit](https://redux-toolkit.js.org/) - the modern, official way to use Redux; worth knowing the name even if this app never needs it, since it's the store you're most likely to meet in an existing production codebase.

@@ -20,6 +20,9 @@ You've probably already felt the gap these habits fill, even if you didn't have 
 12. **Complexity & performance intuition** — noticing an obvious performance footgun, long before you need real Big-O.
 13. **Designing under constraints** — deciding what "close enough" means, assuming anything you didn't compute yourself can fail, and knowing your time/resource budget before you're over it.
 14. **Technical communication** — explaining technical work and tradeoffs to a reader who's never going to open your code: a mentor, a judge, a PR reviewer without your context.
+15. **Code review** — reviewing someone else's change well, and receiving a review of your own without taking it personally.
+16. **Pair programming & lightweight team workflow** — driver/navigator pairing, Kanban vs. sprints, and what "done" actually means.
+17. **Onboarding & mentorship** — the veteran's-side companion to `10`: leaving a map behind, instead of making every future newcomer rediscover one alone.
 
 ## How this folder is different from everything else here
 
@@ -40,7 +43,8 @@ This folder teaches each idea well enough to stand on its own, but several of th
 - **Deep algorithmic complexity** (real Big-O analysis, choosing between data structures) has its own dedicated unit coming later. `12_complexity_performance_intuition` is deliberately a teaser: just enough to notice a footgun, not a substitute for that unit.
 - **The full, hardware-applied version of `13_designing_under_constraints`** lives in `back_end_resources/systems_primer` (`01`, `04`, `04b`, `08`). This folder teaches the mindset in the abstract, with one hardware and one non-hardware worked example; `systems_primer` is where it gets applied in real depth to an actual robot.
 - **The PR format `14_technical_communication` builds on** is `git_resources/CONTRIBUTING.md`'s branch, commit, and PR conventions. That document owns the mechanics (naming, checklist, format); `14` owns the thinking behind writing a good one.
-- **Robot-deployment CLI usage** — the WPILib/Gradle commands that actually push code to a robot — is a known gap in `back_end_resources` right now. `01_shell_cli_literacy` teaches transferable shell skills only; the robot-specific deploy tooling is a separate unit students should expect later.
+- **Robot-deployment CLI usage** — the WPILib/Gradle commands that actually push code to a robot, the real project scaffold, and vendor libraries — is covered in `frc_resources/07_project_scaffold_and_deploy`, not here. `01_shell_cli_literacy` teaches transferable shell skills only and does not cover robot-deploy specifics.
+- **Career and interview preparation** (resumes, technical interviews) is deliberately out of scope for this curriculum. This folder builds the underlying skill (`10`, `14`, and now `15`-`17` all transfer directly to a professional engineering job), but doesn't teach the job-search mechanics on top of it.
 
 ## How to work through this
 

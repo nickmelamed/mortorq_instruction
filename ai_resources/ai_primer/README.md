@@ -26,7 +26,7 @@ Read these in order:
 4. [03 - Multi-Turn](03-multi-turn.md) - carrying a conversation across multiple turns
 5. [04 - Prompt Engineering](04-prompt-engineering.md) - more advanced techniques (Chain-of-Thought, personas, constraints)
 6. [05 - Structured and Validated Outputs](05-structured-and-validated-outputs.md) - getting machine-parseable output (JSON) and checking it before you trust it
-7. [06 - Thought Process](06-thought-process.md) - how to verify and reason about AI output
+7. [06 - Thought Process](06-thought-process.md) - how to verify and reason about AI output, and when not to reach for it at all
 8. [07 - Sample Prompt](07-sample-prompt.md) - a full case study putting it all together
 
 ## Exercises
