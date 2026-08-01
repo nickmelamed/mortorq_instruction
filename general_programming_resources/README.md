@@ -28,6 +28,7 @@ general_programming_resources/
 ├── 11_style_linting/                        Why automated formatting exists, and what it buys a team
 ├── 12_complexity_performance_intuition/     Recognizing an obvious performance footgun, without deriving Big-O
 ├── 13_designing_under_constraints/          Defining tolerance, timeout, and fallback before you write the loop
+├── 14_technical_communication/              Writing and explaining technical work for a reader who won't open the code
 └── README.md                                This file
 ```
 

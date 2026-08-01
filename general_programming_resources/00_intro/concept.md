@@ -19,6 +19,7 @@ You've probably already felt the gap these habits fill, even if you didn't have 
 11. **Style & linting as a collaboration tool** — why automated formatting exists, and what it buys a team.
 12. **Complexity & performance intuition** — noticing an obvious performance footgun, long before you need real Big-O.
 13. **Designing under constraints** — deciding what "close enough" means, assuming anything you didn't compute yourself can fail, and knowing your time/resource budget before you're over it.
+14. **Technical communication** — explaining technical work and tradeoffs to a reader who's never going to open your code: a mentor, a judge, a PR reviewer without your context.
 
 ## How this folder is different from everything else here
 
@@ -38,6 +39,7 @@ This folder teaches each idea well enough to stand on its own, but several of th
 - **Dependency-management and debugger tooling** (`pip`/`venv`, `npm`, Maven/Gradle, `pdb`, browser DevTools) don't currently have a dedicated home anywhere else in this curriculum, so `05_dependency_management` and `06_debugging_methodology` each include a short, practical pass on the real tools alongside the underlying idea — enough to actually use them, not a full reference.
 - **Deep algorithmic complexity** (real Big-O analysis, choosing between data structures) has its own dedicated unit coming later. `12_complexity_performance_intuition` is deliberately a teaser: just enough to notice a footgun, not a substitute for that unit.
 - **The full, hardware-applied version of `13_designing_under_constraints`** lives in `back_end_resources/systems_primer` (`01`, `04`, `04b`, `08`). This folder teaches the mindset in the abstract, with one hardware and one non-hardware worked example; `systems_primer` is where it gets applied in real depth to an actual robot.
+- **The PR format `14_technical_communication` builds on** is `git_resources/CONTRIBUTING.md`'s branch, commit, and PR conventions. That document owns the mechanics (naming, checklist, format); `14` owns the thinking behind writing a good one.
 - **Robot-deployment CLI usage** — the WPILib/Gradle commands that actually push code to a robot — is a known gap in `back_end_resources` right now. `01_shell_cli_literacy` teaches transferable shell skills only; the robot-specific deploy tooling is a separate unit students should expect later.
 
 ## How to work through this
