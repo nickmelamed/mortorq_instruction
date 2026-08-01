@@ -1,0 +1,3 @@
+// Just names the project -- see ../README.md for why this isn't a buildable
+// project on its own (no real gradlew wrapper or GradleRIO plugin vendored here).
+rootProject.name = "reference-robot-project"

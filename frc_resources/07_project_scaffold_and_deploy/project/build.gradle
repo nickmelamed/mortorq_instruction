@@ -1,0 +1,68 @@
+// build.gradle -- annotated reference, not a buildable file on its own.
+// A real version of this needs the WPILib-provided Gradle wrapper and the
+// actual GradleRIO plugin; neither is vendored into this instructional
+// repo. Read this side by side with our team's real robot code repository's
+// build.gradle. See ../README.md SS2 ("build.gradle, briefly") for a guided
+// walkthrough of each block below.
+
+plugins {
+    id "java"
+    id "edu.wpi.first.GradleRIO" version "2026.1.1"   // version-tag every season; check WPILib's yearly changelog
+}
+
+// GradleRIO cross-compiles: this project builds on whatever laptop OS is
+// running Gradle, but the deployed artifact has to run on the
+// roboRIO/Systemcore's ARM-based Linux target -- a different architecture
+// than the one doing the building. Same "built here, deployed there" shape
+// as ml_resources/edge_computing_primer/03's export/deploy pipeline, just
+// for a JVM+JAR instead of a compiled model file.
+frc {
+    teamNumber = 1515
+}
+
+deploy {
+    targets {
+        roborio(getTargetTypeClass('RoboRIO')) {
+            team = frc.teamNumber
+            debug = frc.getDebugOrDefault(false)
+            artifacts {
+                // The compiled robot code itself.
+                frcJava(getArtifactTypeClass('FRCJavaArtifact')) {}
+                // Anything in src/main/deploy gets copied onto the robot
+                // as-is (e.g. autonomous-path JSONs from Choreo/PathPlanner
+                // -- see frc_resources/05_wpilib) alongside the JAR.
+                frcStaticFileDeploy(getArtifactTypeClass('FileTreeArtifact')) {
+                    files = project.fileTree('src/main/deploy')
+                    directory = '/home/lvuser/deploy'
+                }
+            }
+        }
+    }
+}
+
+dependencies {
+    // WPILib itself, plus every vendor library declared under
+    // vendordeps/*.json (REVLib, Phoenix6, ...) -- resolved and cached the
+    // same way any other build tool resolves dependencies; see
+    // general_programming_resources/05_dependency_management.
+    implementation wpi.java.deps.wpilib()
+    implementation wpi.java.vendor.java()
+
+    roborioDebug wpi.java.deps.wpilibJniDebug(wpi.platforms.roborio)
+    roborioRelease wpi.java.deps.wpilibJniRelease(wpi.platforms.roborio)
+
+    nativeDebug wpi.java.deps.wpilibJniDebug(wpi.platforms.desktop)
+    nativeRelease wpi.java.deps.wpilibJniRelease(wpi.platforms.desktop)
+
+    simulationDebug wpi.sim.enableDebug()
+    simulationRelease wpi.sim.enableRelease()
+
+    // Same JUnit family as back_end_resources/systems_primer/06_testing_debugging,
+    // just wired into this project's own build instead of a standalone javac/java
+    // classpath invocation.
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
+}
+
+test {
+    useJUnitPlatform()
+}

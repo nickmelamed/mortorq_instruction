@@ -10,6 +10,7 @@ Each topic has:
 
 - **`concept.md`** — the idea itself, explained through competition scenarios, with minimal code. Read this first.
 - **Implementation examples**, in whichever language(s) fit — standalone, runnable/compilable files with mocked or simulated inputs where real hardware isn't available, commented generously since these are teaching examples, not production code.
+- **`exercises/exercise-1-*.md`** — one hands-on exercise per topic. These have you predict a demo's output before running it, then modify or extend the real file (add a state, add a test, close a gap in the fault-handling logic) and verify against real output — not just read along.
 
 ## Directory structure
 

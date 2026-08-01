@@ -105,7 +105,7 @@ Since this code will be changing our codebase, the rules here are going to be a 
 
 ### Review and Label Conventions 
 
-For any of your PRs, add INSERT NAMES OF PEOPLE TO ADD. </br>
+Every PR needs at least one review from someone other than you before it merges - your subteam lead if you have one, otherwise whichever teammate knows that part of the codebase best. Don't merge your own PR without that review, even if you're confident it's correct; a second set of eyes is the whole point of the process, not a formality to skip when you're in a hurry. </br>
 
 Add a label to your PR. GitHub provides some labels to mark our PRs for better organization. The list can be found on the PR page (under Labels). 
 

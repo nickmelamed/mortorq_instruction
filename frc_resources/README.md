@@ -22,9 +22,10 @@ restates the core idea in a few sentences first.
 | [04_dashboards_and_telemetry](04_dashboards_and_telemetry/README.md) | Elastic (driver dashboard) vs. AdvantageScope (debugging/log replay) — why FRC splits these into two tools |
 | [05_wpilib](05_wpilib/README.md) | Command-based architecture, simulation, Choreo/PathPlanner path planning |
 | [06_hardware_debugging](06_hardware_debugging/README.md) | CAN bus fundamentals, Phoenix Tuner X, REV Hardware Client, brownout diagnosis, the Systemcore transition |
+| [07_project_scaffold_and_deploy](07_project_scaffold_and_deploy/README.md) | The actual WPILib project layout (Gradle, vendordeps, `RobotContainer`), and what "deploy" does between a laptop and the roboRIO/Systemcore |
 
-> **Status:** `06_hardware_debugging` is the pilot module and is fully written. The
-> others are stubs pending review of the pattern below.
+> **Status:** All modules (`01`-`07`) are fully written, following the pattern below.
+> `06_hardware_debugging` was the pilot module the pattern was proven on first.
 
 ## The pattern every module follows
 

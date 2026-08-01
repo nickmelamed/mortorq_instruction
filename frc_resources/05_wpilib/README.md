@@ -138,6 +138,12 @@ sending conflicting motor voltage commands to the same physical motor, so the
 scheduler's conflict resolution isn't just a style preference, it's what prevents
 actually damaging hardware.
 
+This module has stayed conceptual on purpose — `Subsystem`, `Command`, and
+`CommandScheduler` as ideas, not a real project you could deploy. `07_project_scaffold_and_deploy`
+picks up exactly where this leaves off: the actual file layout a command-based project
+follows, a real subsystem/command pair, and what happens between pressing Deploy and
+seeing that code run on a robot.
+
 ## Resources
 
 - [WPILib: Command-Based Programming](https://docs.wpilib.org/en/stable/docs/software/commandbased/index.html) — the official guide to subsystems, commands, and the scheduler described in §2.

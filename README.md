@@ -2,6 +2,27 @@
 
 This repo holds all instructional materials for Team 1515 Mortorq, spanning traditional programming, AI/ML, Computer Vision/Perception, Agents, and Full-Stack development. 
 
+## Curriculum Map
+
+The curriculum is split into independent domains, each with its own README explaining how it's organized and what order to read it in. Most domains stand alone — jump to whichever one matches what you're working on rather than reading the repo cover to cover.
+
+| Domain | Covers | Start here |
+|---|---|---|
+| [`git_resources/`](git_resources/README.md) | Version control: the git mental model, branching, merge vs. rebase, resolving conflicts, and this team's PR/commit conventions (`CONTRIBUTING.md`) | [`git_resources/README.md`](git_resources/README.md) |
+| [`general_programming_resources/`](general_programming_resources/README.md) | Language-agnostic professional habits — debugging methodology, testing philosophy, reading unfamiliar code, technical communication, and more. A shelf, not a staircase: dip into whatever module is relevant, in any order | [`general_programming_resources/README.md`](general_programming_resources/README.md) |
+| [`back_end_resources/`](back_end_resources/language_primer/README.md) | Java, Python, and C++ fundamentals (`language_primer/`), then the backend systems patterns — concurrency, PID, state machines, testing, fault tolerance — that keep code working live on a robot (`systems_primer/`) | [`back_end_resources/language_primer/README.md`](back_end_resources/language_primer/README.md) |
+| [`frc_resources/`](frc_resources/README.md) | FRC's own tools and hardware ecosystem: Limelight, Roboflow, driver dashboards, WPILib's command-based architecture, the actual robot project layout and deploy workflow, and CAN-bus hardware debugging. Assumes `back_end_resources/systems_primer` | [`frc_resources/README.md`](frc_resources/README.md) |
+| [`front_end_resources/`](front_end_resources/README.md) | HTML/CSS/JS/TypeScript/React, frontend systems thinking (real data, state, offline support, testing, deployment), and product design — all built around one real running app, the FRC scouting tool. Assumes `back_end_resources` | [`front_end_resources/README.md`](front_end_resources/README.md) |
+| [`ml_resources/`](ml_resources/ml_primer/README.md) | ML fundamentals through linear algebra, computer vision, perception, deep learning, reinforcement learning, and generative AI architecture, plus deploying models to edge hardware (the same hardware `frc_resources/02_limelight` and `03_roboflow` build on) | [`ml_resources/ml_primer/README.md`](ml_resources/ml_primer/README.md) |
+| [`ai_resources/`](ai_resources/ai_primer/README.md) | Using AI coding tools well day to day (`ai_primer/`), then how AI agents actually work and how to build one (`agent_primer/`) — more advanced, best treated as optional/after-fundamentals | [`ai_resources/ai_primer/README.md`](ai_resources/ai_primer/README.md) |
+
+### Suggested path for a new programmer
+
+1. **[`git_resources/`](git_resources/README.md)** and **[`general_programming_resources/01_shell_cli_literacy`](general_programming_resources/01_shell_cli_literacy/concept.md)** — the baseline tooling everything else assumes.
+2. **[`back_end_resources/language_primer`](back_end_resources/language_primer/README.md)** — pick up Java first (it's what WPILib and the real robot code run), with Python and C++ alongside it.
+3. **[`back_end_resources/systems_primer`](back_end_resources/systems_primer/README.md)** and **[`frc_resources/`](frc_resources/README.md)** together — these two lean on each other constantly (systems_primer's PID/state-machine theory, frc_resources' concrete WPILib/hardware instance of it), so it's worth going back and forth between them rather than finishing one before starting the other.
+4. **Everything else** — `front_end_resources/`, `ml_resources/`, `ai_resources/`, and the rest of `general_programming_resources/` — in whatever order matches what you're actually working on. None of these three require finishing each other first.
+
 ## Environment Set-up 
 
 To ensure all students have a consistent setup across **Mac, Windows, and Linux**, we use a **Python virtual environment** with dependencies defined in `requirements.txt`.
