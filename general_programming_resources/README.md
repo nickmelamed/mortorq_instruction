@@ -27,6 +27,7 @@ general_programming_resources/
 ├── 10_reading_unfamiliar_code/              Flagship topic: orienting in a codebase you didn't write
 ├── 11_style_linting/                        Why automated formatting exists, and what it buys a team
 ├── 12_complexity_performance_intuition/     Recognizing an obvious performance footgun, without deriving Big-O
+├── 13_designing_under_constraints/          Defining tolerance, timeout, and fallback before you write the loop
 └── README.md                                This file
 ```
 
