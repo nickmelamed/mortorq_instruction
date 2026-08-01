@@ -36,7 +36,11 @@ labeled/augmented dataset from Roboflow, hand it to Limelight's trainer, which t
 cloud GPUs and hands back a model already packaged for whichever Limelight accelerator
 you're targeting (onboard CPU, Google Coral, Hailo-8, or Hailo-8L — see `02_limelight`
 for what those are). This closes the loop described in §1 without a team needing to run
-their own training infrastructure at any step.
+their own training infrastructure at any step. "Packaged for whichever accelerator" is
+doing a lot of work in that sentence — it's the export → convert/compile → benchmark
+pipeline covered generally in
+[`ml_resources/edge_computing_primer/03`](../../ml_resources/edge_computing_primer/03-deployment-pipeline.md),
+running automatically on Limelight's build servers instead of by hand.
 
 A concrete version of the loop, run over a build season:
 
@@ -60,7 +64,13 @@ computer-vision settings:
   game piece — a new shape, color, and material — with each new season's game manual, so
   a team effectively restarts step 1 of the loop every single year. There is no
   "last year's dataset" to lean on for the object itself (lighting/background
-  augmentation techniques do carry over).
+  augmentation techniques do carry over). The obvious shortcut — fine-tune last
+  season's model on this season's game piece instead of retraining from scratch — has a
+  real, measured failure mode (catastrophic forgetting) and a real, non-free mitigation
+  (rehearsal), both demonstrated in
+  [`ml_resources/edge_computing_primer/04`](../../ml_resources/edge_computing_primer/04-on-device-training-and-continual-learning.ipynb).
+  That notebook is background for a decision this team hasn't made, not a recommendation
+  to change the workflow described above.
 - **Real footage is scarce until very late in the loop.** The loop in §1 assumes you can
   keep testing against real-world conditions — but a team doesn't have the actual
   competition field, or even necessarily the finished robot, for most of the six-week
@@ -77,6 +87,7 @@ computer-vision settings:
 - [Limelight: Free Neural Network Trainer](https://tools.limelightvision.io/neural-network-trainer) — the tool that consumes Roboflow exports directly, described in §2.
 - [Limelight: Training a Custom Detector Model](https://docs.limelightvision.io/docs/docs-limelight/pipeline-neural/training-your-own-detector) — Limelight's own walkthrough of the Roboflow-to-Limelight pipeline end to end.
 - [Limelight: Training a Custom Classifier Model](https://docs.limelightvision.io/docs/docs-limelight/pipeline-neural/training-your-own-classifier) — the classifier-specific version of the same pipeline.
+- [`ml_resources/edge_computing_primer`](../../ml_resources/edge_computing_primer/README.md) — the general deployment pipeline (§2) and continual-learning tradeoffs (§3) behind what "export to Limelight" and "restart every season" actually involve.
 
 **Check for understanding / hands-on exercise suggestions:**
 - Have students label a small set of images of an everyday object (not the game piece) in Roboflow, apply a couple of augmentations, and inspect what the augmented images actually look like — a fast way to build intuition for what augmentation is actually doing before it's applied to season-critical data.

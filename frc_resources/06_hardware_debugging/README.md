@@ -225,6 +225,16 @@ partnership with Limelight — is FIRST's next-generation robot controller, and 
 primary content of this section deliberately: it's what a student joining the team from
 this point forward will actually be working with, not a side note.
 
+Worth being precise about what roboRIO/Systemcore actually is in the local/edge/cloud
+terms covered in
+[`ml_resources/edge_computing_primer/00`](../../ml_resources/edge_computing_primer/00-local-vs-cloud-vs-edge.md):
+it's the robot's general-purpose controller, not a dedicated edge accelerator like the
+Hailo/Coral chips inside a Limelight (`02_limelight`). That primer uses this exact
+controller as its running example of why "it's physically on the robot" doesn't mean
+"it's free, unconstrained compute" — the roboRIO/Systemcore is already running the
+robot's real-time control loop on a fixed timing budget before anything else asks it
+for cycles.
+
 **What's confirmed as of this writing (mid-2026):**
 - Systemcore hardware has been in public alpha/beta testing since 2025, with WPILib
   publishing early Systemcore-specific documentation and a dedicated testing repository
@@ -265,6 +275,7 @@ by the time they check.
 - [WPILib: Third-Party CAN Devices](https://docs.wpilib.org/en/stable/docs/software/can-devices/third-party-devices.html) — how CAN devices from any vendor fit into the robot code side, not just the config-tool side.
 - [WPILib: Systemcore introduction](https://docs.wpilib.org/en/latest/docs/software/systemcore-info/systemcore-introduction.html) — the current official starting point for Systemcore specifics; check this first before teaching §5 again next season.
 - [Chief Delphi: Systemcore rollout questions megathread](https://www.chiefdelphi.com/t/systemcore-motioncore-rollout-questions-frc-ftc/508694) — where the FRC community is actively tracking rollout changes in real time; useful for the "what's genuinely unsettled" parts of §5. (Thread title mentions Motioncore since it covers both FRC and FTC — the FRC-relevant content is Systemcore.)
+- [`ml_resources/edge_computing_primer/00`](../../ml_resources/edge_computing_primer/00-local-vs-cloud-vs-edge.md) — the general local-vs-edge distinction §5 draws on to place the roboRIO/Systemcore relative to a Limelight's dedicated accelerator.
 
 **Hands-on exercise suggestions** (not built out yet — one-liners for later):
 - Have each student pull up Tuner X (or REV Hardware Client) on an actual practice robot and produce a device-ID table like the one in §2 from a live scan, then intentionally unplug one device and identify the fault through the tool rather than by guessing.

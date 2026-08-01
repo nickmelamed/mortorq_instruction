@@ -8,7 +8,11 @@ another computer to process. This is a real architectural choice with tradeoffs:
 onboard-processing camera is easier to integrate (plug it in, read a result) but you're
 stuck with whatever compute the manufacturer put inside it; a "dumb" camera plus a
 separate compute unit (a **coprocessor**) is more flexible and often more powerful, but
-you own the entire software stack and its integration.
+you own the entire software stack and its integration. This is a specific case of the
+local-vs-edge tradeoff covered generally in
+[`ml_resources/edge_computing_primer/00`](../../ml_resources/edge_computing_primer/00-local-vs-cloud-vs-edge.md) —
+a smart camera's onboard chip is purpose-built and resource-constrained (edge); a
+coprocessor is closer to general-purpose local compute, just smaller than a laptop.
 
 A **fiducial marker** is a printed pattern designed specifically to be easy for a
 computer to detect and to precisely tell it something a natural image usually can't:
@@ -43,7 +47,12 @@ Limelight ships several **pipelines** (processing modes you switch between):
   networks, run on one of several supported accelerators: onboard CPU, **Google Coral**
   (USB3 EdgeTPU accelerator), or **Hailo-8 / Hailo-8L** (up to 26 TOPS on Hailo-8, with
   Hailo-8L support and a default detector model added across the LLOS 2026.0/2026.1
-  releases). Training these models is covered in `03_roboflow`.
+  releases). These are concrete points on the CPU/GPU/NPU/FPGA flexibility-vs-efficiency
+  spectrum, and TOPS is the throughput spec named there — both covered generally in
+  [`ml_resources/edge_computing_primer/01`](../../ml_resources/edge_computing_primer/01-compute-budgets-and-accelerators.md),
+  including why a TOPS figure alone doesn't tell you whether a given accelerator will
+  actually hit a robot's latency budget. Training these models is covered in
+  `03_roboflow`.
 
 **PhotonVision** is the leading open-source alternative: free, and built for teams that
 want to run vision on their own coprocessor (commonly an Orange Pi or Raspberry Pi) with
@@ -84,6 +93,7 @@ wouldn't have time to use anyway.
 - [Limelight: Tracking AprilTags](https://docs.limelightvision.io/docs/docs-limelight/pipeline-apriltag/apriltags) — the AprilTag pipeline details referenced in §2.
 - [PhotonVision Documentation](https://docs.photonvision.org/) — official docs for the open-source alternative discussed in §2.
 - [WPILib: Vision Processing](https://docs.wpilib.org/en/stable/docs/software/vision-processing/index.html) — how vision results (from either tool) get consumed on the robot-code side.
+- [`ml_resources/edge_computing_primer`](../../ml_resources/edge_computing_primer/README.md) — the general local/edge/cloud framing and accelerator mechanics (TOPS, latency budgets, CPU/GPU/NPU/FPGA) behind everything named in §2 above.
 
 **Check for understanding / hands-on exercise suggestions:**
 - Have students point a Limelight at a printed AprilTag at three different known distances and compare the reported pose to a tape-measure ground truth — a fast way to build intuition for what "pose estimation error" actually looks like in practice.
