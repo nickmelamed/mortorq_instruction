@@ -8,7 +8,7 @@
 
 ## Logs: What Happened, One Step at a Time
 
-The most basic unit of observability is a **log**: a structured, timestamped record of a single event. For an agent, the natural unit to log is one step of the ReAct loop from `05-planning-and-reasoning-patterns.md` - one Reason, one Act, one Observe. Recall the scratchpad idea from `03-context-engineering.md`: an agent's working notes as it goes. A log is what you get when you keep a durable copy of those notes outside the context window, instead of letting them disappear once the conversation ends.
+The most basic unit of observability is a **log**: a structured, timestamped record of a single event. For an agent, the natural unit to log is one step of the ReAct loop from `05-planning-and-reasoning-patterns.md`; one Reason, one Act, one Observe. Recall the scratchpad idea from `03-context-engineering.md`: an agent's working notes as it goes. A log is what you get when you keep a durable copy of those notes outside the context window, instead of letting them disappear once the conversation ends.
 
 A well-structured log entry captures more than just "what the final answer was":
 
@@ -23,7 +23,7 @@ A well-structured log entry captures more than just "what the final answer was":
 }
 ```
 
-Compare this to just logging the final recommendation ("Recommend team 1114") - the final answer alone tells you *what* the agent decided, but nothing about *why*, or which specific piece of data it leaned on. If that recommendation turns out to be wrong, a log of only the final output leaves you re-running the whole task and guessing at what might have gone differently, while a step-by-step log lets you point at the exact reasoning line or tool result that caused it.
+Compare this to just logging the final recommendation ("Recommend team 1114"); the final answer alone tells you *what* the agent decided, but nothing about *why*, or which specific piece of data it leaned on. If that recommendation turns out to be wrong, a log of only the final output leaves you re-running the whole task and guessing at what might have gone differently, while a step-by-step log lets you point at the exact reasoning line or tool result that caused it.
 
 ## Traces: Following One Task End to End
 
@@ -56,7 +56,7 @@ Observe: Team 4930 averages 3 pieces/match auto, doesn't climb, ranks 9th.
 
 Reason: We're weak on climb - checking candidate teams' climb rate.
 Act:    get_team_match_history(team_number=1114, event_code="2026casj")
-Observe: Error - event code not found (typo: event was "2026casj", not "2026casj").
+Observe: Error - event code not found (typo: event was "2026caj", not "2026casj").
 
 Reason: No data returned for 1114. Team 1114 likely has no notable climb record this
         event; moving on to next candidate.
@@ -67,6 +67,10 @@ Reason: Of the candidates checked, 2056 is the strongest available option.
 Agent to user: "Recommend team 2056 as your next alliance pick."
 ```
 
-1. The recommendation is wrong - team 1114 (a strong climber, per `05-planning-and-reasoning-patterns.md`'s version of this same scenario) got silently dropped from consideration. Find the exact step where the real failure happened, and state it precisely: which line contains an error being misread as an absence of data?
-2. Suppose only the final two lines (the recommendation and the message to the user) had been logged, as many first-draft agents do. Explain specifically why that logging level would make this bug nearly undiagnosable after the fact - what question could a person never answer from those two lines alone?
-3. Design a structured log schema (a short field list, JSON-style like the example above) that would have made this bug immediately visible to a person reading the log - not just recoverable in theory, but visible without needing to re-run the task. Name the one field that does the most work in exposing this specific bug, and explain why.
+1. The recommendation is wrong: team 1114 (a strong climber, per `05-planning-and-reasoning-patterns.md`'s version of this same scenario) got silently dropped from consideration. Find the exact step where the real failure happened, and state it precisely: which line contains an error being misread as an absence of data? \\
+2. Suppose only the final two lines (the recommendation and the message to the user) had been logged, as many first-draft agents do. Explain specifically why that logging level would make this bug nearly undiagnosable after the fact. What question could a person never answer from those two lines alone? \\
+3. Design a structured log schema (a short field list, JSON-style like the example above) that would have made this bug immediately visible to a person reading the log; not just recoverable in theory, but visible without needing to re-run the task. Name the one field that does the most work in exposing this specific bug, and explain why. \\
+
+## Resources
+
+- [OpenTelemetry for Generative AI](https://opentelemetry.io/blog/2024/otel-generative-ai/) - the industry effort to standardize logs, traces, and metrics for LLM and agent systems, the real-world version of this module's schema (blog)

@@ -32,7 +32,7 @@ An agent workflow tends to be a little more complex:
 4. The agent executes its plan using tools, or external information/services (APIs, documentation, etc.), changing files/outcomes as needed. 
 5. The agent checks if its plan meets the goal. If not, it tries again. 
 
-Notice how here, the agent does work without being prompted by the user. This is what makes these agents autonomous. Additionally, it goes beyond answering user questions. It will actually change existing files, or place real orders in our example, as necessary. This process likely takes more than one step, making it a multi-step process. 
+Notice how here, the agent does work without being prompted by the user. This is what makes these agents autonomous. Additionally, it goes beyond answering user questions (although many agents, like Claude Code, still have this functionality). It will actually change existing files, or place real orders in our example, as necessary. This process likely takes more than one step, making it a multi-step process. 
 
 ## Try It
 
@@ -41,25 +41,42 @@ Below is a real-style transcript of an agent handling the goal "order a replacem
 ```text
 A. User: "Order us a replacement drive motor, under $60, that can arrive before Saturday's
    competition."
+
 B. Agent: Parsing request - part: drive motor, budget: $60 max, deadline: Saturday (2026-07-11).
+
 C. Agent: Plan - (a) search vendors for a compatible drive motor, (b) filter by price and
    shipping time, (c) pick the best option, (d) place the order, (e) confirm to user.
+
 D. Agent: Calling search_parts(part="drive motor", max_price=60)...
 E. Tool result: 5 motors found, prices range $45-$95, shipping times range 1-6 days.
+
 F. Agent: Filtering for price <= $60 and arrival by Saturday -> 2 motors remain ($52,
    3-day shipping; $58, 2-day shipping).
+
 G. Agent: Checking against goal - both options satisfy the budget and deadline. Selecting
    the $58 motor for the extra shipping buffer before competition.
+
 H. Agent: Calling order_part(vendor_sku="VEX-775PRO-58", price=58)...
+
 I. Tool result: Order failed - item out of stock, remaining stock now priced at $64.
+
 J. Agent: Checking against goal - $64 exceeds the $60 budget. Plan not yet satisfied,
    re-entering step 4 with the remaining option.
+
 K. Agent: Calling order_part(vendor_sku="REV-PRO-52", price=52)...
+
 L. Tool result: Order confirmed, confirmation #REV-8841.
+
 M. Agent: Checking against goal - ordered, $52 is under $60, and 3-day shipping arrives
    before Saturday. Goal satisfied.
+   
 N. Agent to user: "Ordered a REV drive motor, $52, arriving in 3 days (before Saturday).
    Confirmation #REV-8841."
 ```
 
 Once you've labeled every line, answer in a sentence or two: which single tool-result line, if it had come back different, would have sent the agent back through the loop again - and how do you know from the transcript alone?
+
+## Resources
+
+- [Building Effective AI Agents](https://www.anthropic.com/engineering/building-effective-agents) - Anthropic's own distinction between fixed workflows and true agents, and when to reach for each (blog)
+- [What Are AI Agents?](https://www.ibm.com/think/topics/ai-agents) - IBM's explainer on autonomy and multi-step planning, covering the same chatbot-vs-agent line this module draws (blog)

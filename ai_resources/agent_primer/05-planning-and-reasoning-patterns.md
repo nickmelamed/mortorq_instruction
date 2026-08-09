@@ -2,7 +2,7 @@
 
 ## From One Tool Call to a Real Plan
 
-`04-tool-use-and-function-calling.md` gave the scouting agent one tool and one kind of question: look up a single team's history. But the questions a team actually wants answered rarely resolve in one call. "Recommend our next 3 alliance picks" requires pulling data on many teams, comparing them against several criteria, and producing a ranked, justified answer, which is a multi-step task. This module covers the patterns agents use to plan and reason across steps like that, rather than firing off one tool call and stopping.
+`04-tool-use-and-function-calling.md` gave the scouting agent one tool and one kind of question: look up a single team's history. But the questions a team actually wants answered rarely resolve in one call. "Recommend our 2 alliance team picks" requires pulling data on many teams, comparing them against several criteria, and producing a ranked, justified answer, which is a multi-step task. This module covers the patterns agents use to plan and reason across steps like that, rather than firing off one tool call and stopping.
 
 ## ReAct: Reason, Act, Observe, Repeat
 
@@ -37,7 +37,7 @@ Act:    (no tool call - responds directly)
 Observe: N/A
 ```
 
-Notice the loop doesn't have a fixed number of steps decided up front - the agent keeps reasoning-acting-observing until *it* decides it has enough, which is also exactly where things can go wrong (more on that in `08-guardrails-failure-modes-and-eval.md`, since nothing here stops the agent from looping forever if it never decides it has "enough").
+Notice the loop doesn't have a fixed number of steps decided up front. The agent keeps reasoning-acting-observing until *it* decides it has enough, which is also exactly where things can go wrong (more on that in `08-guardrails-failure-modes-and-eval.md`, since nothing here stops the agent from looping forever if it never decides it has "enough").
 
 ## Plan-and-Execute
 
@@ -77,11 +77,16 @@ This catches a real gap the first pass missed, but it isn't magic; a self-critiq
 
 Before looking at how an agent would actually do this, plan it yourself.
 
-1. On paper, write out the plan **you** would follow, as a human scout, to answer: "Recommend our next 3 alliance picks," given access to full match data and rankings for the current event. Be as specific as you'd need to be to hand this plan to a teammate and have them execute it without asking you questions.
-2. Now open a chat model (a plain chatbot is fine - it doesn't need real tool access for this) and prompt it with something like: *"You are a scouting agent for an FRC team ranked 9th at our event. Using a ReAct-style approach, write out your reasoning and planned tool calls (you can invent plausible tool names) to recommend our next 3 alliance picks. Think step by step and show your plan before acting."*
+1. On paper, write out the plan **you** would follow, as a human scout, to answer: "Recommend our 2 alliance team picks," given access to full match data and rankings for the current event. Be as specific as you'd need to be to hand this plan to a teammate and have them execute it without asking you questions. \\
+2. Now open a chat model (a plain chatbot is fine) and prompt it with something like: *"You are a scouting agent for an FRC team ranked 5th at our event. Using a ReAct-style approach, write out your reasoning and planned tool calls (you can invent plausible tool names) to recommend our 2 alliance team picks. Think step by step and show your plan before acting."* \\
 3. Compare the two plans side by side. Specifically identify:
    - One step you included that the agent's plan skipped
    - One step the agent's plan included that you hadn't thought to check
-   - One place where your plan and the agent's plan checked things in a different order, and whether that order difference would actually change the final recommendation
+   - One place where your plan and the agent's plan checked things in a different order, and whether that order difference would actually change the final recommendation 
 
 Write two or three sentences on which plan you'd trust more for a real competition, and why, and whether the answer changes if the agent's plan also includes a self-critique step.
+
+## Resources
+
+- [ReAct: Synergizing Reasoning and Acting in Language Models](https://arxiv.org/abs/2210.03629) - the paper this module's Reason/Act/Observe loop is named after (paper)
+- [Reflexion: Language Agents with Verbal Reinforcement Learning](https://arxiv.org/abs/2303.11366) - the paper behind the self-critique/reflection pattern (paper)

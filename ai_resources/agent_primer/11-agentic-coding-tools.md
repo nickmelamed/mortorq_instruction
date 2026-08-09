@@ -2,11 +2,11 @@
 
 ## Beyond the README's Mention
 
-The README introduced Claude Code, Cursor, and Codex as "coding agents" that go beyond autocomplete, able to write, debug, and test code, completing tasks in parallel. Everything covered since then is exactly what's running under the hood of tools like these. This module treats them properly, as an application of everything you've now learned - specifically, four concrete features (project rules files, handoff files, plan mode, subagents) that are each a real, nameable instance of a concept from an earlier module, not a new idea to learn from scratch.
+The README introduced Claude Code, Cursor, and Codex as "coding agents" that go beyond autocomplete, able to write, debug, and test code, completing tasks in parallel. Everything covered since then is exactly what's running under the hood of tools like these. This module treats them properly, as an application of everything you've now learned. Specifically, four concrete features (project rules files, handoff files, plan mode, subagents) that are each a real, nameable instance of a concept from an earlier module, not a new idea to learn from scratch.
 
 ## How This Differs from Autocomplete
 
-Autocomplete-style tools (like GitHub Copilot's inline suggestions) predict what you're about to type, one completion at a time, based on the surrounding code. An agentic coding tool is given a goal instead of a cursor position: "add a timeout guard to this drive command," "find every place we hardcoded a motor ID and pull it into a constants file." It then runs its own version of the agent workflow from `01-agent-basics.md`: it reads relevant files, plans an approach, makes edits, and can run tests or a build to check its own work. This is all done with tools it's calling, the same mechanism from `04-tool-use-and-function-calling.md`, just aimed at your filesystem, a shell, and a test runner instead of a scouting API.
+Autocomplete-style tools (like GitHub Copilot's inline suggestions) predict what you're about to type, one completion at a time, based on the surrounding code. An agentic coding tool is given a goal instead of a cursor position: "add a timeout guard to this drive command," "find every place we hardcoded a motor ID and pull it into a constants file." It then runs its own version of the agent workflow from `01-agent-basics.md`: it reads relevant files, plans an approach, makes edits, and can run tests or a build to check its own work. This is all done with tools it's calling, the same mechanism from `04-tool-use-and-function-calling.md`, just aimed at your filesystem, a shell, and a test runner instead of a scouting API - often connected via MCP (also covered in `04`), which is how these tools plug into external systems beyond what ships built in.
 
 ## Acting in Parallel Across a Codebase
 
@@ -88,27 +88,32 @@ This has three parts: reviewing a real change, testing whether a project rules f
 
 ### Part 1: Review a Real Change
 
-1. Give the tool a real, scoped task - something like "add a null/range check to [a specific sensor-reading method] and explain why it's needed" or "find every hardcoded PID constant in [a specific subsystem] and pull them into a constants file." Keep the scope small enough to review in one sitting.
-2. Before accepting anything, read the full diff line by line. For each changed file, identify: what changed, why (in your own words, not the agent's summary), and whether it's actually correct.
-3. Find at least one thing you'd want to change, question, or reject before accepting - a naming choice, an edge case it missed, a change that went further than you asked, or (if you genuinely can't find anything) an edge case you deliberately test to make sure it was actually handled and not just assumed.
-4. Only after that review, build and run the affected code (or the relevant tests) yourself, and confirm the real behavior matches what the diff claims to do.
+1. Give the tool a real, scoped task. This could be something like "add a null/range check to [a specific sensor-reading method] and explain why it's needed" or "find every hardcoded PID constant in [a specific subsystem] and pull them into a constants file." Keep the scope small enough to review in one sitting. \\
+2. Before accepting anything, read the full diff line by line. For each changed file, identify: what changed, why (in your own words, not the agent's summary), and whether it's actually correct. \\
+3. Find at least one thing you'd want to change, question, or reject before accepting. This could be a naming choice, an edge case it missed, a change that went further than you asked, or (if you genuinely can't find anything) an edge case you deliberately test to make sure it was actually handled and not just assumed. \\
+4. Only after that review, build and run the affected code (or the relevant tests) yourself, and confirm the real behavior matches what the diff claims to do. \\
 
-Write down one specific thing the tool did that you would not have caught just by reading its own summary of its changes - something you only caught by reading the actual diff or by running it yourself.
+Write down one specific thing the tool did that you would not have caught just by reading its own summary of its changes; something you only caught by reading the actual diff or by running it yourself.
 
 ### Part 2: Test a Project Rules File
 
-1. Find one real convention in your team's codebase that a coding agent could plausibly get wrong - where constants live, a required test/build command, a directory it shouldn't touch, a naming pattern you actually follow. Pick something specific and checkable, not a vague preference.
-2. With **no rules file in place**, give the agent a task that would naturally run into that convention (e.g., "add a new motor and wire it into the drivetrain subsystem" if your convention is "CAN IDs only live in `Constants.java`"). Record whether it followed the convention or not.
-3. Write a short project rules file (5-10 lines, following the format in this module) that states that convention specifically and directly.
-4. Run the same task again, fresh, with the rules file in place. Record whether behavior changed.
+1. Find one real convention in your team's codebase that a coding agent could plausibly get wrong. Perhaps where constants live, a required test/build command, a directory it shouldn't touch, a naming pattern you actually follow. Pick something specific and checkable, not a vague preference. \\
+2. With **no rules file in place**, give the agent a task that would naturally run into that convention (e.g., "add a new motor and wire it into the drivetrain subsystem" if your convention is "CAN IDs only live in `Constants.java`"). Record whether it followed the convention or not. \\
+3. Write a short project rules file (5-10 lines, following the format in this module) that states that convention specifically and directly. \\
+4. Run the same task again, fresh, with the rules file in place. Record whether behavior changed. \\
 
 Answer in two or three sentences: did the rules file change the outcome? If it didn't, was your rule too vague (the right-altitude problem from `03-context-engineering.md`) or was the task not actually related to the rule you wrote? If you have time, rewrite the rule and re-test once more.
 
 ### Part 3: Test a Handoff File
 
-1. Start a real multi-step task with the agent - something with at least 3-4 distinct sub-steps (the constants refactor from earlier in this module works well, or use your own).
-2. Deliberately stop partway through, before the task is finished, and ask the agent to write a handoff doc summarizing exactly what's done, what's left, and any decisions made so far - not a full re-explanation of the codebase, just this task's state.
-3. Start a **completely fresh session** (new conversation, empty context window) and give it only the handoff doc - not the prior conversation, not a re-explanation from you. Ask it to continue the task.
-4. Compare: did the new session pick up correctly? If it made a mistake or asked a question the first session had already resolved, find the specific gap - was it missing from the handoff doc, or present but misread?
+1. Start a real multi-step task with the agent. This should be something with at least 3-4 distinct sub-steps (the constants refactor from earlier in this module works well, or use your own). \\
+2. Deliberately stop partway through, before the task is finished, and ask the agent to write a handoff doc summarizing exactly what's done, what's left, and any decisions made so far. Do not do a full re-explanation of the codebase, just this task's state. \\
+3. Start a **completely fresh session** (new conversation, empty context window) and give it only the handoff doc, not the prior conversation, not a re-explanation from you. Ask it to continue the task. \\
+4. Compare: did the new session pick up correctly? If it made a mistake or asked a question the first session had already resolved, find the specific gap. Was it missing from the handoff doc, or present but misread?
 
-Write down one sentence naming the single most important piece of information your handoff doc had to include for the fresh session to succeed - and what would have gone wrong without it.
+Write down one sentence naming the single most important piece of information your handoff doc had to include for the fresh session to succeed, and what would have gone wrong without it.
+
+## Resources
+
+- [How Claude Remembers Your Project](https://code.claude.com/docs/en/memory) - official docs for CLAUDE.md and project memory, the real version of this module's project-rules-file example (docs)
+- [Rules | Cursor Docs](https://cursor.com/docs/rules) - Cursor's equivalent official docs for project rules files (docs)
