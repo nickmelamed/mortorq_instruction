@@ -18,7 +18,7 @@ Return your answer as a single JSON object with exactly these keys:
 No text outside the JSON object.
 ```
 
-Being explicit about the exact keys, their types, and that nothing else should appear in the response all matter - a vaguer ask like "give me the result as JSON" leaves the model to decide what fields to include, and it will decide differently across different runs of the exact same prompt.
+Being explicit about the exact keys, their types, and that nothing else should appear in the response all matter. A vaguer ask like "give me the result as JSON" leaves the model to decide what fields to include, and it will decide differently across different runs of the exact same prompt.
 
 ## What Actually Goes Wrong
 
@@ -29,11 +29,11 @@ Asking for a format doesn't guarantee you get it, for the same reason nothing ab
 - **Schema drift** - the fields don't match what you asked for. A key gets renamed (`"reason"` becomes `"explanation"`), a key gets silently dropped, or an extra field appears that you never requested. This is easy to miss because the output still *looks* like valid JSON - it's just not the JSON you specified.
 - **Type mismatches** - you asked for `"reading": <float>` and got `"reading": "45.2"` (a string instead of a number), or a boolean that came back as the string `"true"` instead of the literal `true`. Downstream code expecting a real number can fail or misbehave in ways that don't look like an obvious error.
 
-None of these are rare edge cases - they're common enough that you should expect at least one of them on a long enough run of attempts, especially as the requested schema gets more complex or the surrounding prompt gets longer (recall from `01-context-is-key.md` that longer conversations already strain consistency).
+None of these are rare edge cases. They're common enough that you should expect at least one of them on a long enough run of attempts, especially as the requested schema gets more complex or the surrounding prompt gets longer (recall from `01-context-is-key.md` that longer conversations already strain consistency).
 
 ## Validating What You Got Back
 
-**Validating** an output means checking it against what you actually asked for before you trust or use it - not assuming the format is correct just because you asked nicely. A basic validation pass, doable by hand for small outputs:
+**Validating** an output means checking it against what you actually asked for before you trust or use it. Don't assume the format is correct just because you asked nicely. A basic validation pass, doable by hand for small outputs:
 
 1. **Does it parse?** Paste it into a JSON validator (or just try to load it in your language of choice) before assuming it's well-formed.
 2. **Are the expected keys present, and only the expected keys?** Check for both a missing key and a surprise extra one.
@@ -49,4 +49,4 @@ You'll deliberately try to break a structured-output request, then validate what
 1. Ask a model for a structured response to a real task, being explicit about the schema, e.g.: *"Given this list of sensor readings: `front_ultrasonic,45.2,12000` / `gyro,270,5000` / `,10,2000` - return a JSON array where each element has keys `"sensor_name"`, `"reading"` (number), `"timestamp_ms"` (number), and `"valid"` (boolean, false if any field is malformed). No text outside the JSON array."*
 2. Check the raw response against the four validation questions above: does it parse, are the keys exactly right, are the types right, are the values sane (in particular: what did it do with the malformed third row, which has an empty `sensor_name`)?
 3. Now deliberately push it toward breaking: ask the same question, but add "keep your explanation brief" before the schema instructions. See whether adding that one soft, conflicting instruction causes it to add prose outside the JSON, drop a field, or otherwise drift from the schema.
-4. Write down which specific failure mode from this file (if any) showed up in step 3, and fix your prompt so it doesn't happen again - then re-run to confirm the fix worked.
+4. Write down which specific failure mode from this file (if any) showed up in step 3, and fix your prompt so it doesn't happen again. Then, re-run to confirm the fix worked.

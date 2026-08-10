@@ -26,12 +26,12 @@ All of these can help structure your debugging process.
 ## When Not to Reach for AI at All
 Everything above assumes you've already decided to use AI for the task in front of you. That decision itself is worth making deliberately, not by default:
 
-- **If you can write it faster than you can prompt for it** (a getter, a one-line fix, a change you already know exactly how to make), just write it. Prompting has its own overhead - describing the change, reading the output, checking it matches - and for genuinely small changes that overhead can cost more time than it saves.
+- **If you can write it faster than you can prompt for it** (a getter, a one-line fix, a change you already know exactly how to make), just write it. Prompting has its own overhead, like describing the change, reading the output, checking it matches, and for genuinely small changes that overhead can cost more time than it saves.
 - **If the point of the task is for you to learn the underlying skill**, using AI to skip straight to an answer defeats the purpose, the same way copying a homework solution does. This applies directly to this curriculum's own exercises: working through `back_end_resources` or `general_programming_resources` by prompting for the answer instead of reasoning through it yourself trades away the exact skill those modules exist to build.
-- **If you can't verify the output**, don't ship it. "Verify, Don't Trust" above assumes you're capable of checking what comes back - reading it, running it, or reasoning about whether it's correct. Code you don't understand well enough to verify is code you shouldn't be the one merging, AI-assisted or not, especially anything on a real robot's control path.
+- **If you can't verify the output**, don't ship it. "Verify, Don't Trust" above assumes you're capable of checking what comes back: reading it, running it, or reasoning about whether it's correct. Code you don't understand well enough to verify is code you shouldn't be the one merging, AI-assisted or not, especially anything on a real robot's control path.
 - **If you're mid-competition, under a ticking clock, with no reliable internet** (a real FRC pit constraint - see `frc_resources/06_hardware_debugging` SS3), a fixed debugging process you already know cold is faster and more reliable than context-switching to write a good prompt and wait on a model that may not even be reachable. AI is a tool for the six weeks before that moment, not a substitute for having a plan during it.
 
-None of this means "avoid AI" - it means treating "should I use it for this specific task" as a real question with a real answer, not a reflex.
+None of this means "avoid AI". It means treating "should I use it for this specific task" as a real question with a real answer, not a reflex.
 
 ## Rules of Thumb
 - If AI output surprises you, ask why

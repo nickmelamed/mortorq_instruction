@@ -12,7 +12,9 @@ There are a **ton** of techniques for prompt engineering, so don't be afraid to 
 
 Chain-of-Thought (CoT) prompting refers to the process of getting an LLM to reveal its intermediate steps in reaching a decision, which will give you more insight into how an answer is generated and therefore can direct you towards how to improve that output.
 
-Generally, this is achieved in two different ways: simple cue, and exemplars. Simple cue means providing instructions in the prompt like `Let's think step-by-step`. Exemplars are sample questions and answers that are meant to highlight the type of response that the LLM could be. A prompt that uses both could look like this:
+It is important to note that for closed-source models, where the models weights (details) are not public, you won't be able to truly solicit what's generating a response. It will tell you its thought process, but won't go much deeper than steps followed; it's not going to tell you the underlyings of its architecture beyond a certain point. 
+
+Generally, CoT is achieved in two different ways: simple cue, and exemplars. Simple cue means providing instructions in the prompt like `Let's think step-by-step`. Exemplars are sample questions and answers that are meant to highlight the type of response that the LLM could be. A prompt that uses both could look like this:
 
 ```text
 You are helping a beginner programmer.
@@ -55,7 +57,9 @@ Note that using no exemplars is called zero-shot prompting, using exactly one is
 
 ## Role and Persona Prompting
 
-Most LLMs are trained broadly across many domains rather than any one specialty - they can generally generate code, for example, but don't automatically know the conventions, constraints, or context specific to robotics. This is where directing how the model should act can give you better outputs.
+Most LLMs are trained broadly across many domains rather than any one specialty. It's this vast amount of data that makes them large language models! 
+
+They can generally generate code, for example, but don't automatically know the conventions, constraints, or context specific to robotics. This is where directing how the model should act can give you better outputs.
 
 By giving the model a certain role/persona, you are implicitly telling the model assumptions about knowledge, level of detail needed, etc. This will give you much more appropriate outputs for your use case.
 
@@ -99,7 +103,7 @@ If you don't want any explanation at all, and just want something you can immedi
 Reply with only the code, in a single Python code block. No explanation, no comments outside the code.
 ```
 
-This same technique is how you'd ask for output in a machine-parseable format like JSON instead of code or prose - `05-structured-and-validated-outputs.md` covers that specifically, including what tends to go wrong and how to check the result before you trust it.
+This same technique is how you'd ask for output in a machine-parseable format like JSON instead of code or prose; `05-structured-and-validated-outputs.md` covers that specifically, including what tends to go wrong and how to check the result before you trust it.
 
 ## Decomposition Prompting
 
@@ -114,7 +118,7 @@ I need some code that counts the number of odd numbers in a sequence. Follow the
 
 ## Combining Techniques
 
-None of these techniques are mutually exclusive - the strongest prompts usually stack several of them at once (a role, a few constraints, a decomposition step, maybe an exemplar). `07-sample-prompt.md` walks through a full example that does exactly this, so keep an eye out for how many of these techniques show up together in a single prompt.
+None of these techniques are mutually exclusive; the strongest prompts usually stack several of them at once (a role, a few constraints, a decomposition step, maybe an exemplar). `07-sample-prompt.md` walks through a full example that does exactly this, so keep an eye out for how many of these techniques show up together in a single prompt.
 
 ## Resources
 

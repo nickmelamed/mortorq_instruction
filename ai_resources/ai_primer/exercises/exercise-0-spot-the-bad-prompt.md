@@ -70,7 +70,7 @@ Write my entire autonomous routine, vision pipeline, and drivetrain code in one 
 <details>
 <summary>Answer</summary>
 
-Bad. Too much at once - see the Incremental Build Prompt in `02-common-prompts.md`. A request this broad will almost certainly produce shallow or subtly broken code in every piece.
+Bad. Too much at once. See the Incremental Build Prompt in `02-common-prompts.md`. A request this broad will almost certainly produce shallow or subtly broken code in every piece.
 </details>
 
 ## 6
@@ -82,5 +82,5 @@ That looks right, I'll just trust it and move on.
 <details>
 <summary>Answer</summary>
 
-Not really a prompt so much as a habit to avoid - see "Verify, Don't Trust" in `06-thought-process.md`. Confident-looking output still needs to be run and checked before you rely on it.
+Not really a prompt so much as a habit to avoid. See "Verify, Don't Trust" in `06-thought-process.md`. Confident-looking output still needs to be run and checked before you rely on it.
 </details>

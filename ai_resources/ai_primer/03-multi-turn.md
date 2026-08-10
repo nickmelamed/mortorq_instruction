@@ -10,7 +10,7 @@ In a single turn conversation, the only context the LLM is handling is your orig
 
 However, strong prompting can help mitigate this problem and allow you to get more out of the longer conversations.
 
-Keep in mind that all of this also compounds the token-conservation problem from our context primer: every turn resends the entire conversation so far, so a long multi-turn conversation burns through your context window faster than a single long prompt would. If a conversation is dragging on and the model keeps losing the thread, it's often better to summarize the current state (the rules, the current code, what's left to fix) and start a fresh conversation than to keep pushing more turns onto an already-long one.
+Keep in mind that all of this also compounds the token-conservation problem from our context discussion: every turn resends the entire conversation so far, so a long multi-turn conversation burns through your context window faster than a single long prompt would. If a conversation is dragging on and the model keeps losing the thread, it's often better to summarize the current state (the rules, the current code, what's left to fix) and start a fresh conversation than to keep pushing more turns onto an already-long one.
 
 ## Prompting for Multi-Turn
 

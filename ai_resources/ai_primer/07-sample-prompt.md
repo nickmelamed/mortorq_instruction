@@ -118,7 +118,7 @@ Before we go further:
 2. For each rule, point to the exact part of the code that enforces it
 ```
 
-This might seem a little repetitive, but AI's sometimes struggle with consistency in response - they might claim they implemented a rule (and maybe they did), but they could "forget" that rule in later responses. Here we check that the model understands why it is coding what it is coding.
+This might seem a little repetitive, but AIs sometimes struggle with consistency in their responses - they might claim they implemented a rule (and maybe they did), but they could "forget" that rule in later responses. Here we check that the model understands why it is coding what it is coding.
 
 If some rules are missing, simply ask for a rewrite using the given rules.
 

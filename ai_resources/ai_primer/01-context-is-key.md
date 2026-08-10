@@ -2,7 +2,9 @@
 
 ## Why Context Matters
 
-Context is the information you give the model to get an answer. You give the model context in the form of prompts, which are simply the text you give the model. Prompts can be questions, instructions, pictures, etc. and any combination of the above. Typically, text prompts are most common given that certain models may not allow you to upload pictures (yet, unless you pay).
+Context is the input, or information, you give the model to get an output, or answer. You give the model context in the form of prompts, which are the delivery mechanisms of providing these instructions. Prompts can be written questions, written instructions, images, etc. and any combination of the above.
+
+Text is still the most common way people prompt, but image upload is standard now, not a paid extra; the free tier of ChatGPT, Claude, and Gemini all accept them. This is genuinely useful for robotics: a photo of a wiring fault, a screenshot of a build error, a picture of a whiteboard sketch of a state machine, all work as context alongside (or instead of) typing everything out. The same rules from this file still apply: an image is only as useful as what it actually shows the model, so a blurry or badly-cropped photo helps about as much as a vague text prompt does.
 
 Since models cannot read your mind (at least not yet, anyway), the answer you get from them will only be as good as the context you give them.
 
@@ -25,7 +27,7 @@ def calculate_age(birth_date):
     age = today.year - birth_date.year
     return age
 ```
-The model has no idea what to fix here!
+The model has no idea what to fix here! Sure, it may figure out the problem, but why make it do the guessing? It opens up room for error, or at the very least, unnecessary token spend. 
 
 Instead, you should point out the error in the function, and be a little more specific in what exactly you want the model to do:
 
@@ -45,7 +47,7 @@ def calculate_age(birth_date):
 
 Now, the model knows what our function is supposed to do, what it currently does, and what it needs to do to close that gap.
 
-A good analogy for this is imagine I asked you to write a 2 page biography on a random person, but I only gave you their name, hometown, and one of their hobbies. You'd probably start making up a lot of information to fill that 2 page requirement. If I instead let you talk to the person, look them up online, etc. you would be much more well-prepared to write a faithful 2 page bio. 
+A good analogy for this is imagine I asked you to write a 2 page biography on a random person, but I only gave you their name, hometown, and one of their hobbies. You'd probably start making up a lot of information to fill that 2 page requirement. If I instead let you talk to the person, look them up online, etc. you would be much more well-prepared to write a strong 2 page bio. 
 
 ## Beyond Copy-Paste
 
@@ -58,10 +60,10 @@ These are worth exploring once you outgrow single-snippet prompting.
 
 ## Be Careful What You Share
 
-Context works both ways: whatever you paste in is now sitting on someone else's server. Depending on the provider's policies, that text may be stored, logged, or even used to help train future models.
+Context works both ways: whatever you paste or upload is now sitting on someone else's server. Depending on the provider's policies, that content may be stored, logged, or even used to help train future models. Remember, this applies to images just as much as text.
 
-Avoid pasting things like:
-- Proprietary or competition-sensitive code/strategy (e.g., your team's unreleased autonomous routines)
+Avoid sharing things like:
+- Proprietary or competition-sensitive code/strategy (e.g., your team's unreleased autonomous routines, or a whiteboard photo of one)
 - Sponsor information, personal data, or anything else you wouldn't want made public
 
 When in doubt, treat a chat with a public AI model the same way you'd treat a public forum post. And never be afraid to ask a mentor, another student, or consult FRC guidelines! 
@@ -76,7 +78,7 @@ Every character that you type into the prompt takes up tokens, which are units o
 
 ### Context Windows
 
-The maximum number of tokens in a given conversation with a model is known as the context window. In general, LLMs are "stateless" in that they do not remember past prompts. However, if you haven't used up the entire context window, the LLM will remember your past questions and use that as context to answer your newer questions. Not for nothing, but as context gets larger, the LLM tends to "forget" what came in the middle (known as the Lost in the Middle Effect), meaning you still want to avoid creating massive contexts even within the same window! 
+The maximum number of tokens in a given conversation with a model is known as the context window. In general, LLMs are "stateless" in that they do not remember past prompts. However, if you haven't used up the entire context window, the LLM will remember your past questions and use that as context to answer your newer questions. However, there is a point where more context is not better. As context gets larger, the LLM tends to "forget" what came in the middle (known as the Lost in the Middle Effect), meaning you still want to avoid creating massive contexts even within the same window! 
 
 It is **crucial** that you conserve tokens to avoid these kinds of problems. 
 
@@ -86,7 +88,7 @@ There are a few ways you can avoid running through your context window too quick
 - Keep conversations on a single topic; if you need help with an unrelated problem, start a new conversation
 - Request efficient formats (literally ask the model for structured outputs like JSON, for example) to avoid verbosity that burns through tokens 
 
-Ultimately, your context window depends on your model, and providers update these limits often, so check the current docs for exact numbers rather than trusting a number you read a while back. As a reference point at time of writing, GPT-4o mini has a context window of about 128K tokens, though it caps any single response at a smaller ~16K output tokens. For a sense of scale, 128K tokens is roughly 300 pages of plain text - but a handful of back-and-forth turns with full files, error logs, and re-explanations can burn through a surprising chunk of that faster than you'd expect.
+Ultimately, your context window depends on your model, and providers update these limits often, so check the current docs for exact numbers rather than trusting a number you read a while back. As a reference point at time of writing, GPT-4o mini has a context window of about 128K tokens, though it caps any single response at a smaller ~16K output tokens. For a sense of scale, 128K tokens is roughly 300 pages of plain text. This might sound like a lot, but a handful of back-and-forth turns with full files, error logs, and re-explanations can burn through a surprising chunk of that faster than you'd expect.
 
 ## Resources
 

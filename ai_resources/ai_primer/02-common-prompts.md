@@ -23,7 +23,7 @@ The model should give you a line by line breakdown, from the function argument t
 
 ## Debugging Prompt
 
-You will inevitably run into code that needs debugging, or solving an issue. A good way to handle this could be providing the error and code, and asking some questions so you can see the rationale. For example:
+You will inevitably run into code that needs debugging, or solving an error in an expected output. A good way to handle this could be providing the error and code, and asking some questions so you can see the rationale. For example:
 
 ```text
 I'm seeing the below error with my code:
@@ -44,7 +44,7 @@ The model has your error, your code, and will also explain why this happened, gi
 
 ## Test Generation Prompt
 
-AI is genuinely good at brainstorming test cases, including ones you might not think of yourself. Once a function is working, it's worth asking for a set of tests before you consider it done:
+AI is good at brainstorming test cases, including ones you might not think of yourself. Once a function is working, it's worth asking for a set of tests before you consider it done:
 
 ```text
 Write unit tests for this function using pytest. Include normal cases, boundary cases, and at least one invalid input.
@@ -95,7 +95,7 @@ Your code might be working just fine, but there could be a less verbose way to w
 Refactor this code (Python 3.11) to be more readable and Pythonic, but ensure that the behavior remains the same
 ```
 
-Naming your language/library version, like we did here, matters more than it might seem - it keeps the model from suggesting syntax or features your version doesn't actually support.
+Naming your language/library version, like we did here, matters more than it might seem. It keeps the model from suggesting syntax or features your version doesn't actually support.
 
 It is important to make sure the LLM only changes the syntax and not the actual function of the code!
 
