@@ -24,7 +24,30 @@ If something is broken, some good things to have the model do are:
 All of these can help structure your debugging process.
 
 ## When Not to Reach for AI at All
-Everything above assumes you've already decided to use AI for the task in front of you. That decision itself is worth making deliberately, not by default:
+Everything above assumes you've already decided to use AI for the task in front of you. That decision itself is worth making deliberately, not by default. As a quick reference:
+
+```
+Should I use AI for this task?
+│
+├─ Could I write this faster than I can describe it?
+│   (a getter, a one-line fix, a change I already know exactly how to make)
+│   └─ YES → Just write it. Prompting has overhead too.
+│
+├─ Is the point of this task for ME to learn the skill?
+│   (e.g., this curriculum's own exercises)
+│   └─ YES → Don't reach for AI. That trades away the skill you're building.
+│
+├─ Am I mid-competition, on a ticking clock, with no reliable internet?
+│   (a real FRC pit constraint)
+│   └─ YES → Run your own known process instead. AI is a pre-season tool.
+│
+└─ Can I actually verify the output once I have it?
+    (read it, run it, reason about whether it's correct)
+    ├─ NO  → Don't ship it, AI-assisted or not.
+    └─ YES → Reach for AI, then verify before you trust it.
+```
+
+Unpacking each of those checks:
 
 - **If you can write it faster than you can prompt for it** (a getter, a one-line fix, a change you already know exactly how to make), just write it. Prompting has its own overhead, like describing the change, reading the output, checking it matches, and for genuinely small changes that overhead can cost more time than it saves.
 - **If the point of the task is for you to learn the underlying skill**, using AI to skip straight to an answer defeats the purpose, the same way copying a homework solution does. This applies directly to this curriculum's own exercises: working through `back_end_resources` or `general_programming_resources` by prompting for the answer instead of reasoning through it yourself trades away the exact skill those modules exist to build.

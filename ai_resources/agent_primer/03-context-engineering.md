@@ -36,6 +36,21 @@ Examples work best placed close to the actual task they're demonstrating, not fr
 
 You'll see an example of how system instructions ensure persistence of rules and information in `11-agentic-coding-tools.md`, where something like a `CLAUDE.md` ensures Claude Code is following your specified instructions. 
 
+Drawn out, that load order looks like this:
+
+```mermaid
+flowchart TD
+    subgraph CW["Context Window - loaded top to bottom"]
+        direction TB
+        SI["System instructions<br/>(role, constraints, tone)"]
+        TD["Tool definitions<br/>(name, description, params)"]
+        EX["Examples<br/>(worked demonstrations)"]
+        TASK["Task + retrieved data<br/>(freshest, most recent)"]
+        SI --> TD --> EX --> TASK
+    end
+    TASK -.->|"carries the most weight"| Model[Model's next output]
+```
+
 ## Scratchpads and Structured Note-Taking
 
 Long agent tasks generate intermediate state: partial results, decisions already made, things ruled out. Rather than relying on the model to keep all of that straight purely by reasoning over the whole conversation history, many agents are engineered to write it down in a **scratchpad**, or a designated space in context (or a file, in the case of coding agents) where the agent records its own working notes as it goes.
@@ -49,6 +64,22 @@ You can think of scratchpads as somewhat analogous to Chain-of-Thought, because 
 Not every problem is best solved by cramming more into one context window. Sometimes the better move is **context isolation**: splitting a task across multiple agents, each with its own separate context window, rather than one agent carrying everything.
 
 A sub-agent given a narrow job (e.g., "search these files and report back what you find") doesn't need to see the parent agent's entire history to do that job well. If it did see that information, that irrelevant history would just be more noise competing for the model's attention. Instead, the sub-agent gets a clean, focused context containing only what it needs, does its work, and returns a short, distilled result to the parent agent. The parent's context grows by one summary instead of by everything the sub-agent read along the way. We'll build a concrete version of this pattern - a supervisor agent delegating to worker agents - in `07-multi-agent-systems.md`.
+
+The difference isolation makes is a difference in what the parent's context has to hold:
+
+```mermaid
+flowchart TD
+    subgraph Without["Without Isolation"]
+        direction TB
+        PA["Parent's context<br/>(one shared window)"] --> Raw["+ every raw search result<br/>it read along the way"]
+    end
+
+    subgraph With["With Isolation"]
+        direction LR
+        SA["Sub-agent<br/>(clean, narrow context)"] -->|"'search these files...'"| Work["Does the search itself,<br/>reads the raw results"]
+        Work -->|"short distilled summary"| PB["Parent's context<br/>(grows by one summary)"]
+    end
+```
 
 ## The Right Altitude Problem
 

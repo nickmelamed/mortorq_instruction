@@ -25,6 +25,20 @@ Supervisor -> Worker: "Fetch match history and climb rate for team 2056, event 2
 Supervisor: Now comparing all three summaries against our own weaknesses to rank picks.
 ```
 
+The same exchange, drawn as a sequence:
+
+```mermaid
+sequenceDiagram
+    participant S as Supervisor
+    participant W as Data-Fetching Worker
+    S->>W: Fetch data for team 1114, event 2026casj
+    Note right of W: Calls get_team_match_history,<br/>reasons only about this one team
+    W-->>S: Team 1114: 90% climb rate,<br/>strong auto, ranked 3rd
+    S->>W: Fetch data for team 2056, event 2026casj
+    W-->>S: Team 2056: consistent scorer,<br/>no climb, ranked 15th
+    Note over S: Compares all summaries<br/>against our own weaknesses
+```
+
 Notice the worker's context never grows past "one team's raw data": it does its job and hands back a short, distilled result, exactly the pattern described for sub-agents in `03-context-engineering.md`. The supervisor's context grows by one clean summary per team.
 
 A third kind of worker becomes relevant once this team has a trained model to call: a **strategy-inference worker** that runs a value or policy network's forward pass on one team's stats and returns a single number or probability distribution, nothing else. Notice this is the same narrow-job argument as the data-fetching worker above, just wrapping a model instead of an API call. See `13-integrating-a-trained-model.md` for this in depth, once `ml_resources/rl_primer` has produced a real model to wrap.

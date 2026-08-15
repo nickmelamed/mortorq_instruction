@@ -34,6 +34,29 @@ An agent workflow tends to be a little more complex:
 
 Notice how here, the agent does work without being prompted by the user. This is what makes these agents autonomous. Additionally, it goes beyond answering user questions (although many agents, like Claude Code, still have this functionality). It will actually change existing files, or place real orders in our example, as necessary. This process likely takes more than one step, making it a multi-step process. 
 
+Drawn out, the shape difference between the two workflows is the loop:
+
+**Chatbot workflow** (linear):
+
+```mermaid
+flowchart LR
+    A[User enters prompt] --> B["LLM gathers info from<br/>its knowledge base"]
+    B --> C[LLM outputs response]
+```
+
+**Agent workflow** (loops until the goal is met):
+
+```mermaid
+flowchart TD
+    A["1. User gives a goal<br/>('order a drive motor under $60')"] --> B["2. Agent gathers context"]
+    B --> C["3. Agent creates a plan"]
+    C --> D["4. Agent executes plan using tools"]
+    D --> E{"5. Does result meet the goal?"}
+    E -- "No, re-plan" --> C
+    E -- "No, retry" --> D
+    E -- "Yes" --> F[Agent responds to user]
+```
+
 ## Try It
 
 Below is a real-style transcript of an agent handling the goal "order a replacement drive motor for under $60 before Saturday's competition." On paper (or in a text file), write down the letter of each line next to the number of the Agent Workflow step (1-5 above) it belongs to. A step can repeat - the loop in step 5 can send the agent back to step 3 or 4 - and one line can arguably straddle two steps; if so, pick the better fit and note why.

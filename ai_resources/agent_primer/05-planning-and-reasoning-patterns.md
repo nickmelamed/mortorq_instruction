@@ -56,6 +56,24 @@ Plan:
 
 The advantage is that the plan is inspectable and editable *before* any tool calls happen. A human (or the agent itself, via self-critique below) can look at step 3 and say "15 teams is too many API calls, cap it at 8" before any of them run. The tradeoff is rigidity: if step 2's results reveal something the plan didn't anticipate (say, half the top-ranked teams have already committed to other alliances), a strict plan-and-execute agent may need to explicitly re-plan rather than adjust on the fly the way a ReAct loop naturally would.
 
+The shape difference between the two is worth seeing directly, through a loop with no fixed length vs. a straight line with an escape hatch:
+
+**ReAct** (loops until the agent decides it has enough):
+
+```mermaid
+flowchart LR
+    R[Reason] --> A[Act] --> O[Observe] --> R
+    O -.->|"enough info?"| D[Respond to user]
+```
+
+**Plan-and-execute** (commits to a full plan first):
+
+```mermaid
+flowchart LR
+    P[Write full plan] --> E1[Execute step 1] --> E2[Execute step 2] --> E3[Execute step 3] --> Done[Respond to user]
+    E2 -.->|"contradiction found"| P
+```
+
 ## Self-Critique and Reflection
 
 Both patterns above can be paired with a **self-critique** (or **reflection**) step: after producing a draft answer, the agent is prompted to review its own output before returning it to the user, similar to the self-review turn from `ai_primer/07-sample-prompt.md`, except the agent runs this step on itself automatically rather than a human asking for it as a follow-up.

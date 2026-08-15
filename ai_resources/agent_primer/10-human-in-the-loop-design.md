@@ -55,6 +55,16 @@ A working decision framework:
 - **Hard to reverse, or reaches beyond the agent's own workspace** (a message sent to a person, a file outside its sandbox, spending real money or API budget) → require approval first
 - **Uncertain which category an action falls into** → default to asking. The cost of an unnecessary approval prompt is a few seconds of a person's attention; the cost of an unapproved action that turns out to matter can be much larger.
 
+Drawn as a branch, the point worth seeing is that "uncertain" routes to the same answer as "hard to reverse" rather than becoming a third distinct behavior:
+
+```mermaid
+flowchart TD
+    A[Agent about to take an action] --> B{"What kind of action is it?"}
+    B -->|"Reversible and contained<br/>(draft text, scratchpad note)"| C[Act freely]
+    B -->|"Hard to reverse, or reaches<br/>beyond the agent's workspace<br/>(message sent, money spent)"| D[Require approval first]
+    B -->|"Uncertain which<br/>category it falls into"| D
+```
+
 We already use an analogous line of logic for autonomous mode: the robot executes a pre-set sequence without live driver input specifically because that sequence was tested and approved in advance to be safe to run unsupervised. An agent's approval gates work the same way.
 
 This applies without exception once one of the agent's tools is a trained model instead of a rule-based lookup. A value or policy network's recommendation still reaches "a message sent to a person" the moment it influences what gets shown to the drive team, and a model's reasoning being harder to inspect than a hand-written formula is a reason for *more* scrutiny at the gate, not less. See `13-integrating-a-trained-model.md` for what changes (and what doesn't) once a real trained model is one of the agent's tools.

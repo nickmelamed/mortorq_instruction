@@ -16,6 +16,30 @@ It's fine if your implementation is a chat-simulated version of some of these pi
 
 As you actually build these seven pieces, use a real agentic coding tool per `11-agentic-coding-tools.md` rather than writing everything by hand: set up a project rules file for your capstone's repo so the tool isn't re-taught the same conventions every session, review every generated diff (not just the tool's summary of it) before accepting it, and if the build spans more than one sitting, write a handoff doc at the end of a session instead of starting the next one from scratch.
 
+All seven pieces, assembled:
+
+```mermaid
+flowchart TD
+    U["User: 'Recommend our 2 alliance picks'"] --> Plan
+
+    subgraph Core["Core Loop"]
+        Plan["Planning (05)<br/>Reason / Act / Observe"]
+        Tool["Tools (04)<br/>get_team_match_history"]
+        Orch["Orchestration (07)<br/>supervisor delegates to workers"]
+        Mem["Memory (06)<br/>episodic + semantic recall"]
+        Plan --> Tool --> Orch --> Mem --> Plan
+    end
+
+    Core --> Draft[Draft recommendation]
+    Draft --> Gate["Human-in-the-Loop Gate (10)<br/>approve / edit / cancel"]
+    Gate -->|approved| Drive[Drive Team]
+    Gate -->|"rejected or edited"| Plan
+
+    Guard["Guardrails (08)<br/>loop caps, injection checks"] -.->|monitors| Core
+    Obs["Observability (09)<br/>logs, traces, metrics"] -.->|records| Core
+    Obs -.->|records| Gate
+```
+
 ## Rubric
 
 Use this to self-assess before presenting, or as the basis for grading if this is being assessed formally:

@@ -41,6 +41,27 @@ Logs and traces are about one specific run. **Metrics** are numbers aggregated a
 
 A single trace answers "what happened on this one run." Metrics answer "is something drifting".
 
+The three levels stack like this:
+
+```mermaid
+flowchart TD
+    subgraph Trace["Trace: one task, start to finish"]
+        direction LR
+        L1["Log: Reason -<br/>team 4930 weak on climb"]
+        L2["Log: Act -<br/>get_team_match_history(1114)"]
+        L3["Log: Observe -<br/>90% climb rate"]
+        L1 --> L2 --> L3
+    end
+
+    Trace2[Trace: a different task]
+    Trace3[Trace: a different task]
+
+    Trace --> Metrics
+    Trace2 --> Metrics
+    Trace3 --> Metrics
+    Metrics["Metrics: aggregated across many traces<br/>cost/task, tool failure rate, loop iterations"]
+```
+
 ## What This Enables for Human-in-the-Loop
 
 Observability isn't just for catching bugs, it's what makes an approval decision (covered next, in `10-human-in-the-loop-design.md`) something a person can actually reason about instead of rubber-stamping. A human asked to approve "message the drive team: recommend team 1114" can make a real judgment call if they can see the trace behind it (which data was fetched, what reasoning led here); without that trace, "approve or cancel" is just a coin flip dressed up as oversight.
