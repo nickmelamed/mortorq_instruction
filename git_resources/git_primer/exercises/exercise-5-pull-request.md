@@ -7,7 +7,7 @@ Practice the full path from a local branch to a reviewed change on `main`, follo
 1. Create a branch following the naming convention in `CONTRIBUTING.md` (e.g., `test/pr-practice/your-name`).
 2. Make a small, harmless change (e.g., add your name to a `CONTRIBUTORS.txt` file) and commit it using the commit message format from `CONTRIBUTING.md`.
 3. Push your branch to the remote for the first time: `git push -u origin BRANCH`.
-4. On GitHub, open a pull request from your branch into `main`.
+4. Open a pull request from your branch into `main`. You can do this on the GitHub website, or, to stay in the terminal, install the [GitHub CLI](https://cli.github.com/) and run `gh pr create`.
 5. Fill out the PR description, add a label, and request a review, following the "Pull Requests" section of `CONTRIBUTING.md`.
 6. Once approved, merge the PR.
 

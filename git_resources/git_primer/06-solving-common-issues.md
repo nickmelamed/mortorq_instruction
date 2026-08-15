@@ -6,6 +6,21 @@ It is inevitable that you are going to run into some issues with git. The goal o
 
 Before doing **anything** when running into an issue on git, please be sure to run `git status` so you can see what is going on in terms of committed files, unstaged files, etc. You would be shocked at how many problems you can fix simply by running this command and going from there. 
 
+Once you know what state you're in, here are the two most common forks in the road; the rest of this file covers everything else, section by section: 
+
+```mermaid
+flowchart TD
+    start(["Something's wrong - what do I do?"]) --> q1{"Is it a commit,<br/>or just uncommitted edits?"}
+    q1 -->|"Just file edits"| q2{"Is the change staged?"}
+    q2 -->|Yes| r1["git checkout HEAD -- FILE"]
+    q2 -->|No| r2["git restore FILE"]
+    q1 -->|"It's a commit"| q3{"Has it been pushed<br/>or merged anywhere?"}
+    q3 -->|"No, local only"| q4{"Keep the changes staged?"}
+    q4 -->|Yes| r3["git reset --soft HEAD~1"]
+    q4 -->|"No, discard"| r4["git reset --hard HEAD~1"]
+    q3 -->|"Yes, shared"| r5["git revert COMMIT_HASH"]
+```
+
 ## "I Staged the Wrong File!"
 
 Sometimes, you might've run `git add` on files you didn't want to be staged yet. Say, for instance, you accidentally ran `git add secrets.txt`, so now your `git status` call looks like this: 
@@ -25,11 +40,11 @@ If you want to also unstage those changes, run `git reset HEAD~1`.
 
 If you use `git reset --hard HEAD~1`, beware that you would be deleting the most recent commit on your current branch and **ALL** uncommitted changes in the staging and working directory. So try to avoid using this. 
 
-Also, `HEAD` is referring to your current working position in the repository. It will typically point to your most recent commit.
+Recall from `01-git-mental-model.md` that `HEAD` points at your current working position, so `HEAD~1` means "one commit before that."
 
 ## "I Need to Undo a Commit That's Already Been Pushed!"
 
-Everything in the section above works great for commits that only exist on your own machine. But once a commit has been pushed and is part of shared history (e.g., merged into `main`), rewriting it with `git reset` becomes dangerous - anyone else who has already pulled that commit will run into a confusing, diverged history. 
+Everything in the section above works great for commits that only exist on your own machine. But once a commit has been pushed and is part of shared history (e.g., merged into `main`), rewriting it with `git reset` becomes dangerous, because anyone else who has already pulled that commit will run into a confusing, diverged history. 
 
 For commits that are already shared, use `git revert` instead: 
 
@@ -37,7 +52,7 @@ For commits that are already shared, use `git revert` instead:
 git revert COMMIT_HASH
 ```
 
-Instead of rewriting history, `revert` creates a **brand new commit** that undoes the changes from `COMMIT_HASH`, leaving the original commit in place. History stays intact and linear for everyone else - it just now includes an extra commit that cancels out the bad one. 
+Instead of rewriting history, `revert` creates a **brand new commit** that undoes the changes from `COMMIT_HASH`, leaving the original commit in place. History stays intact and linear for everyone else. It just now includes an extra commit that cancels out the bad one. 
 
 Rule of thumb: **your own commits, not yet pushed → `reset`. Shared commits, already pushed → `revert`.**
 
@@ -51,9 +66,9 @@ Rule of thumb: **your own commits, not yet pushed → `reset`. Shared commits, a
 
 ## "I Need to Undo Changes to my Files!" 
 
-If you've already committed the changes, run `git checkout HEAD -- path/to/file`. The `--` is telling you that you are specifying a file (not a commit or branch), and `checkout` is making sure that `HEAD` will include the most recent committed changes of that file. 
+If the change is staged (or you want to throw away both staged and unstaged edits at once and land exactly back on the last commit), run `git checkout HEAD -- path/to/file`. The `--` is telling you that you are specifying a file (not a commit or branch), and `checkout` is making sure that `HEAD` will include the most recent committed changes of that file. 
 
-If the file hasn't been committed yet but is staged, you can run `git restore path/to/file` to get the same result. 
+If the change is only unstaged (you haven't run `git add` on it), `git restore path/to/file` does the same job, just scoped to your working directory. 
 
 ## "I Did Work on the Wrong Branch and now I Can't Find it! 
 
@@ -74,11 +89,13 @@ git checkout CORRECT-BRANCH
 git cherry-pick COMMIT-HASH
 ```
 
+`git cherry-pick` takes the changes introduced by that one commit and replays them as a new commit on top of whatever branch you currently have checked out. It's a way to copy a single commit from one branch to another without merging everything else.
+
 ## "I Committed Straight to `main`!"
 
-It happens - you start typing before creating a branch, and suddenly there's a commit sitting on your local `main` that should've been on its own branch. As long as you haven't pushed it yet, this is easy to fix: move the commit onto a new branch, then rewind `main` back to match the remote. 
+It happens! You start typing before creating a branch, and suddenly there's a commit sitting on your local `main` that should've been on its own branch. As long as you haven't pushed it yet, this is easy to fix: move the commit onto a new branch, then rewind `main` back to match the remote. 
 
-First, create a branch at your current position - this doesn't lose anything, it just adds a second pointer to the same commit: 
+First, create a branch at your current position. This doesn't lose anything, it just adds a second pointer to the same commit: 
 
 ```bash
 git branch feat/my-feature/NAME
@@ -91,13 +108,13 @@ git checkout main
 git reset --hard origin/main
 ```
 
-This is one of the few times `git reset --hard` is the right call - you're resetting `main` back to a known-good state (the remote), not throwing away uncommitted work. Your commit is safe on the branch you just created. Switch there and keep going: 
+This is one of the few times `git reset --hard` is the right call, because you're resetting `main` back to a known-good state (the remote), not throwing away uncommitted work. Your commit is safe on the branch you just created. Switch there and keep going: 
 
 ```bash
 git checkout feat/my-feature/NAME
 ```
 
-If you already pushed the commit to `origin/main`, stop and talk to a lead instead - fixing it at that point means changing a shared branch, and it's worth having a second pair of eyes on that. 
+If you already pushed the commit to `origin/main`, stop and talk to a lead instead; fixing it at that point means changing a shared branch, and it's worth having a second pair of eyes on that. 
 
 ## "I'm in a Detached HEAD State!"
 
@@ -112,7 +129,7 @@ This means that the `HEAD` pointer is no longer referring to a specific branch (
 A detached HEAD state means that none of your changes will be saved! So, you must create a new branch and switch there: 
 
 ```bash 
-git checkout -b rescue/my_work
+git checkout -b other/rescue-work/NAME
 ```
 
 Your commits will then be safe. 
@@ -139,7 +156,7 @@ git pull
 git push
 ```
 
-If pulling triggers a merge conflict, that's normal - resolve it like any other conflict (see `05-resolving-conflicts.md`), then push. 
+If pulling triggers a merge conflict, that's normal. Resolve it like any other conflict (see `05-resolving-conflicts.md`), then push. 
 
 ## "My Branch is Different from Remote!"
 
@@ -167,12 +184,12 @@ We mentioned before that you can use `git fetch` to preview files on the remote 
 
 ## "I Committed and Pushed Something Sensitive!"
 
-If you accidentally commit and push a password, API key, or other credential, deleting it in a follow-up commit is **not enough** - it's still sitting in the repository's history, and anyone can dig it out with `git log` or `git show`. 
+If you accidentally commit and push a password, API key, or other credential, deleting it in a follow-up commit is **not enough**. It's still sitting in the repository's history, and anyone can dig it out with `git log` or `git show`. 
 
 Two things to do immediately: 
 
-1. **Rotate or invalidate the credential.** Assume it's compromised the moment it's pushed, and get a new one - this matters far more than cleaning up the git history. 
-2. **Talk to a lead.** Actually removing a file from history (tools like `git filter-repo` or the BFG Repo-Cleaner) rewrites every commit after it, which is disruptive for anyone else working off that history - it's worth doing carefully and not solo. 
+1. **Rotate or invalidate the credential.** Assume it's compromised the moment it's pushed, and get a new one; this matters far more than cleaning up the git history. 
+2. **Talk to a lead.** Actually removing a file from history (tools like `git filter-repo` or the BFG Repo-Cleaner) rewrites every commit after it, which is disruptive for anyone else working off that history, so it's worth doing carefully and not solo. 
 
 This is exactly the kind of situation the `.gitignore` guidance in `02-core-workflow.md` is meant to prevent in the first place! 
 

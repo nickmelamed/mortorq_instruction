@@ -1,4 +1,4 @@
-# Exercise 3: Merge Conflicts (On Purpose)
+# Exercise 3: Merge Conflicts
 
 ## Goal
 Learn that conflicts are normal and recoverable.

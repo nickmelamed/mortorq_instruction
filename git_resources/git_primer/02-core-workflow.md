@@ -101,7 +101,7 @@ If a file is untracked, this means it has been changed, but is only in the worki
 
 ### A Note on Untracked Files: `.gitignore`
 
-Some files should never show up as "Untracked" in the first place - build artifacts, log files, editor settings, credentials, etc. You don't want to accidentally `git add` these, and you don't want them cluttering your `git status` output every time.
+Some files should never show up as "Untracked" in the first place. This could include things like build artifacts, log files, editor settings, credentials, etc. You don't want to accidentally `git add` these, and you don't want them cluttering your `git status` output every time.
 
 In particular, you NEVER want to publish things like API keys that you would have in your `.env` file, where someone running a web scraper can steal your key and run up a bill. In fact, if you try to push it, GitHub will send you a warning and stop the commit because you are publishing sensitive information! 
 
@@ -114,13 +114,31 @@ __pycache__/
 build/
 ```
 
-Once a pattern is in `.gitignore`, Git will stop showing matching files as untracked, and `git add .` will skip them automatically. Set this up **early** in a project - if a file is already tracked, adding it to `.gitignore` later won't stop Git from tracking it (you'd need to run `git rm --cached FILE` first).
+Once a pattern is in `.gitignore`, Git will stop showing matching files as untracked, and `git add .` will skip them automatically. Set this up **early** in a project. If a file is already tracked, adding it to `.gitignore` later won't stop Git from tracking it (you'd need to run `git rm --cached FILE` first).
 
 ## 3. Make Changes 
 
 At this point, you should feel comfortable changing your files as is. Once you do that, move onto the next step. 
 
-## 4. Stage Changes
+## 4. Review Your Changes
+
+Before staging anything, it's worth looking at exactly what you changed: 
+
+```bash
+git diff
+```
+
+This shows every unstaged change in your working directory, line by line. This is a great quick sanity check that you didn't leave in a stray debug print, or change something you didn't mean to. You can scope it to one file with `git diff FILE`. 
+
+Once you've staged something (see the next step), `git diff` will stop showing it, since it now only shows *unstaged* changes. To see what's staged and about to be committed, use: 
+
+```bash
+git diff --staged
+```
+
+Making a habit of checking `git diff --staged` right before you commit is one of the easiest ways to keep commits as the clean, logical units `CONTRIBUTING.md` asks for. 
+
+## 5. Stage Changes
 
 You can stage changes for an individual file like so: 
 
@@ -140,9 +158,9 @@ Sometimes you've made several unrelated changes in the same file, and you only w
 git add -p FILE
 ```
 
-This puts Git into "patch mode" - it shows you each chunk of changes (a "hunk") one at a time and asks whether you want to stage it (`y`), skip it (`n`), or a few other options. This lets you build clean, logical commits even when your working directory is messy.
+This puts Git into "patch mode"; it shows you each chunk of changes (a "hunk") one at a time and asks whether you want to stage it (`y`), skip it (`n`), or a few other options. This lets you build clean, logical commits even when your working directory is messy.
 
-## 5. Commit Changes 
+## 6. Commit Changes 
 
 You can do a commit like so: 
 
@@ -152,7 +170,7 @@ git commit -m "Here is my commit message!"
 
 A commit message is a helpful (and "optional") way to explain what your commits are for. We cover how to do your commit messages in the `CONTRIBUTING.md` file, so for now just understand that you should always add a message so people understand what you are doing! 
 
-## 6. Sync w/ Remote
+## 7. Sync w/ Remote
 
 We discussed this earlier, so here is the way you should handle commits: 
 
@@ -171,7 +189,7 @@ git push -u origin BRANCH
 
 The `-u` (short for `--set-upstream`) only needs to be run once per branch - after that, a plain `git push` will remember where to go. 
 
-## 7. Review Your History
+## 8. Review Your History
 
 Once you've made a few commits, you'll want to look back at them. Run:
 
@@ -185,10 +203,10 @@ This shows your commit history for the current branch: commit hash, author, date
 git log --oneline
 ```
 
-Note that `git log` only shows commits reachable from where you currently are - it won't show commits on a branch you never merged, or commits you "lost" by doing something like a reset. For that, see `git reflog` in `06-solving-common-issues.md`.
+Note that `git log` only shows commits reachable from where you currently are. It won't show commits on a branch you never merged, or commits you "lost" by doing something like a reset. For that, see `git reflog` in `06-solving-common-issues.md`.
 
 ## Resources
-- **Official docs:** [git-status](https://git-scm.com/docs/git-status), [git-add](https://git-scm.com/docs/git-add), [git-commit](https://git-scm.com/docs/git-commit), [git-log](https://git-scm.com/docs/git-log) - the full reference for every command in this chapter.
+- **Official docs:** [git-status](https://git-scm.com/docs/git-status), [git-diff](https://git-scm.com/docs/git-diff), [git-add](https://git-scm.com/docs/git-add), [git-commit](https://git-scm.com/docs/git-commit), [git-log](https://git-scm.com/docs/git-log) - the full reference for every command in this chapter.
 - **Official docs:** [Pro Git, Ch. 2.2 - Recording Changes to the Repository](https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository) - the book-length version of this chapter's workflow.
 - **Official docs:** [GitHub Docs - Ignoring Files](https://docs.github.com/en/get-started/git-basics/ignoring-files) - more detail on `.gitignore` patterns and syntax.
 - **Reference:** [github/gitignore](https://github.com/github/gitignore) - ready-made `.gitignore` templates for most languages and tools.

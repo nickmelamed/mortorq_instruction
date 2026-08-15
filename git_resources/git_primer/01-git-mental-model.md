@@ -8,6 +8,8 @@ Each commit is:
 - Linked to its parent commit(s)
 - Identified by a hash
 
+A hash is a way of marking which commits are which. No need to worry about the specifics of hashing, unless you want to dive deeper into data structures. We cover those (lightly) in `back_end_resources`.
+
 Git does **not** store diffs, or comparisons between different file versions, internally.
 
 ## Three main areas
@@ -22,19 +24,26 @@ You work in three places:
 
 Workflow: Working Directory --> Staging Area --> Repository 
 
-## Commits are immutable
-Once created:
-- Commits do not change
-- History only changes by creating *new* commits
+```mermaid
+flowchart LR
+    WD["Working Directory<br/>your actual files"] -->|"git add"| SA["Staging Area (Index)<br/>what will go into the next commit"]
+    SA -->|"git commit"| REPO["Repository (History)<br/>committed snapshots"]
+```
 
-This is why Git is safe - it is a compilation of these various unchangeable commits. 
+## Commits are immutable
+Once created, commits themselves don't change. The history of your code only changes as you add in new commits. You may point the commit history to new commits, but any existing commit is still going to stick around. 
+
+This is why Git is safe!
 
 ## Branches are pointers
-A branch is:
-- Just a movable pointer to a commit
-- Not a copy of files
+A branch is just a movable pointer to a commit. It is not a copy of the files themselves.
 
 This makes branching cheap and fast. You can think of a branch as an indicator of where you are working. We will explain this more in the branching module. 
+
+## HEAD is a pointer too
+`HEAD` is Git's name for "where you currently are". Almost always, it points at whichever branch you have checked out, which in turn points at a commit. When you switch branches, `HEAD` moves to point at the new branch instead. 
+
+You'll see `HEAD` show up constantly: in conflict markers, in commands like `git reset HEAD~1` (go back one commit from here) or `git checkout HEAD -- FILE` (restore a file to its last committed state). It always just means "start counting from wherever I currently am." 
 
 Once you understand commits and pointers, you will feel a lot more comfortable using Git. 
 

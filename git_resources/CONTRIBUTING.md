@@ -6,7 +6,7 @@ These Standards are rules for us to follow when contributing to our code base. T
 
 ## Why do we need these Standards?
 
-We want to have consistency in our code contributions. Everyone should be able to easily see what changes have been made, why, and who made them. </br>
+We want to have consistency in our code contributions. Everyone should be able to easily see what changes have been made, why, and who made them.
 
 These standards will help us do this. These can change based on what the team deems appropriate, but the general ideas will likely remain the same.
 
@@ -18,15 +18,15 @@ We want everybody to contribute code. In order to keep this organized, you will 
 
 Some general naming conventions are: 
 1. Only lowercase letters
-2. Keep names short and to the point - nobody should have to ask what a branch is doing, but don't write a whole sentence 
+2. Keep names short and to the point. Nobody should have to ask what a branch is doing, but don't write a whole sentence 
 3. Hyphens (-) instead of spaces
 4. No special characters (!, $, etc.)
 
 To categorize our branches, we use the below groupings, with NAME at the end to indicate who is creating the branch: 
 
-`feat/feat-name/NAME`: Creating a new feature (e.g., `feat/dual-cam-vision/nick`) </br>
-`fix/bug-name/NAME`: Debugging fix (e.g., `fix/shot-trajectory/nick`) </br>
-`test/test-name/NAME`: Anything you want to experiment around with (e.g., `test/rear-cam-vision/nick`) </br>
+`feat/feat-name/NAME`: Creating a new feature (e.g., `feat/dual-cam-vision/nick`) <br>
+`fix/bug-name/NAME`: Debugging fix (e.g., `fix/shot-trajectory/nick`) <br>
+`test/test-name/NAME`: Anything you want to experiment around with (e.g., `test/rear-cam-vision/nick`) <br>
 `other/other-name/NAME`: Anything that does not fit in any of the above categorizations (unlikely you'll use this but still helpful to have) 
 
 ## Commit Conventions
@@ -55,9 +55,9 @@ Commit messages should be concise and informative. A typical message style might
    - `refactor` for changing code style to be more readable (not a functional change)
    - `other` for anything not encompassed in the above categories (again fairly rare but useful to have this option)
 
-`<scope>`: optional description of the part of the codebase (e.g., feat(cam_vision)) </br>
-`<subject>`: concise summary of the commit - shouldn't surpass 50 characters, and should omit longer descriptions that belong in the body. </br>
-`<body>`: optional detailed description of the commit - should probably not exceed 72 lines, and would only save this if you are making a large change to how the codebase works </br> 
+`<scope>`: optional description of the part of the codebase (e.g., feat(cam_vision)) <br>
+`<subject>`: concise summary of the commit, so shouldn't surpass 50 characters, and should omit longer descriptions that belong in the body. <br>
+`<body>`: optional detailed description of the commit, and should probably not exceed 72 lines, and would only save this if you are making a large change to how the codebase works <br>
 `<footers>`: optional metadata (e.g., what pull request a commit addresses)
 
 Here is a sample commit message that follows all of the above guidance:
@@ -97,7 +97,7 @@ Ultimately, someone else reading your commit history should be able to understan
 Since this code will be changing our codebase, the rules here are going to be a little more strict. For your code to be pushed to the main branch and therefore override the existing code, you will have to create a pull request (PR) so that your changes can be approved. Below are some things that **must be done** before your PR is created. 
 
 1. Do not commit any code that will break anything! So, you should verify that your code works **in your own branch**.
-2. Merge (or pull) the latest `main` into your branch and resolve any conflicts locally before opening the PR - don't make your reviewer deal with merge conflicts.
+2. Merge (or pull) the latest `main` into your branch and resolve any conflicts locally before opening the PR; don't make your reviewer deal with merge conflicts. Rebasing onto `main` instead is also fine, as long as your branch isn't shared outside your sub-team (see `git_primer/04-merge-vs-rebase.md`).
 3. Remove leftover debug code, print statements, and commented-out code.
 4. Double check you haven't committed anything that shouldn't be shared (credentials, API keys, large generated files, etc.).
 5. Write a clear PR description: what changed, why, and how to test it.
@@ -105,7 +105,7 @@ Since this code will be changing our codebase, the rules here are going to be a 
 
 ### Review and Label Conventions 
 
-Every PR needs at least one review from someone other than you before it merges - your subteam lead if you have one, otherwise whichever teammate knows that part of the codebase best. Don't merge your own PR without that review, even if you're confident it's correct; a second set of eyes is the whole point of the process, not a formality to skip when you're in a hurry. </br>
+Every PR needs at least one review from someone other than you before it merges; your subteam lead if you have one, otherwise whichever teammate knows that part of the codebase best. Don't merge your own PR without that review, even if you're confident it's correct; a second set of eyes is the whole point of the process, not a formality to skip when you're in a hurry.
 
 Add a label to your PR. GitHub provides some labels to mark our PRs for better organization. The list can be found on the PR page (under Labels). 
 
