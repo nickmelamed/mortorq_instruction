@@ -2,4 +2,4 @@ Practice match notes - 2026 season
 
 - Arm holds correctly; TODO in Arm.java needs the real setpoint once we re-tune.
 - Drivetrain max speed is still hardcoded, see TODO in subsystems/Drivetrain.java.
-- Check logs/match_12.log for the two ERROR lines from today - both recovered on retry.
+- Check logs/match_12.log for the two ERROR lines from today. Both recovered on retry.
