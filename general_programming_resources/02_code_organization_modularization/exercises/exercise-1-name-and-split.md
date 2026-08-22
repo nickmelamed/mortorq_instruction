@@ -8,8 +8,11 @@ Refactor a function that mixes several responsibilities under meaningless names 
 
 ## Steps
 1. Pick Java, Python, or both. Run the messy version once and save its console output somewhere you can compare against later.
+   
 2. Identify the distinct responsibilities mixed into the one function. There are at least four: reading a sensor value, deciding an output value from it, driving a motor, and logging what happened.
+   
 3. Split the function into separate functions, one per responsibility, and give every function and variable a name that describes what it holds or does.
+   
 4. Re-run your refactored version and diff its output against what you saved in step 1. They should match exactly: same sensor values, same computed outputs, same motor commands, same hold-mode behavior, in the same order.
 
 ## Self-Check

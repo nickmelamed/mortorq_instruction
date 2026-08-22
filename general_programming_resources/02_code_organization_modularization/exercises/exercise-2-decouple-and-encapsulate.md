@@ -8,10 +8,15 @@ Refactor a tightly-coupled, leaky-interface `Drivetrain` into one with a clean p
 
 ## Steps
 1. Pick Java, Python, or both. Run the version(s) you're comfortable in and record the output exactly as printed.
+   
 2. Identify every place `adjustHeading` reaches directly into `Drivetrain`'s internals instead of going through a method `Drivetrain` provides. There are two separate problems here, not one: tight coupling (reading and writing a field directly) and a leaky interface (mutating a list that was handed out by direct reference).
+   
 3. **Prove the leak is real before you fix it.** From outside `Drivetrain` — a couple of extra lines right after building it — append a fake value directly to its power-history field/list. Confirm the real internal state is now corrupted.
+   
 4. Refactor `Drivetrain` to have a real interface: `setLeftPower`/`getLeftPower` (or `set_left_power`/`get_left_power`), and a method that returns the power history as a **copy**, not the live list. Update `adjustHeading` to use only these methods.
+   
 5. Re-run and confirm the output is identical to step 1.
+   
 6. **Prove the fix worked.** Repeat step 3's corruption attempt, but this time against whatever your new history-returning method gives you. Confirm the real internal state is now unaffected, even though the thing you tampered with looks identical to before.
 
 ## Self-Check
