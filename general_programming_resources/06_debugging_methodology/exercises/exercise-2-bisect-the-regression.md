@@ -1,10 +1,10 @@
 # Exercise 2: Bisect the Regression
 
 ## Goal
-Find exactly which of six versions of a function introduced a bug, by checking as few of them as possible — instead of testing all six in order.
+Find exactly which of six versions of a function introduced a bug, by checking as few of them as possible. This should happen in place of testing all six in order.
 
 ## Scenario
-`examples/bisect_the_regression/versions/` has six versions (`v1.py` through `v6.py`) of a match-scoring function, representing six sequential edits over time. `v1.py` is known good — it was tested and trusted when it was written. `v6.py`, the current version, is known bad — it's been reported that scores are coming out wrong. Somewhere between `v1` and `v6`, a change broke it, and every version after that one inherited the same bug.
+`examples/bisect_the_regression/versions/` has six versions (`v1.py` through `v6.py`) of a match-scoring function, representing six sequential edits over time. `v1.py` is known good, because it was tested and trusted when it was written. `v6.py`, the current version, is known bad, because it's been reported that scores are coming out wrong. Somewhere between `v1` and `v6`, a change broke it, and every version after that one inherited the same bug.
 
 `check_version.py` checks any one version against a known-correct expected result for a fixed test case:
 
@@ -26,7 +26,7 @@ Run this from inside `examples/bisect_the_regression/`.
 - [ ] I found the exact first-failing version using 3 or fewer checks beyond the two endpoints (not by checking every version in order)
 - [ ] I can name the exact version where the bug was introduced
 - [ ] I can state, in one sentence, the specific line that changed and why it produces the wrong result
-- [ ] I did not need to read every version's full source to find the answer — the PASS/FAIL results alone narrowed it down
+- [ ] I did not need to read every version's full source to find the answer; the PASS/FAIL results alone narrowed it down
 
 ## Reflection
-Six versions only needed 3 checks to pinpoint, because each check eliminates half of whatever's left, not just one version at a time — the same reason binary-searching a sorted list of a million items only takes ~20 comparisons, not a million. This scales precisely the way it needs to: a regression introduced 500 commits ago is only about 9 checks away with bisection (`log2(500) ≈ 9`), versus up to 500 if you insisted on checking commits one at a time in order. `git bisect` runs exactly this algorithm against your real commit history — this exercise is the same process with six files standing in for six commits.
+Six versions only needed 3 checks to pinpoint, because each check eliminates half of whatever's left, not just one version at a time. This is the same reason binary-searching a sorted list of a million items only takes ~20 comparisons, not a million. This scales precisely the way it needs to: a regression introduced 500 commits ago is only about 9 checks away with bisection (`log2(500) ≈ 9`), versus up to 500 if you insisted on checking commits one at a time in order. `git bisect` runs exactly this algorithm against your real commit history.

@@ -21,6 +21,7 @@ Each line has a different pinning problem (this exercise ignores `zero_pad` — 
 2. For `pandas==1.2.0`: look up (or estimate, if you don't have internet access, based on what you know about how old this version is relative to pandas' current releases) roughly how far behind current this pin is. Explain what this project is missing out on by staying pinned here indefinitely, and what could still go wrong even though it's pinned "safely."
    
 3. For `requests>=2.0`: explain why this range is too permissive, using the same MAJOR/MINOR/PATCH reasoning from `concept.md` — what's the worst version this line would currently allow to install, and is that actually safe?
+   
 4. Rewrite all three lines with ranges you'd actually be comfortable shipping, and add a one-line comment next to each explaining your reasoning (e.g., "allows patch/minor updates, blocks the next major version").
 
 ## Self-Check

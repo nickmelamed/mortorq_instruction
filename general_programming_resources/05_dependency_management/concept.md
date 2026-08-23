@@ -28,7 +28,7 @@ Every row starts at the same place and stops at a different point — `^` stops 
 
 A manifest (`package.json`, `requirements.txt`, a Gradle `build.gradle`) says what you *want* — "give me some 2.x version of pandas." It does **not** always say which exact version (because you might not know), and it says nothing at all about **transitive dependencies**, which are the dependencies of your dependencies. A **lockfile** (`package-lock.json`, `poetry.lock`, a resolved Gradle dependency lock) records the *exact*, fully-resolved version of every single package — direct and transitive — that was actually installed the last time someone ran the installer successfully. That's the entire reason lockfiles exist: without one, "it works on my machine" can be true purely because your machine happened to resolve a different transitive version than someone else's did, on the exact same manifest. This is `08_reproducibility`'s subject from the dependency side specifically.
 
-## Transitive risk: left-pad 
+## Transitive Risk: left-pad 
 
 In 2016, an npm package called `left-pad` — eleven lines of code that padded a string with leading characters — was unpublished by its author over an unrelated dispute. Thousands of projects, including some at major companies, broke immediately, because `left-pad` was a *transitive* dependency buried several layers deep in packages they depended on directly, and none of them had ever consciously decided to depend on it at all. Nobody who broke that day chose to trust `left-pad`'s author; they chose to trust some other package, which chose to trust another, which happened to trust `left-pad`. It was like taking information that a friend heard from a friend who heard it from another friend, and treating it like fact. 
 
@@ -77,7 +77,7 @@ dependencies {
 
 **C++ — vcpkg and Conan.** Unlike the other three ecosystems, C++ never settled on one standard package manager. **vcpkg** (Microsoft-maintained) and **Conan** are the two most widely used today, and both solve the same problem C++ has always made painful: finding, building, and linking a library your code depends on, instead of vendoring source files by hand or hoping a system-wide install already exists. `vcpkg install <package>` fetches and builds a library for your platform; a manifest file (`vcpkg.json`) plays the same role `package.json`/`requirements.txt` do elsewhere. FRC's own C++ projects mostly sidestep this specific problem: WPILib's vendor-library system runs through the same GradleRIO/Gradle mechanism the Java paragraph above already covers, not a general-purpose C++ package manager. `vcpkg`/`Conan` are what you'd reach for on C++ work outside that specific context.
 
-## Secrets & credentials
+## Secrets & Credentials
 
 An API key or a password is a special kind of dependency risk. It's not code someone else wrote, it's a credential that grants access, and it's just as easy to accidentally install into your project as a package is. Once you commit a secret and push it, it's compromised for good, even if you delete the line in a later commit: `git` keeps history, so the old commit containing the real value is still sitting there, recoverable by anyone with access to the repo. Deleting the line doesn't undo that; the only real fix once a secret has been pushed is rotating or revoking the credential itself, so the leaked value stops working.
 
@@ -95,7 +95,7 @@ API_KEY = os.environ["TBA_API_KEY"]
 
 `git_resources/CONTRIBUTING.md`'s PR checklist already has a line for this — "double check you haven't committed anything that shouldn't be shared" — which is the mechanical, catch-it-before-merge version of this idea. This section is the practice that's meant to make that checklist item a formality nobody ever actually trips, instead of the thing that saves you under deadline pressure.
 
-## Putting it together
+## Putting it Together
 
 Open `examples/scouting_tool/`. This has a small project's `requirements.txt` and the one script that uses it. Some lines are pinned in ways that will cause real problems; one dependency exists to replace a single line of code you could write yourself in under a minute. A third file, `tba_client.py`, has a different problem entirely; a real-shaped credential sitting directly in tracked source code. Diagnose each one in `exercises/`, then work through `exercise-4-watch-the-lockfile-grow.md` separately — it doesn't use `examples/scouting_tool/` at all, since it's about generating a real lockfile yourself and watching transitive dependencies show up in it uninvited.
 

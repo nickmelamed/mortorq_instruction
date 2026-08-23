@@ -1,24 +1,39 @@
 # Exercise 1: Read the Traceback
 
 ## Goal
-Use the reproduce -> isolate -> hypothesize -> test -> fix loop, and stack-trace reading, to find and fix a real crash — without just guessing at changes until it stops crashing.
+Use the reproduce -> isolate -> hypothesize -> test -> fix loop, and stack-trace reading, to find and fix a real crash.
 
 ## Scenario
-`examples/stack_trace_bug/scouting_report.py` builds a short scouting report from a list of entries and a lookup of team numbers to team names. It crashes every time you run it.
+`examples/stack_trace_bug/` has the same bug in three languages — `scouting_report.py`, `ScoutingReport.java`, `scouting_report.cpp` — each one builds a short scouting report and crashes on the second entry, for a language-shaped reason. Pick whichever you're comfortable with, or work through more than one to see the same lesson survive the trip across languages.
 
 ## Steps
-1. **Reproduce:** run `python3 scouting_report.py` and confirm it crashes the same way every time.
-2. **Read the traceback bottom-up**, per `concept.md`: what's the exception type and message, at the very bottom? Which function, on which line, actually threw it?
-3. **Isolate:** the script processes a list of two entries. Which one of the two is actually responsible? (Try temporarily removing one entry from the list at a time and see which removal makes the crash go away.)
-4. **Hypothesize:** look at `team_lookup`'s keys and the `"team"` value on the entry you isolated in step 3. State a specific, one-sentence guess about why the lookup fails for this entry and not the other one.
-5. **Test:** confirm your hypothesis directly — e.g., print `type(team_lookup_key)` for a working entry's team number next to `type(the_broken_entry["team"])`, and see if they actually differ the way you guessed.
-6. **Fix:** make the smallest change that resolves the confirmed cause, then rerun the *original*, unmodified script (put back the entry you removed in step 3) to confirm it now runs cleanly end to end.
+1. **Reproduce.**
+   - Python: `python3 scouting_report.py`
+   - Java: `javac ScoutingReport.java && java ScoutingReport`
+   - C++: `g++ -g -std=c++17 -o scouting_report scouting_report.cpp && ./scouting_report`
+
+   Confirm it crashes the same way every time, right after printing one correct line first.
+
+2. **Read the trace**, in the direction `concept.md` describes for your language (bottom-up for Python, top-down for Java, `lldb`'s `bt` for C++ — see `concept.md` for the exact command). What's the exception type/crash reason, and which function, on which line, is where things actually broke?
+
+3. **Isolate.** The crash only happens on the second entry.
+   - Python: temporarily remove the second dictionary from the `entries` list and confirm the crash goes away.
+   - Java/C++: temporarily comment out the second `formatEntry` call (and its `println`) and confirm the crash goes away.
+
+4. **Hypothesize.** Look at how the two team-number arguments actually differ from each other — Python: their types; Java: their types; C++: the exact characters in each string. State one specific, falsifiable guess about why the lookup fails for the second one and not the first.
+
+5. **Test.** Confirm your hypothesis directly, before changing anything.
+   - Python: print `type(...)` for a working entry's team number next to the broken one's.
+   - Java: use a debugger watch (or a printed value) to check the type actually passed into `getTeamName`.
+   - C++: use `lldb`'s `print` on the two team-number strings, or print their lengths, and compare.
+
+6. **Fix.** Make the smallest change that resolves the confirmed cause, then restore the second entry/call and rerun the *original*, unmodified file to confirm it now runs cleanly end to end.
 
 ## Self-Check
-- [ ] I can state the exact exception type and the exact line that threw it, without looking it up again
-- [ ] I identified which of the two entries causes the crash, and confirmed it by testing (not just guessing)
-- [ ] My hypothesis about the root cause was confirmed by direct evidence (a printed type, a printed value) before I changed any code
-- [ ] The original script (both entries, unmodified) now runs to completion and prints both lines of the report
+- [ ] I can state the exact exception type/crash reason and the exact line where it happened, without looking it up again
+- [ ] I confirmed which entry/call is responsible by isolating it, not just by reading the code and guessing
+- [ ] My hypothesis about the root cause was confirmed by direct evidence (a printed type, a printed value, an inspected variable) before I changed any code
+- [ ] The original file (both entries/calls, unmodified) now runs to completion and prints both lines of the report
 
 ## Reflection
-The exception was thrown inside `get_team_name` — the innermost frame in the traceback — but the actual mistake wasn't made there at all; `get_team_name` just faithfully did what it was asked and failed because of a problem that existed *before* it was ever called. This is extremely common: the line the traceback points you to is where the program noticed something was wrong, not necessarily where the wrong thing happened. Isolating (step 3) and hypothesizing about the data itself (step 4), rather than staring at the line the traceback highlighted, is what actually got you to the real cause.
+In every language, the exception was thrown inside the lookup helper (`get_team_name` in Python, `getTeamName` in Java and C++) — the innermost frame — but the actual mistake wasn't made there at all; that function just faithfully did what it was asked and failed because of a problem that existed *before* it was ever called. This is extremely common, and it's the same shape no matter which language's trace you were staring at: the line a trace points you to is where the program *noticed* something was wrong, not necessarily where the wrong thing *happened*. Isolating (step 3) and hypothesizing about the data itself (step 4), rather than staring at the line the trace highlighted, is what actually gets you to the real cause.
