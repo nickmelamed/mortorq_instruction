@@ -17,9 +17,13 @@ def format_match_number(match_number):
 
 ## Steps
 1. Using the judgment-call criteria from `concept.md` ("how much code would this replace," "how maintained is it," "what does it pull in transitively"), decide: is a whole dependency justified here?
+   
 2. Write down, in one or two sentences, what `zero_pad` is actually saving this project from writing.
+   
 3. Rewrite `format_match_number` to not depend on `zero_pad` at all, using only what's already built into the language.
+   
 4. Remove the now-unnecessary `zero_pad==0.1.0` line from `requirements.txt`.
+   
 5. Confirm your rewritten function still produces `"007"` for `7`, `"042"` for `42`, and `"123"` for `123`.
 
 ## Self-Check
@@ -29,4 +33,4 @@ def format_match_number(match_number):
 - [ ] I can state, in one sentence, why this particular case didn't justify a dependency
 
 ## Reflection
-This is the same shape as the real 2016 `left-pad` incident described in `concept.md` — a genuinely tiny, easily-hand-written piece of functionality, pulled in as a whole external dependency anyway. It's not that dependencies are bad; `numpy` and `pandas` in this same project are absolutely justified, since reimplementing either yourself would be a serious undertaking. The judgment call is about proportion: is what you're getting worth everything that comes with it — the transitive risk, the version to track, the possibility the maintainer disappears — or is `str(match_number).zfill(3)` just... already the entire solution?
+This is the same shape as the real 2016 `left-pad` incident described in `concept.md`. It's genuinely tiny, easily-hand-written piece of functionality, pulled in as a whole external dependency anyway. It's not that dependencies are bad; `numpy` and `pandas` in this same project are absolutely justified, since reimplementing either yourself would be a serious undertaking. The judgment call is about proportion: is what you're getting worth everything that comes with it — the transitive risk, the version to track, the possibility the maintainer disappears — or is `str(match_number).zfill(3)` just... already the entire solution?
