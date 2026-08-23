@@ -1,10 +1,10 @@
 # 03 - File & Project Structure
 
-## A layout is a map, not decoration
+## A layout is a Map
 
 A well-organized project lets you answer "where would X live?" *before* you've read any code, just by knowing the convention. A poorly organized one — everything dumped in one flat folder, stale files sitting next to current ones, no separation between source and tests — forces you to read everything just to find anything. This module is `02_code_organization_modularization`'s idea (single responsibility, low coupling, high cohesion) applied one level up: instead of organizing what's *inside* a function or class, you're organizing what's inside a project.
 
-## Conventions you'll recognize, in every stack you touch
+## Conventions
 
 Different ecosystems use different names, but the same handful of ideas repeat everywhere:
 
@@ -18,7 +18,7 @@ Different ecosystems use different names, but the same handful of ideas repeat e
 
 Once you recognize this pattern, dropping into a project in a language you've never used still gets you most of the way to "where do I start reading". You already know to look for the entry point and the README first, no matter what the surrounding syntax looks like. This is exactly why every primer in this curriculum keeps the same handful of file names and roles (`concept.md`, `exercises/`, `README.md`); once you know the pattern here, you know it everywhere in this repo, too.
 
-## Reading a layout before reading any logic
+## Reading a Layout
 
 When you land in an unfamiliar project, resist opening a random file first. Instead:
 
@@ -29,11 +29,11 @@ When you land in an unfamiliar project, resist opening a random file first. Inst
 
 This is the same `find`/`grep`-driven orientation process `01_shell_cli_literacy` taught, aimed one level up: instead of searching *inside* files for a specific string, you're reading the *shape* of the project itself.
 
-## Grouping files: by type, or by feature
+## Grouping Files
 
 Once a project outgrows one flat folder, there are two common ways to split it up, and it's worth recognizing both when you see them: **by layer/type** (all your models together, all your commands together, all your utility functions together — this is what WPILib's `subsystems/`, `commands/` split does) versus **by feature** (everything related to one feature — its logic, its tests, its config — grouped in one folder together, regardless of type). Neither is universally "correct". Small and medium projects (including everything in this curriculum) tend to organize by layer/type because it's simpler to navigate with only a handful of features; large real-world codebases often shift toward by-feature as the number of features grows large enough that "all the models" stops being a useful grouping. Recognizing which style a project uses is part of reading its layout as a map.
 
-## Putting it together
+## Putting it Together
 
 Open `examples/tangled_project/`. This is a small, real, working Python tool (it computes an average match cycle time from a CSV) with every file dumped flat into one folder: source, a test, actual setup instructions mislabeled as `notes.txt`, a stale duplicate (`old_main_v2.py`), and a leftover artifact from a previous run (`test_output.txt`). Run it first (`python main.py`) to see that it works exactly as-is, then move to `exercises/` to reorganize it into a structure a new reader could actually make sense of at a glance.
 
