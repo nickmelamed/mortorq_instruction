@@ -77,9 +77,10 @@ Read these in order:
 
 Starting with module 04, every file builds one running project: a scouting/strategy agent for FRC matches, adding one new capability per module until it's a finished system in `12-capstone-build.md`.
 
-**Optional extension, once you have a trained model:**
+**Optional extensions, once you have the pieces they build on:**
 
 13. [13 - Integrating a Trained Model](13-integrating-a-trained-model.md) - wiring a real value/policy network from `ml_resources/rl_primer` into the agent as a tool. Not part of the core twelve-module arc or the capstone rubric above - a follow-on for once that model actually exists.
+14. [14 - Multimodal Match Film Analysis](14-multimodal-match-film-analysis.md) - wiring a vision-capable model into the agent as a tool, using `ml_resources/genai_architecture_primer/06`'s multimodal architecture, so the agent can reason over match film and photos alongside text and stats. Independent of `13`, not part of the core twelve-module arc or the capstone rubric above.
 
 ## Try It
 

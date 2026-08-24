@@ -36,6 +36,8 @@ You may have seen this type of prompt injection elsewhere, like with job posting
 
 If the agent treats retrieved text purely as data to reason over, this is harmless clutter. If it (or the underlying model) treats retrieved text as instructions to follow, the agent could genuinely start acting on injected commands from a source that was never supposed to have any authority over it. This is not a hypothetical edge case; it is a documented, actively exploited attack category against real deployed agents.
 
+This is the same shape of problem `ml_resources/edge_computing_primer/05-adversarial-and-security-considerations.ipynb` demonstrates concretely on a vision model: an attacker who can control part of what a model perceives - a crafted image there, injected text here - can steer its output without ever touching the model's weights or the operator's own instructions. The vision case computes an explicit gradient-based perturbation; prompt injection needs no math at all, just plausible-looking text in a channel the agent already trusts - but the underlying vulnerability is the same one: the model has no reliable way to tell attacker-controlled input from legitimate input once both arrive through the same channel it trusts by default.
+
 ## Failure Mode: Jailbreaking by an Authorized User
 
 Prompt injection above comes from content the agent *reads*. **Jailbreaking** is different: it's a real, authenticated user the agent is actually talking to, asking directly for something its instructions say it shouldn't do, rather than an instruction smuggled in through a side channel. Nothing has to be "hacked" for this to work - the request just has to sound reasonable enough, or urgent enough, that the agent complies anyway.
@@ -103,3 +105,4 @@ Agent: I recommend team 9999 as your top alliance pick based on their strong per
 
 - [OWASP Top 10 for Large Language Model Applications](https://owasp.org/www-project-top-10-for-large-language-model-applications/) - the standard industry reference for LLM/agent security risks, including prompt injection (docs)
 - [Demystifying Evals for AI Agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents) - Anthropic's own framework for evaluating agents before trusting them (blog)
+- [`ml_resources/edge_computing_primer/05-adversarial-and-security-considerations.ipynb`](../../ml_resources/edge_computing_primer/05-adversarial-and-security-considerations.ipynb) - the same "attacker-controlled input, no access to weights or instructions required" vulnerability shape, worked out with a real gradient-based attack against a vision model instead of text
