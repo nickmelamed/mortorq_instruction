@@ -5,7 +5,7 @@ class FakeTBAApi:
     a real API pulled from a venue with unreliable wifi actually does:
 
     1. Its 4th call always raises ConnectionError, simulating one dropped
-       request mid-event -- not a rare edge case, just Tuesday.
+       request mid-event -- not a rare edge case.
     2. Every successful call returns a value that creeps closer to a true
        average but never lands on it exactly, simulating a live scouting
        average that's still trickling in new data.
