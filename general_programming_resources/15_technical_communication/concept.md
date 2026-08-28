@@ -54,7 +54,7 @@ The shape that actually answers that question, every time: **problem → constra
 - **`git_resources/CONTRIBUTING.md`** — the actual PR format and checklist this module's PR section builds on; that document is the source of truth for the mechanics, this module is the thinking behind them.
 - **`13_designing_under_constraints`** — the climber tolerance decision reused throughout this module as the running example; read that module first if the example above didn't make sense on its own.
 - **`14_building_with_intent`** — a goal metric, defined before you start, is the concrete answer to the "why" this module's problem → constraint → decision → why shape asks a judge to evaluate.
-- **`16_pair_programming_and_workflow`** — `exercise-4`'s live, partner-based drill borrows that module's driver/navigator pattern directly, aimed at a judging interview instead of a codebase.
+- **`17_pair_programming_and_workflow`** — `exercise-4`'s live, partner-based drill borrows that module's driver/navigator pattern directly, aimed at a judging interview instead of a codebase.
 
 ## Resources
 
