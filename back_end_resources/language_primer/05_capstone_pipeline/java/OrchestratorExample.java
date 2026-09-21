@@ -1,7 +1,6 @@
-// 05 - Capstone: Java Orchestration (illustrative, simplified)
+// 05 Capstone: Java Orchestration (illustrative, simplified)
 //
-// This is not a full WPILib project -- there's no real robot, no real
-// NetworkTables connection, no real subsystems. It's a small, standalone,
+// This is not a full WPILib project. It's a small, standalone,
 // compilable example showing the *shape* of the code that would consume
 // cpp/infer.cpp's output on a real robot. Compile and run it directly:
 //
@@ -9,9 +8,8 @@
 //   $ java OrchestratorExample
 //
 // On a real robot, the coprocessor running infer.cpp would publish its
-// results to NetworkTables once per frame -- a WPILib-provided publish/
-// subscribe system -- and this class would read them from there instead of
-// from the hardcoded `simulatedFrames` array below. That real version would
+// results to NetworkTables once per frame and this class would read them from there 
+// instead of from the hardcoded `simulatedFrames` array below. That real version would
 // look like:
 //
 //   NetworkTable table = NetworkTableInstance.getDefault().getTable("detector");
@@ -30,16 +28,19 @@ public class OrchestratorExample {
     public static void main(String[] args) {
         // Stand-ins for what infer.cpp would have produced, frame by frame,
         // if this were reading real NetworkTables values instead. The first
-        // three are the actual values infer.cpp's demo produces for its three
-        // hand-picked feature vectors; the fourth doesn't come from infer.cpp
-        // at all, it's added here specifically to exercise the "detected,
-        // but not confident enough to act" branch below, which none of
-        // infer.cpp's three cases happens to trigger.
+        // three are representative of the values infer.cpp's demo produces for
+        // its three hand-picked feature vectors -- your exact numbers may drift
+        // slightly by environment/training run, but notice the "ambiguous" one
+        // is meant to land in the "detected, but not confident enough to act"
+        // branch below, just barely; the fourth doesn't come from infer.cpp at
+        // all, it's added here to give a second, more confident data point in
+        // that same branch, so the threshold cutoff isn't judged from a
+        // single barely-over-50% example alone.
         DetectionResult[] simulatedFrames = {
             new DetectionResult(1, 0.98),   // a clear game piece
             new DetectionResult(0, 0.9998), // clear noise
-            new DetectionResult(0, 0.75),   // the "ambiguous" case from infer.cpp's demo
-            new DetectionResult(1, 0.60),   // looks like a game piece, but not confidently enough to act on
+            new DetectionResult(1, 0.51),   // the "ambiguous" case from infer.cpp's demo -- barely tips toward "game piece"
+            new DetectionResult(1, 0.60),   // looks like a game piece, more confidently, but still not enough to act on
         };
 
         for (DetectionResult frame : simulatedFrames) {

@@ -1,4 +1,4 @@
-// 04a - C++ Intricacies: Stack vs. Heap
+// 04a C++ Intricacies: Stack vs. Heap
 //
 // Build and run with:
 //   $ make
@@ -48,7 +48,7 @@ int main() {
     Tracker* heapTracker = new Tracker("heap-object");
     std::cout << "heapTracker is alive here..." << std::endl;
     std::cout << "...and still alive here, well past where stackTracker already died" << std::endl;
-    delete heapTracker;  // nothing does this for us automatically -- we have to say so
+    delete heapTracker;  // nothing does this for us automatically. We have to say so
 
     std::cout << "\n--- What happens if you forget to delete ---" << std::endl;
     Tracker* leaked = new Tracker("leaked-object");
@@ -64,7 +64,7 @@ int main() {
 //   1. Add a `delete leaked;` line at the end of main() and rerun. Confirm
 //      a matching "destroyed: leaked-object" line now appears.
 //   2. Wrap a Tracker in a loop that creates and lets ten of them go out of
-//      scope on the stack. Count the constructed/destroyed lines -- do they
+//      scope on the stack. Count the constructed/destroyed lines; do they
 //      come in the order you expect?
 //   3. (Optional, if you have `valgrind` or macOS's `leaks` tool available)
 //      Build with `make`, then run the leak checker against ./memory_demo

@@ -6,6 +6,7 @@ Quick reference only. See `concept.md` for the "why," and `java.ipynb` / `python
 |---|---|---|---|
 | Stack: push | `deque.push(x)` (`ArrayDeque`) | `list.append(x)` | `stack.push(x)` (custom) or `stk.push(x)` (`std::stack`) |
 | Stack: pop | `deque.pop()` | `list.pop()` | `stack.pop()` |
+| Stack: peek (top, without removing) | `deque.peek()` | `list[-1]` | `stack.peek()` (custom) or `stk.top()` (`std::stack`) |
 | Queue: enqueue | `deque.offer(x)` | `deque.append(x)` (`collections.deque`) | `q.push(x)` (`std::queue`) |
 | Queue: dequeue | `deque.poll()` | `deque.popleft()` | `q.front(); q.pop();` |
 | Map/dict: create | `new HashMap<K, V>()` | `{}` or `dict()` | `std::unordered_map<K, V>` |

@@ -1,20 +1,43 @@
 # 05 - Capstone: A Real Three-Language Pipeline
 
-Every topic so far has taught one concept and shown you three separate implementations of it. This topic is different: it's one pipeline, where each language does the part it's actually good at and hands off to the next. This is, in miniature, exactly how tools like PhotonVision and Limelight are built, and exactly how a team that does its own vision/ML work would structure that code for real.
+Every topic so far has taught one concept and shown you three separate implementations of it. This part is one pipeline, where each language does the part it's actually good at and hands off to the next. This is, in miniature, exactly how tools like PhotonVision and Limelight are built, and exactly how a team that does its own vision/ML work would structure that code for real.
 
 ## The scenario
 
-A coprocessor's camera sees a candidate object in a frame: some blob a simpler vision step (color thresholding, contour detection) has already isolated. We need to answer one question fast, every single frame: **is this actually a game piece, or is it noise** (a shadow, a piece of carpet, a reflection)? That answer then needs to reach the roboRIO in time to matter for whatever the teleop driver or autonomous routine is doing right now.
+A coprocessor's camera sees a candidate object in a frame: some blob a simpler vision step (color thresholding, contour detection) has already isolated. We need to answer one question fast, every single frame: **is this actually a game piece, or is it noise** (a shadow, a piece of carpet, a reflection)? That answer then needs to reach the roboRIO (or its SystemCore successor, arriving for the 2027 season — the same orchestration role either way) in time to matter for whatever the teleop driver or autonomous routine is doing right now.
 
 That single question gets answered by three different pieces of code, written in three different languages, each running on different hardware:
 
 1. **Python, on a laptop, before the match.** We prototype and train a small classifier that takes a handful of numbers describing the blob (its width, height, aspect ratio, how much of its bounding box it actually fills) and predicts "game piece" or "not a game piece." This is exactly the `04b_python_intricacies` workflow — fast iteration, `numpy`-backed data, a `scikit-learn`/`PyTorch`-style training loop — except this time we export the trained model to a portable file format ([ONNX](https://onnx.ai/), Open Neural Network Exchange) instead of just reading the accuracy number and moving on.
-2. **C++, on the coprocessor, during the match.** A small program loads that exported model once at startup, then runs inference on it continuously, once per candidate blob per frame, using the [ONNX Runtime](https://onnxruntime.ai/) C++ library. This is where `04a_cpp_intricacies` pays off directly: this program needs to run in a small, predictable amount of time and memory, frame after frame, for an entire match, with no garbage-collector pause ever able to sneak in and blow a frame's time budget. This is the same time-and-space framing `03_data_structures_algorithms` introduced with Big-O, just showing up in a real deployed program instead of a comparison table: each inference call is a fixed, bounded amount of work per frame, but the exported model and the runtime's memory footprint both have to fit the coprocessor's actual memory ceiling — time complexity and space complexity, both non-negotiable, at the same time.
-3. **Java, on the roboRIO, during the match.** The robot's actual command-based code needs to *do* something with the answer: drive toward the game piece, run an intake, or ignore a false positive. It doesn't need to know anything about ONNX, feature vectors, or neural networks; it just needs a label and a confidence value, the same way `02_oop_inheritance`'s `Subsystem`-style code only needed to know "this is a `Motor`," not which concrete motor controller it was.
+2. **C++, on the coprocessor, during the match.** A small program loads that exported model once at startup, then runs inference on it continuously, once per candidate blob per frame, using the [ONNX Runtime](https://onnxruntime.ai/) C++ library. This is where `04a_cpp_intricacies` pays off directly: this program needs to run in a small, predictable amount of time and memory, frame after frame, for an entire match, with no garbage-collector pause ever able to sneak in and blow a frame's time budget. This is the same time-and-space framing `03_data_structures_algorithms` introduced with Big-O, just showing up in a real deployed program instead of a comparison table: each inference call is a fixed, bounded amount of work per frame, but the exported model and the runtime's memory footprint both have to fit the coprocessor's actual memory ceiling.
+3. **Java, on the roboRIO, during the match.** The robot's actual command-based code needs to *do* something with the answer: drive toward the game piece, run an intake, or ignore a false positive. It doesn't need to know anything about ONNX, feature vectors, or neural networks; it just needs a label and a confidence value, the same way `02_oop_inheritance`'s `Subsystem`-style code only needed to know "this is a `Motor`," not which concrete motor controller it was. This is also why the orchestration layer is allowed to be Java at all: `04c_java_intricacies` covers the JVM's garbage collector pausing execution for a few milliseconds at a time it chooses, not you. That's a rounding error against a 20-millisecond command-based loop with slack to spare, which is exactly why step 2's inference work — which can't tolerate that same unpredictability, frame after frame — is the one piece of this pipeline written in C++ instead.
 
 ## How the pieces actually connect
 
-In a real robot, steps 2 and 3 above are bridged over the network using **NetworkTables** — a WPILib-provided publish/subscribe system that a coprocessor writes values into (a detected label, a confidence score, maybe a target's position) and that the roboRIO reads from, continuously, every loop iteration. This is precisely what PhotonVision and Limelight already do: their coprocessor software runs a vision + inference pipeline (built on C++ vision libraries like OpenCV and AprilTag detection under the hood, even where the orchestration layer on top is written in something else, like PhotonVision's own Java pipeline code) and publishes results to NetworkTables for your Java robot code to consume like any other sensor reading.
+In a real robot, steps 2 and 3 above are bridged over the network using **NetworkTables**, which are a WPILib-provided publish/subscribe system that a coprocessor writes values into (a detected label, a confidence score, maybe a target's position) and that the roboRIO reads from, continuously, every loop iteration. This is precisely what PhotonVision and Limelight already do: their coprocessor software runs a vision + inference pipeline (built on C++ vision libraries like OpenCV and AprilTag detection under the hood, even where the orchestration layer on top is written in something else, like PhotonVision's own Java pipeline code) and publishes results to NetworkTables for your Java robot code to consume like any other sensor reading.
+
+```mermaid
+flowchart LR
+    subgraph pyStage["Python — laptop, before the match"]
+        direction TB
+        train["python_train.ipynb<br/>train DetectorNet"] --> export["torch.onnx.export(...)"]
+    end
+    export --> onnxFile[("detector.onnx")]
+    onnxFile --> cppStage
+
+    subgraph cppStage["C++ — coprocessor, during the match"]
+        direction TB
+        load["infer.cpp loads<br/>detector.onnx once"] --> classify["classify() every<br/>candidate blob, every frame"]
+    end
+    classify -->|"label + confidence,<br/>via NetworkTables"| javaStage
+
+    subgraph javaStage["Java — roboRIO, during the match"]
+        direction TB
+        read["OrchestratorExample reads<br/>label + confidence"] --> decide["decide: intake? ignore?"]
+    end
+```
+
+`README.md` in this folder has the practical version of this same diagram, with the exact commands for each step. This one is about the shape of the handoff: a file crosses the Python→C++ boundary, a network message crosses the C++→Java boundary, and neither side needs to know how the other is implemented.
 
 This capstone doesn't wire up real NetworkTables: `05_capstone_pipeline/java/OrchestratorExample.java` simulates receiving a few frames' worth of results instead, so you can see the *decision logic* clearly, without the added complexity of standing up an actual network connection between two programs. The comments in that file point out exactly where a real integration would plug in NetworkTables instead of the simulated data.
 

@@ -17,7 +17,7 @@ Read `concept.md` first for the full explanation of what this pipeline is and wh
                                                                               here)
 ```
 
-This mirrors how PhotonVision and Limelight are actually built: a coprocessor runs a C++ (or similarly low-level) vision/inference pipeline and publishes results over NetworkTables, and your Java robot code consumes those results like any other sensor. This capstone doesn't stand up a real NetworkTables connection between two running programs — `java/OrchestratorExample.java` simulates receiving a few frames' worth of results instead, so the *decision logic* stays front and center. The comment at the top of that file shows exactly what the real NetworkTables-reading code would look like in its place.
+This mirrors how PhotonVision and Limelight are actually built: a coprocessor runs a C++ (or similarly low-level) vision/inference pipeline and publishes results over NetworkTables, and your Java robot code consumes those results like any other sensor. This capstone doesn't stand up a real NetworkTables connection between two running programs — `java/OrchestratorExample.java` simulates receiving a few frames' worth of results instead, so the *decision logic* stays front and center. The first three simulated frames are representative values for `infer_demo`'s three hand-picked feature vectors — your exact numbers may drift slightly by environment/training run, but the pattern should hold: a confident detection, a confident rejection, and an "ambiguous" case that lands just barely in the "detected, but not confident enough to act" branch. A fourth, more confidently-below-threshold frame is added purely to give a second example of that same branch. The comment at the top of that file shows exactly what the real NetworkTables-reading code would look like in its place.
 
 ## Running it yourself
 
@@ -36,6 +36,8 @@ Needs [ONNX Runtime](https://onnxruntime.ai/) installed. On macOS with Homebrew:
 ```text
 $ brew install onnxruntime
 ```
+
+This is enough to build and run `infer_demo` locally on your laptop. The real deployment target for this code is a Linux/ARM coprocessor (a Raspberry Pi, Orange Pi, etc. — see the hardware table below), which doesn't have Homebrew. There, download a prebuilt Linux ARM64 release directly from [ONNX Runtime's GitHub releases](https://github.com/microsoft/onnxruntime/releases) and point the `Makefile`'s `-I`/`-L` paths at wherever you extract it, instead of Homebrew's `/opt/homebrew/opt/onnxruntime` paths.
 
 Then, from `cpp/`:
 

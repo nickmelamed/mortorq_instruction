@@ -1,5 +1,6 @@
 #include "infer.h"
 
+#include <algorithm>
 #include <cmath>
 #include <iostream>
 
@@ -27,7 +28,7 @@ std::pair<int, float> Detector::classify(const std::array<float, 4>& features) {
     float* logits = outputTensors.front().GetTensorMutableData<float>();
     // logits[0] = "not a game piece" score, logits[1] = "game piece" score.
 
-    // Softmax over the two logits, by hand -- the model itself only outputs
+    // Softmax over the two logits, by hand; the model itself only outputs
     // raw scores (see python_train.ipynb: DetectorNet.forward returns them
     // straight from the last Linear layer, with no softmax applied).
     float maxLogit = std::max(logits[0], logits[1]);
@@ -53,7 +54,7 @@ int main() {
     // to width/height/aspect_ratio/fill_ratio.
     std::array<float, 4> clearGamePiece{0.18f, 0.18f, 1.0f, 0.78f};
     std::array<float, 4> clearNoise{0.10f, 0.22f, 1.6f, 0.30f};
-    std::array<float, 4> ambiguous{0.15f, 0.19f, 1.2f, 0.55f};
+    std::array<float, 4> ambiguous{0.16f, 0.18f, 1.10f, 0.55f};
 
     for (const auto& [name, features] : {
              std::pair{"clear game piece", clearGamePiece},

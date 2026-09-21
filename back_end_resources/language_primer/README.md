@@ -11,7 +11,7 @@ Each numbered topic teaches one concept **once**, then shows you the real implem
 - **`cpp/`** — real, compilable `.cpp`/`.h` files and a working `Makefile`. C++ isn't a notebook language here, on purpose — you'll actually run `make` and get a binary, because that edit-compile-run loop is part of what you're learning.
 - **`comparison.md`** — a syntax-only quick-reference table. Use it to look something up after you already understand the concept, not to learn the concept in the first place.
 
-Topics `04a`/`04b`/`04c` break this pattern deliberately: each language's deeper idiosyncrasies (C++ memory management, Python's dynamic typing and ML ecosystem, Java's garbage collector) genuinely don't share a common concept, so those are per-language only.
+Topics `04a`/`04b`/`04c` break this pattern deliberately: each language's deeper idiosyncrasies (C++ memory management, Python's dynamic typing and ML ecosystem, Java's garbage collector) genuinely don't share a common concept, so those are per-language only. `05_capstone_pipeline` breaks the pattern too, but in the opposite direction: instead of three parallel implementations of one idea, it's one real pipeline where each language does its own distinct part, so it has its own `README.md` + `concept.md` + `python_train.ipynb` + `cpp/` + `java/` layout and no `comparison.md`.
 
 ## Directory structure
 
@@ -31,13 +31,13 @@ curriculum/
 
 ## Suggested order
 
-Work through the topics in numeric order. `01`–`03` build on each other directly — in particular, `02_oop_inheritance` introduces just enough about C++ pointers and references to make polymorphism work, and `03_data_structures_algorithms` immediately puts that same pointer knowledge to use building a real linked structure. Don't skip `02`'s C++ section even if you find OOP itself easy — the pointer material is the part that matters for what comes next.
+Work through the topics in numeric order. `01`–`03` build on each other directly. In particular, `02_oop_inheritance` introduces just enough about C++ pointers and references to make polymorphism work, and `03_data_structures_algorithms` immediately puts that same pointer knowledge to use building a real linked structure. Don't skip `02`'s C++ section even if you find OOP itself easy; the pointer material is the part that matters for what comes next.
 
 `04a`/`04b`/`04c` can be read in any order relative to each other, but assume you've finished `01`–`03`. `05_capstone_pipeline` assumes everything before it, since it's the topic that stitches all three languages together into one pipeline.
 
 ## Setup notes
 
 - **Python notebooks** run on a standard Jupyter Python 3 kernel with `numpy`, `pandas`, `scikit-learn`, and `torch` available.
-- **Java notebooks** run on the [IJava](https://github.com/SpencerPark/IJava) Jupyter kernel (a real JShell-backed JDK, not simulated Java) — you'll need a JDK installed and the IJava kernel registered with Jupyter to run them.
-- **C++ files** need a C++17-capable compiler (`g++` or `clang++`) and `make`. `05_capstone_pipeline/cpp` additionally links against [ONNX Runtime](https://onnxruntime.ai/) — see that topic's `README.md` for install instructions.
+- **Java notebooks** run on the [IJava](https://github.com/SpencerPark/IJava) Jupyter kernel (a real JShell-backed JDK, not simulated Java). You'll need a JDK installed and the IJava kernel registered with Jupyter to run them.
+- **C++ files** need a C++17-capable compiler (`g++` or `clang++`) and `make`. `05_capstone_pipeline/cpp` additionally links against [ONNX Runtime](https://onnxruntime.ai/). See that topic's `README.md` for install instructions.
 - If you want to understand what `pip install` and similar setup commands are actually doing, see `general_programming_resources/05_dependency_management`.

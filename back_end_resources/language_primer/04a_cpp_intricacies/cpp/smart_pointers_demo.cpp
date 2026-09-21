@@ -1,4 +1,4 @@
-// 04a - C++ Intricacies: Raw Pointer Pitfalls vs. Smart Pointers
+// 04a C++ Intricacies: Raw Pointer Pitfalls vs. Smart Pointers
 //
 // Build and run with:
 //   $ make

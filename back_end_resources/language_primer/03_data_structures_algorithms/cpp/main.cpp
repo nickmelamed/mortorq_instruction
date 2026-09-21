@@ -17,6 +17,8 @@ int main() {
     faultStack.push("Brownout detected");
     faultStack.push("CAN timeout: device 7");
 
+    std::cout << "Most recent fault (peek, without removing it): " << faultStack.peek() << std::endl;
+
     std::cout << "Most recent fault first:" << std::endl;
     while (!faultStack.empty()) {
         std::cout << " - " << faultStack.pop() << std::endl;

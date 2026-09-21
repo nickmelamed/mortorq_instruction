@@ -7,10 +7,9 @@
 #include <iostream>
 #include "Robot.h"
 
-// Takes a `const Motor&`, which is a REFERENCE to a Motor, not a copy of one.
+// Takes a `const Motor&`, which is a reference to a Motor
 // Because it's a reference (not a plain `Motor`), calling describe() here
-// still runs the actual object's overridden version, whatever concrete
-// subclass that object really is.
+// still runs the actual object's overridden version
 void printDescription(const Motor& motor) {
     std::cout << motor.describe() << std::endl;
 }
@@ -24,13 +23,12 @@ int main() {
     // has a pure virtual setPower), so C++ won't let you declare a plain
     // Motor variable at all, which means you can't accidentally slice a
     // TalonMotor into one either. The language is enforcing, at compile
-    // time, exactly the rule from concept.md: polymorphism here can only
-    // happen through a pointer or a reference to Motor, never a plain copy.
+    // time; polymorphism here can only happen through a pointer or a reference to Motor
 
     printDescription(talon);
     printDescription(spark);
 
-    // An array of Motor* -- pointers to Motor. Each pointer here holds the
+    // An array of Motor*, has pointers to Motor. Each pointer here holds the
     // address of a real, already-existing stack object above (`&talon`,
     // `&spark`); nothing is heap-allocated (no `new`, see 04a_cpp_intricacies
     // for when and why you'd reach for that instead).

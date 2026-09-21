@@ -1,4 +1,4 @@
-// 05 - Capstone: C++ Inference
+// 05 Capstone: C++ Inference
 //
 // Loads the model exported by ../python_train.ipynb (cpp/detector.onnx) and
 // runs it. See concept.md for how this fits into the larger pipeline.
@@ -19,6 +19,12 @@
 // coprocessor for the length of a match.
 class Detector {
 public:
+    // modelPath is taken as a std::string and passed straight through as a
+    // const char*, which is what ONNX Runtime's Session constructor expects
+    // on the platforms (Linux/macOS) this curriculum's Makefiles target. On
+    // Windows, ONNX Runtime instead expects a wide-character ORTCHAR_T path,
+    // so this signature would need to change there -- not a concern here
+    // since the tooling (Makefile, Homebrew) is Unix-only throughout.
     explicit Detector(const std::string& modelPath);
 
     // features = {width, height, aspect_ratio, fill_ratio}, matching the

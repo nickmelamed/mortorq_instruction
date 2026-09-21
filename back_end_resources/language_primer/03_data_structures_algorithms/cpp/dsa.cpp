@@ -18,8 +18,7 @@ FaultStack::~FaultStack() {
 
 void FaultStack::push(const std::string& message) {
     // A new node is heap-allocated here because it needs to outlive this
-    // function call. It has to stay alive until someone pops it, which
-    // could be arbitrarily far in the future.
+    // function call. It has to stay alive until someone pops it
     Node* node = new Node{message, top_};
     top_ = node;
     size_++;

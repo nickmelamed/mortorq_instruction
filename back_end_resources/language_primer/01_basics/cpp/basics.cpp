@@ -1,6 +1,6 @@
 // 01 - Basics (C++)
 //
-// This is a REAL, compiled C++ program. It is not a notebook. That's the point.
+// This is a compiled C++ program. It is not a notebook.
 // C++ has no interactive notebook kernel the way Python and Java do here; every
 // change you make has to go through an explicit edit -> compile -> run loop:
 //
@@ -9,24 +9,22 @@
 //      with the right flags -- see Makefile in this folder).
 //   3. RUN the resulting binary that the compiler produced.
 //
-// From this directory, that loop looks like:
+// From this directory:
 //
 //   $ make          # compiles basics.cpp into an executable called `basics`
 //   $ ./basics      # runs the executable you just built
 //   $ make clean    # deletes the built executable, if you want a clean slate
 //
-// Unlike Python or Java in a notebook, there is no "run this one cell" -- you
-// recompile the whole file and rerun the whole program every time you change
-// anything. This friction is intentional to show you now: it's the same loop
-// you'll use for every C++ file in this curriculum, and it's part of why C++
-// feels different to work in day-to-day, especially for quick experiments.
+// Unlike Python or Java in a notebook, there is no "run this one cell".
+// You recompile the whole file and rerun the whole program every time you change
+// anything. It's the same loop you'll use for every C++ file in this curriculum
 
 #include <iostream>
 #include <iomanip>
 #include <vector>
 
 // Scoring constants. `const` in C++ means "this value cannot be reassigned
-// after it's initialized" -- the compiler enforces it, same spirit as Java's
+// after it's initialized"; the compiler enforces it, same spirit as Java's
 // `final`.
 const int POINTS_LOW_GOAL = 2;
 const int POINTS_HIGH_GOAL = 5;
@@ -59,17 +57,16 @@ int main() {
     std::cout << "Total score: " << score << std::endl;
 
     // Control flow
-    // std::vector is C++'s resizable array type -- think of it as the C++
+    // std::vector is C++'s resizable array type. You can think of it as the C++
     // equivalent of a Java ArrayList or a Python list. We cover it properly
-    // in 03_data_structures_algorithms; here we're just using it to hold a
-    // simulated sequence of rangefinder readings.
+    // in 03_data_structures_algorithms
     std::vector<double> readings = {24.0, 18.0, 12.0, 9.0, 6.5, 5.0, 3.0};
 
-    // std::cout prints a double like 24.0 as just "24" unless told otherwise --
-    // it drops trailing zeros by default. std::fixed + std::setprecision(1) forces
+    // std::cout prints a double like 24.0 as just "24" unless told otherwise;
+    // It drops trailing zeros by default. std::fixed + std::setprecision(1) forces
     // one decimal place, and std::setw(5) pads the width, matching Java's
-    // String.format("%5.1f", ...) and Python's f"{d:5.1f}" so the same data prints
-    // the same way in all three languages.
+    // String.format("%5.1f", ...) and Python's f"{d:5.1f}"
+    
     std::cout << std::fixed << std::setprecision(1);
     for (double distance : readings) {
         if (shouldStopArm(distance)) {

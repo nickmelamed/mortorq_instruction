@@ -1,4 +1,4 @@
-// 03 - Data Structures and Algorithms (C++)
+// 03 Data Structures and Algorithms (C++)
 //
 // See concept.md for the stack / queue / hashmap / Big-O background, and
 // dsa.cpp for why FaultStack is built the way it is.
@@ -29,7 +29,7 @@ public:
 
     // Not copyable: copying would require deciding whether to deep-copy the
     // linked nodes or share them, and getting this wrong is a classic C++
-    // bug. Simplest safe choice for a teaching example: disallow it outright.
+    // bug. Simplest safe choice for a teaching example is to disallow it outright.
     FaultStack(const FaultStack&) = delete;
     FaultStack& operator=(const FaultStack&) = delete;
 
