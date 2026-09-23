@@ -9,8 +9,8 @@
 // standard choice in C++) rather than building a JSON writer by hand. This
 // file writes JSON manually instead, on purpose: with no external
 // dependency beyond the standard library, it stays simple enough to read
-// top to bottom and see exactly what "serialization" is actually doing --
-// turning a structured, in-memory object into a plain text string that any
+// top to bottom and see exactly what "serialization" is actually doing.
+// It's turning a structured, in-memory object into a plain text string that any
 // other language can parse, with no shared struct definition required on
 // the receiving end.
 //
@@ -22,7 +22,7 @@
 #include <sstream>
 #include <string>
 
-// The struct being serialized -- this mirrors DetectionResult from the
+// The struct being serialized. This mirrors DetectionResult from the
 // languages primer's OrchestratorExample.java, plus an x/y position that
 // example didn't need but a real targeting system would.
 struct DetectionResult {
@@ -35,8 +35,8 @@ struct DetectionResult {
 // Converts one DetectionResult into a JSON object, as a string. On the
 // receiving side (Java, in a real system), this string would arrive over a
 // socket or a NetworkTables string entry, and get parsed back into
-// something structured -- a Map, a record, whatever that side finds
-// convenient -- without ever needing this exact C++ struct definition.
+// something structured (a Map, a record, whatever that side finds
+// convenient) without ever needing this exact C++ struct definition.
 std::string toJson(const DetectionResult& result) {
     std::ostringstream out;
     out << "{"

@@ -2,13 +2,13 @@
 //
 // A minimal autonomous routine modeled as an enum-based state machine, with
 // a periodic()-style update method meant to be called once per robot tick
-// (see 01_concurrency_realtime_loops). No real hardware is used -- each
+// (see 01_concurrency_realtime_loops). No real hardware is used, so each
 // state's "is it time to transition?" check is driven by a simulated
 // sensor (just a tick counter standing in for "intake sensor fired" or
 // "reached the scoring position").
 //
 // addTransitionListener() exists so other code can react to state changes
-// without this class needing to know who's listening -- the same
+// without this class needing to know who's listening. This is the same
 // publish/subscribe shape NetworkTablesDemo.java used in
 // 02_communication_serialization. 07_logging_observability's
 // StructuredLoggingDemo.java reuses this exact class and attaches a logging
@@ -93,7 +93,7 @@ public class AutonomousStateMachine {
         }
     }
 
-    // Each of these stands in for real subsystem work -- running a motor,
+    // Each of these stands in for real subsystem work; running a motor,
     // driving to a position, holding still. Deliberately fast and bounded,
     // as every tick's worth of work in a periodic loop should be.
     private void runIntakeMotor() {

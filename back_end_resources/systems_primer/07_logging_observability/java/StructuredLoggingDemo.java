@@ -74,6 +74,6 @@ public class StructuredLoggingDemo {
             "\nCompare this output to 03_state_machines/java/AutonomousStateMachine.java's own "
             + "plain println output: every event here has the same shape, so a real log viewer "
             + "(or even a text search) could filter to just 'state transition' lines, or just ERRORs, "
-            + "after the fact -- something a wall of unstructured prints doesn't support.");
+            + "after the fact, something a wall of unstructured prints doesn't support.");
     }
 }

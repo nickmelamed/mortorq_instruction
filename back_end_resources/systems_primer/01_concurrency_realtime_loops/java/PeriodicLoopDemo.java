@@ -52,7 +52,7 @@ public class PeriodicLoopDemo {
     static void fakeSubsystemWork(int tick) {
         double angle = Math.sin(tick) * 90.0; // pretend this is a sensor reading
         double motorOutput = angle / 90.0;    // pretend this is a simple proportional response
-        // No sleeping, no network calls, no unbounded loops -- just fast, local math.
+        // No sleeping, no network calls, no unbounded loops. Just fast, local math.
         // (motorOutput is computed only to show a realistic "read -> decide" shape; nothing
         // reads it further in this demo.)
         // (assert is a no-op unless run with `java -ea`; kept here just to document the invariant.)

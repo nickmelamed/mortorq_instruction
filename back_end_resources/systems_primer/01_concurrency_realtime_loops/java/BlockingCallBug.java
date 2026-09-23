@@ -61,9 +61,9 @@ public class BlockingCallBug {
         assert motorOutput >= -1.0 && motorOutput <= 1.0;
     }
 
-    // After: the exact same kind of call a real robot might make -- e.g.
+    // After: the exact same kind of call a real robot might make (e.g.
     // asking a coprocessor for a vision result, or reading a sensor over a
-    // connection that's momentarily unresponsive -- except here it's forced
+    // connection that's momentarily unresponsive) except here it's forced
     // to take 300ms so the effect is impossible to miss. Thread.sleep() is
     // standing in for "any call that blocks"; a real slow network read would
     // stall the loop in exactly the same way, without a single line of code

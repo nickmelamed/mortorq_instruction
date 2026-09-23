@@ -27,12 +27,13 @@ systems_primer/
 ├── 07_logging_observability/               Structured logging, applied to 03's state machine
 ├── 08_error_handling_fault_tolerance/     Defensive patterns for sensor/network failures mid-match
 ├── 09_configuration_constants_management/ Centralized constants, and a practice-bot/comp-bot config pattern
+├── 10_capstone/                            01, 03, 04, 07, 08, and 09, wired into one PID-driven state machine
 └── README.md                              This file
 ```
 
 ## Suggested order
 
-Work through `00` through `08` in numeric order — they build on shared context. `04b_motion_control_and_trajectories` sits between `04` and `05`: it leans directly on `04`'s PID and `01`'s periodic loop, and is itself leaned on by `ml_resources/perception_primer/05-objects-in-motion.ipynb`'s odometry/drift discussion. In particular, `03_state_machines`'s `AutonomousStateMachine.java` gets reused directly in `06_testing_debugging` (unit-tested and simulation-tested) and again in `07_logging_observability` (wrapped with structured logging), so it's worth understanding that file well before moving past it. `09_configuration_constants_management` is standalone and can wait until last.
+Work through `00` through `08` in numeric order — they build on shared context. `04b_motion_control_and_trajectories` sits between `04` and `05`: it leans directly on `04`'s PID and `01`'s periodic loop, and is itself leaned on by `ml_resources/perception_primer/05-objects-in-motion.ipynb`'s odometry/drift discussion. In particular, `03_state_machines`'s `AutonomousStateMachine.java` gets reused directly in `06_testing_debugging` (unit-tested and simulation-tested) and again in `07_logging_observability` (wrapped with structured logging), so it's worth understanding that file well before moving past it. `09_configuration_constants_management` is standalone and can wait until last. `10_capstone` comes after everything else on purpose — it doesn't teach anything new, it wires `01`, `03`, `04`, `07`, `08`, and `09` into one scenario, so it only makes sense once each of those is already familiar individually.
 
 ## What this primer intentionally leaves out
 

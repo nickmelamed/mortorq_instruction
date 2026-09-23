@@ -4,7 +4,7 @@
 // idea as WPILib's real edu.wpi.first.math.controller.PIDController: given
 // kP/kI/kD gains, a setpoint, and the current measurement, calculate()
 // returns an output value meant to be sent straight to a motor. It's
-// deliberately small enough to read top to bottom -- a real project should
+// deliberately small enough to read top to bottom; a real project should
 // use WPILib's own PIDController rather than reimplementing this.
 //
 // There's no real motor or sensor here. SimulatedArm stands in for both: a
@@ -21,7 +21,7 @@ public class PidLoopDemo {
         // Caps how much the accumulated integral can contribute to the
         // output. Without this, a long stretch of large error early on (the
         // arm is far from setpoint for many ticks) piles up in `integral`
-        // and keeps pushing the output well after the error is gone -- a
+        // and keeps pushing the output well after the error is gone. This is a
         // classic PID bug called integral windup. Real WPILib PIDControllers
         // guard against this the same way, via setIntegratorRange().
         private static final double MAX_INTEGRAL = 5.0;
@@ -38,7 +38,7 @@ public class PidLoopDemo {
         }
 
         // Call this once per tick, exactly like a WPILib PIDController.
-        // dtSeconds is the time since the last call -- here, a fixed 0.02s
+        // dtSeconds is the time since the last call; here, a fixed 0.02s
         // to match the 20ms period from 01_concurrency_realtime_loops.
         double calculate(double measurement, double setpoint, double dtSeconds) {
             double error = setpoint - measurement;
@@ -65,8 +65,8 @@ public class PidLoopDemo {
         private double angleDegrees = 0.0;
 
         void applyOutput(double output) {
-            // Clamp output the same way you'd clamp a real motor command --
-            // a real motor can't be driven harder than "full power" either.
+            // Clamp output the same way you'd clamp a real motor command.
+            // A real motor can't be driven harder than "full power" either.
             double clamped = Math.max(-1.0, Math.min(1.0, output));
             angleDegrees += clamped * 3.0; // 3 degrees per tick at full output
         }

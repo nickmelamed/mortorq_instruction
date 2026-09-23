@@ -1,7 +1,7 @@
 // 06 - Testing & Debugging: unit-testing the state machine from 03
 //
 // Tests AutonomousStateMachine (03_state_machines/java/AutonomousStateMachine.java)
-// directly -- no robot, no hardware, just calling periodic() repeatedly and
+// directly, so no robot, no hardware, just calling periodic() repeatedly and
 // checking the resulting state. See concept.md for the exact compile/run
 // commands, including the JUnit + Hamcrest jars this file needs on the
 // classpath.

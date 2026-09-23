@@ -1,9 +1,9 @@
 // 09 - Configuration & Constants Management: consuming Constants.java
 //
-// Every value below is read from Constants rather than hardcoded here --
-// that's the entire pattern. Compare how little this file says about
-// what the numbers are: it just names which constant it needs, and
-// Constants.java is the one place that actually documents and owns each value.
+// Every value below is read from Constants rather than hardcoded here.
+// Compare how little this file says about what the numbers are: 
+// it just names which constant it needs, and Constants.java is 
+// the one place that actually documents and owns each value.
 //
 // Compile and run directly, no dependencies:
 //   $ javac ConfigPatternDemo.java Constants.java
@@ -15,7 +15,8 @@ public class ConfigPatternDemo {
         System.out.println();
 
         // Drivetrain code reaches for Constants.DrivetrainConstants instead
-        // of a bare literal. If something's wrong, easy fix. 
+        // of a bare literal, so a wheel-diameter fix means changing one line
+        // in Constants.java, not hunting for every place 4.00 was retyped.
         double wheelCircumferenceInches =
             Constants.DrivetrainConstants.WHEEL_DIAMETER_INCHES * Math.PI;
         System.out.printf("wheel diameter:      %.2f in%n", Constants.DrivetrainConstants.WHEEL_DIAMETER_INCHES);

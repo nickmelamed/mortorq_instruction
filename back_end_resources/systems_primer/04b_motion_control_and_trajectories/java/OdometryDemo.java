@@ -2,8 +2,8 @@
 //
 // Simulates a robot driving a gentle 20-second arc at constant speed and turn rate.
 // "True" position is computed from exact kinematics. The "estimated" (odometry) position
-// instead integrates a slightly miscalibrated sensor reading each tick -- a 2% wheel-radius
-// error, the kind a real robot could easily have -- to show how a small, constant, per-tick
+// instead integrates a slightly miscalibrated sensor reading each tick. The error is a 2% wheel-radius
+// error, the kind a real robot could easily have, to show how a small, constant, per-tick
 // error compounds into real drift over time, purely because odometry always builds each
 // estimate on top of the previous one instead of measuring position freshly.
 //
@@ -26,14 +26,14 @@ public class OdometryDemo {
         }
     }
 
-    // Constant linear/angular velocity -- a simple, deterministic stand-in for "driving
+    // Constant linear/angular velocity as a simple, deterministic stand-in for "driving
     // a gentle curve," not a realistic drivetrain model.
     private static final double LINEAR_VELOCITY = 1.0;   // units/sec
     private static final double ANGULAR_VELOCITY = 0.1;  // radians/sec
     private static final double DT_SECONDS = 0.02;        // matches the 20ms periodic loop
     private static final int TOTAL_TICKS = 1000;          // 20 seconds of simulated driving
 
-    // A real robot's wheel radius is never known to perfect precision -- 2% off from the
+    // A real robot's wheel radius is never known to perfect precision; 2% off from the
     // calibrated value used in code is a realistic, easy-to-overlook error.
     private static final double SENSED_DISTANCE_SCALE = 1.02;
 
@@ -58,7 +58,7 @@ public class OdometryDemo {
             truePose.y += trueDistanceThisTick * Math.sin(truePose.headingRadians);
 
             // Odometry: integrates a biased "sensed" distance, and (for simplicity) an
-            // otherwise-perfect gyro heading -- real gyros drift far less than wheel
+            // otherwise-perfect gyro heading; real gyros drift far less than wheel
             // odometry does over a match, so isolating the distance-scale error keeps
             // this demo focused on the more common real-world drift source.
             double sensedDistanceThisTick = trueDistanceThisTick * SENSED_DISTANCE_SCALE;

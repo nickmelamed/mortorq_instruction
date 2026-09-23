@@ -94,7 +94,7 @@ public class SensorFaultHandlingDemo {
         }
 
         System.out.println("\nNotice the robot never saw a null or a wildly stale value reach the "
-            + "code that actually acts on it -- every failure shrank down to \"reuse the last good "
+            + "code that actually acts on it; every failure shrank down to \"reuse the last good "
             + "reading\" instead of propagating further. Tick 1 is the one case with no last "
             + "known-good value to fall back on yet, which is exactly what SAFE_DEFAULT_DEGREES is for.");
     }

@@ -7,7 +7,7 @@ $ javac OdometryDemo.java
 $ java OdometryDemo
 ```
 
-Two runs print side by side: no correction, then a correction every 5 simulated seconds. In the uncorrected run, `drift` climbs the entire 20 seconds. In the corrected run, watch it grow between corrections and drop back down right after one - the same sawtooth pattern a real robot's periodic AprilTag correction produces against its wheel odometry.
+Two runs print side by side: no correction, then a correction every 5 simulated seconds. In the uncorrected run, `drift` climbs the entire 20 seconds. In the corrected run, watch it grow between corrections and drop back down right after one; the same sawtooth pattern a real robot's periodic AprilTag correction produces against its wheel odometry.
 
 ```text
 $ javac PurePursuitDemo.java

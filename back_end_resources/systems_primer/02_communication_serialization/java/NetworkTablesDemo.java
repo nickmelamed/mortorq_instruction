@@ -10,9 +10,9 @@
 //   double label = table.getEntry("label").getDouble(-1); // subscribing
 //   table.getEntry("label").addListener(...);             // reacting to changes
 //
-// MockNetworkTable below mirrors that same publish/subscribe *shape* --
-// named keys, a publisher that doesn't know who's listening, subscribers
-// that can either poll a value or register a listener -- using nothing but
+// MockNetworkTable below mirrors that same publish/subscribe *shape*
+// (named keys, a publisher that doesn't know who's listening, subscribers
+// that can either poll a value or register a listener) using nothing but
 // a plain in-memory map, so the pattern is visible without any networking
 // or WPILib dependency at all.
 //
@@ -34,7 +34,7 @@ public class NetworkTablesDemo {
         private final List<BiConsumer<String, Double>> listeners = new ArrayList<>();
 
         // Publisher side: write a value under a key. Any number of
-        // subscribers can read it, or be listening for the change -- the
+        // subscribers can read it, or be listening for the change; the
         // publisher never needs to know how many, or who.
         void publish(String key, double value) {
             values.put(key, value);
@@ -81,7 +81,7 @@ public class NetworkTablesDemo {
             detectorTable.publish("y", frames[frame][3]);
 
             // Robot side, polling style: this is what a periodic() method
-            // would do every tick -- just ask the table for the latest
+            // would do every tick; just ask the table for the latest
             // value, with a safe default if nothing's been published yet.
             double label = detectorTable.get("label", -1);
             double confidence = detectorTable.get("confidence", 0.0);

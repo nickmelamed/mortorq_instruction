@@ -1,7 +1,7 @@
 // 06 - Testing & Debugging: exercising real robot logic in simulation
 //
 // Runs the actual AutonomousStateMachine from 03_state_machines/java, tick
-// by tick, with no Thread.sleep and no real robot loop -- exactly the point
+// by tick, with no Thread.sleep and no real robot loop. This is exactly the point
 // of simulation: there's no real hardware to stay in sync with, so ticks
 // can run as fast as the CPU allows. A real WPILib simulation would swap in
 // simulated motors/sensors underneath the same subsystem code; this demo
@@ -34,7 +34,7 @@ public class SimTestDemo {
         boolean reachedExpectedState = autonomous.getState() == EXPECTED_FINAL_STATE;
         // The for-loop's own increment still runs once more before its
         // condition fails when the loop reaches MAX_TICKS without ever
-        // hitting `break` (the FAIL case below) -- clamp back to MAX_TICKS
+        // hitting `break` (the FAIL case below). Clamp back to MAX_TICKS
         // so a FAIL run doesn't report having simulated one tick more than
         // periodic() was actually called.
         int ticksRun = Math.min(tick, MAX_TICKS);

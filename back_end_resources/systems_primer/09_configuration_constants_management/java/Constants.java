@@ -27,7 +27,7 @@ public final class Constants {
         private DrivetrainConstants() {}
 
         // The practice bot's chassis measures slightly differently from the
-        // competition bot's exactly, hence the profile switch 
+        // competition bot's, hence the profile switch.
         public static final double WHEEL_DIAMETER_INCHES =
             (ACTIVE_PROFILE == RobotProfile.COMP_BOT) ? 4.00 : 3.85;
 

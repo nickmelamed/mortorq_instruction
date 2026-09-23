@@ -7,7 +7,7 @@
 // the way a real robot would recompute against its live odometry-based position estimate
 // (see OdometryDemo.java) rather than planning the whole path's steering once in advance.
 //
-// This demo picks the lookahead target by walking forward through the waypoint list --
+// This demo picks the lookahead target by walking forward through the waypoint list. It's
 // a simplification of the real algorithm's continuous circle/line-segment intersection,
 // but it preserves the core idea (steer toward a point some distance ahead) without the
 // extra geometry.
@@ -51,7 +51,7 @@ public class PurePursuitDemo {
     private static final double DT_SECONDS = 0.02;         // matches the 20ms periodic loop
     private static final double ARRIVAL_TOLERANCE = 0.1;   // "close enough" to the final waypoint
 
-    // A gentle curved path across the field, expressed as waypoints -- exactly the kind
+    // A gentle curved path across the field, expressed as waypoints. This is exactly the kind
     // of output Choreo/PathPlanner would hand off (see frc_resources/05_wpilib).
     private static final Point[] PATH = {
         new Point(0.0, 0.0),
