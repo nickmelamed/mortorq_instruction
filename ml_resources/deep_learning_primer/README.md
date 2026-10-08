@@ -31,7 +31,8 @@ A running glossary of vocabulary introduced across this primer, in the order you
 meet it. See also the [cv_primer](../cv_primer/README.md) glossary for Neuron, Layer,
 and Activation Function, and the
 [linear_algebra_primer](../linear_algebra_primer/README.md) glossary for Matrix-Vector
-Product, which this primer's forward and backward passes are built from directly.
+Product and Batch, which this primer's forward and backward passes - run across every
+training example at once, not one at a time - are built from directly.
 
 - **Function Approximation**: using a model (here, a neural network) to approximate an
   unknown mapping from inputs to outputs, given only example input/output pairs.
@@ -42,6 +43,10 @@ Product, which this primer's forward and backward passes are built from directly
   input layer one layer at a time.
 - **Chain Rule**: the calculus rule backpropagation is built from - the derivative of a
   composition of functions is the product of each function's derivative.
+- **Vanishing Gradient Problem**: when a network's earliest layers stop learning because
+  the chain rule multiplies many small (less-than-1) derivatives together on the way
+  back to them, shrinking the gradient toward zero - part of why ReLU, whose derivative
+  is always 0 or 1, is preferred over sigmoid or tanh as a hidden-layer activation.
 - **Loss Gradient**: the direction and rate at which a small change in a given weight
   changes the loss; what gradient descent uses to decide how to update that weight.
 - **Epoch**: one full pass of gradient descent updates over the entire training
