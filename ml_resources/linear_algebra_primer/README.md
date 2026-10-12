@@ -40,6 +40,7 @@ A running glossary of vocabulary introduced across this primer, in the order you
   transformation; not every matrix has one.
 - **Determinant**: a single number computed from a matrix that tells you (among other
   things) whether that matrix is invertible.
+- **Eigenvector / Eigenvalue**: a direction a matrix only stretches or shrinks without turning, and the factor it is scaled by. Introduced briefly here; used in earnest for PCA.
 - **Batch**: many vectors stacked together as the rows or columns of a single matrix, so the same operation can be applied to all of them in one matrix multiplication instead of a loop.
 - **Broadcasting**: NumPy automatically stretching a smaller array across a larger one when their shapes are compatible, so operations like adding a single bias to every column of a batch work without writing a loop.
 - **All-Pairs Operation**: computing a relationship (a dot product, a distance) between every vector in one batch and every vector in another, all at once, via a single matrix multiplication or broadcasted expression. It does so rather than a nested loop over every pair individually.
@@ -49,7 +50,7 @@ A running glossary of vocabulary introduced across this primer, in the order you
 Read these in order:
 
 1. [01 - Vectors](01-vectors.ipynb) - vectors, vector addition, scalar multiplication, dot product, magnitude, and distance
-2. [02 - Matrices and Transformations](02-matrices-and-transformations.ipynb) - matrices as linear transformations, matrix multiplication (shape rules, and how it differs from elementwise multiplication), identity, transpose, and invertibility
+2. [02 - Matrices and Transformations](02-matrices-and-transformations.ipynb) - matrices as linear transformations, matrix multiplication (shape rules, and how it differs from elementwise multiplication), identity, transpose, invertibility, and eigenvectors/eigenvalues as the directions a matrix only stretches
 3. [03 - Batches and Pairwise Operations](03-batches-and-pairwise-operations.ipynb) -
 naming the "matrix as many stacked vectors," "broadcasting," and "compute every pair at once" patterns every downstream training loop and attention computation actually relies on
 
