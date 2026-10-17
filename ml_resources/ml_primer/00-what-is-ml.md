@@ -2,34 +2,40 @@
 
 Machine Learning (ML) is a subfield of Artificial Intelligence (AI) that focuses on understanding patterns in data via learned functions. 
 
-Essentially, our model typically understands nothing inherently--it doesn't "know" that our goal is to detect balls on the field, for example. But, given data, it will **learn** patterns in that data that allow us to perform that object detection. 
+In most cases, our model starts off not knowing anything about our task. It doesn't "know" that our goal is to detect balls on the field, for example. But, given data, it will learn patterns in that data that allow us to perform tasks like object detection.
 
 
 ## Key Idea
 
-Since ML models approximate patterns in data, without any prior understanding of the world, there are some key points to remember: 
+Since ML models approximate patterns in data, without any prior understanding of the world, there are some key points to remember. 
 
-- Models can be wrong
-- Models can be *confidently* wrong
-- Models fail outside their training conditions
+For one, models can be wrong, and can also be *confidently* wrong; models can think robots are game pieces, and vice versa. They also fail outside their training conditions. For example, if we didn't train our model on every game piece, it will not recognize every game piece. 
 
 All of this is to say that we must understand the strengths and limitations of ML to deploy it properly. 
 
 ## Types of Learning
 
-Not all ML works the same way. There are three broad paradigms: 
+Not all ML works the same way. There are three broad paradigms to remember.  
 
-- **Supervised Learning**: the model learns from labeled examples - we give it inputs *and* the correct outputs (like hours studied and the resulting exam score), and it learns the mapping between them. 
-- **Unsupervised Learning**: the model finds structure in data that has no labels (e.g., grouping similar sensor readings together without being told what the groups mean). 
-- **Reinforcement Learning**: the model (called an *agent*) learns by taking actions in an environment and getting rewarded or penalized for the outcome. 
+### Supervised Learning 
 
-This primer - and the Computer Vision/Perception primers that follow it - focus entirely on **supervised learning**, since it's the most common starting point and covers most of what we need for object detection. 
+Here, the model learns from labeled examples. We give it the inputs and the correct outputs, and it learns the relationship between them. For example, if we were classifying images of game pieces, our training data would have labels on what was a game piece and what was another team's robot. 
+
+### Unsupervised Learning
+
+Here, the outputs on the training data have no labels. You might wonder why we would ever want unlabeled data. Sometimes, we are hoping to find patterns in data like sensor readings, where we let the model group readings together and based on those groupings, perhaps we find some anomalies that have an underlying reason for occurring. 
+
+### Reinforcement Learning 
+
+In this case, our model is an agent that learns by taking actions in an environment and getting rewarded (or penalized) based on the outcome. This becomes helpful in scenarios like optimal strategy selection, where we know the overall outcome we want (the best strategy) but are unsure of how we can go about finding that best strategy. 
+
+Note that this primer (along with Perception and Computer Vision) focus mainly on supervised learning, since those are most of our tasks in robotics. However, we have individual unsupervised and reinforcement learning primers for those rarer cases. 
 
 ## Why ML in Robotics?
 
 Ideally, ML is a tool we can use to perform things like Perception, or the robot's understanding of the world around it. This takes the form of object detection like finding balls on the field, or avoiding crashing into other robots.
 
-It is important to note that ML is **not** a replacement for good system design; in fact, without strong design principles that dictate how we want our robot to function, the ML model will almost certainly not do what we want it to. So, ML *in conjunction with good system design* can be the foundation of a high-performing robot. 
+It is important to note that ML is **not** a replacement for good system design; in fact, without strong design principles that dictate how we want our robot to function, the ML model will almost certainly not do what we want it to. So, ML in conjunction with good system design can be the foundation of a high-performing robot. 
 
 ## Resources
 
