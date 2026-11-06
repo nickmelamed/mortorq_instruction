@@ -15,9 +15,13 @@ imageio>=2.34
 # Deep learning (CPU; GPU is optional per machine)
 tensorflow>=2.16,<2.19
 torch>=2.2,<3
+torchvision>=0.17,<1
 
 # Object detection
 ultralytics>=8.2
+
+# Monocular depth estimation (ml_resources/perception_primer)
+transformers>=4.40,<5
 
 # Edge deployment / model export (ml_resources/edge_computing_primer)
 onnx>=1.16,<2
