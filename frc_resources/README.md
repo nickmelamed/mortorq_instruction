@@ -23,6 +23,7 @@ restates the core idea in a few sentences first.
 | [05_wpilib](05_wpilib/README.md) | Command-based architecture, simulation, Choreo/PathPlanner path planning |
 | [06_hardware_debugging](06_hardware_debugging/README.md) | CAN bus fundamentals, Phoenix Tuner X, REV Hardware Client, brownout diagnosis, the Systemcore transition |
 | [07_project_scaffold_and_deploy](07_project_scaffold_and_deploy/README.md) | The actual WPILib project layout (Gradle, vendordeps, `RobotContainer`), and what "deploy" does between a laptop and the roboRIO/Systemcore |
+| [09_autonomy_stack_in_frc](09_autonomy_stack_in_frc/README.md) | How the layered autonomy stack from `ml_resources/perception_primer/09`-`10` maps onto PathPlanner, the pose estimator, and command-based code, where the simulator's assumptions break on a real robot, and a build order for a vision-assisted autonomous mode |
 
 > **Status:** All modules (`01`-`07`) are fully written, following the pattern below.
 > `06_hardware_debugging` was the pilot module the pattern was proven on first.
