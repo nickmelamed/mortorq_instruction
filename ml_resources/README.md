@@ -17,7 +17,7 @@ this page just puts all nine in one place.
 5. deep_learning_primer         Backpropagation for real, value/policy network output heads
 6. perception_primer (06-07)    Trajectory prediction (incl. 06b: RNNs/LSTMs, social pooling; 06c: Transformers) -- needs 5's Regression/Classification Heads
 7. perception_primer (08-09)    Planning/decision-making -- needs back_end_resources/systems_primer
-8. rl_primer                    MDPs, Q-learning, policy gradients -- what value/policy networks train on
+8. rl_primer                    MDPs, Q-learning, policy gradients, imitation learning, actor-critic/PPO, RL vs. classical planning, imitation then RL
 9. unsupervised_learning_primer Clustering, PCA, autoencoders, anomaly detection -- no labels at all
 10. genai_architecture_primer    Tokenization, attention, the Transformer block, instruction tuning + RLHF, diffusion/action outputs
 11. edge_computing_primer       Deploying a trained model to real, resource-constrained hardware
@@ -51,7 +51,7 @@ Two things worth knowing about this list before you follow it too literally:
   is runnable on its own but reads better after `rl_primer/02` (policy gradients), whose
   update it reuses. The last notebook (`08-beyond-text-diffusion-and-actions.ipynb`) is
   self-contained but reads better after `perception_primer/07` (multi-hypothesis
-  prediction) and `rl_primer`'s imitation learning notebook, both of which it points
+  prediction) and `rl_primer/03-imitation-learning.ipynb`, both of which it points
   back to.
 
 `edge_computing_primer` is unambiguously last: its own README opens by pointing out that
@@ -118,6 +118,10 @@ for collision-checking against another robot.
 the other real connection point: this team's stated plan for its scouting agent is a
 value/policy network, trained the way `rl_primer` teaches, wired in as a tool the way
 `13` describes.
+
+`rl_primer/05-rl-in-the-autonomy-stack.ipynb` is the other direction: it takes the
+classical stack from `perception_primer/08`-`10` and asks which layers a learned policy
+belongs in, so it reads best after both.
 
 ## Setup notes
 

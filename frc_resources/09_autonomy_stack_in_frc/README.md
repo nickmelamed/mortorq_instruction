@@ -239,6 +239,7 @@ simulation as untested.
 - [WPILib: Command Compositions](https://docs.wpilib.org/en/stable/docs/software/commandbased/command-compositions.html) — `race`, `deadline`, and the other pieces a supervisor is built from.
 - [`06_wpilib`](../06_wpilib/README.md), [`03_limelight`](../03_limelight/README.md), [`05_dashboards_and_telemetry`](../05_dashboards_and_telemetry/README.md) — the pieces this module connects.
 - [`perception_primer/09`](../../ml_resources/perception_primer/09-planning-and-av-context.ipynb) and [`10`](../../ml_resources/perception_primer/10-full-autonomy-stack.ipynb) — the simulator this module is the bridge from.
+- [`rl_primer/05`](../../ml_resources/rl_primer/05-rl-in-the-autonomy-stack.ipynb) — when a learned policy belongs in a stack like this one, and when PathPlanner and a tuned controller are the better tool.
 
 **Check for understanding / hands-on exercise suggestions:**
 - Take the full-stack timeline from `10` and, for each thing the stack did (followed the path, slowed for the opponent, replanned around the gate), name the FRC component that would do it, and say which of them you'd have to write yourself.
